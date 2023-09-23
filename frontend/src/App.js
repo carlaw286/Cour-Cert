@@ -2,7 +2,13 @@ import React from 'react';
 import './App.css';
 import LoginSignup from './Components/LoginSignup/LoginSignup';
 
-
+function Loginpage() {
+  return (
+    <div>
+      <LoginSignup/>
+    </div>
+  );
+}
 function HomePage()
 {
   return(
@@ -32,12 +38,6 @@ function HomePage()
   )
 }
 
-function Loginpage() {
-  return (
-    <div>
-      <LoginSignup/>
-    </div>
-  );
-}
 
-export default HomePage;
+
+export default Loginpage;

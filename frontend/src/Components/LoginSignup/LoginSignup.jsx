@@ -7,6 +7,11 @@ import password_icon from '../Assets/password.png';
 
 const LoginSignup = () => {
   const [action, setAction] = useState("Login");
+  const [userType, setUserType] = useState("student"); // Initialize user type to "student"
+
+  const handleUserTypeChange = (type) => {
+    setUserType(type);
+  };
 
   return (
     <div className='container'>
@@ -15,19 +20,6 @@ const LoginSignup = () => {
         <div className="underline"></div>
       </div>
       <div className="inputs">
-        {action === "Login" ? (
-          <div className="user-type">
-            <div className="tab">User Type: </div>
-            <label>
-              <input type="radio" name="userType" value="student" />
-              Student
-            </label>
-            <label>
-              <input type="radio" name="userType" value="teacher" />
-              Teacher
-            </label>
-          </div>
-        ) : null}
 
         {action === "Login" ? <div></div> : <div className="input">
           <img src={user_icon} alt="" />
@@ -41,18 +33,31 @@ const LoginSignup = () => {
           <img src={password_icon} alt="" />
           <input type="password" placeholder='Password' />
         </div>
+        
         {action === "Login" ? (
-          <div className="input remember-me">
-            <input type="checkbox" id="rememberMe" />
-            <label htmlFor="rememberMe">Remember Me</label>
+          <div className="user-type">
+            <button
+              className={userType === "student" ? "user-type-button active" : "user-type-button"}
+              onClick={() => handleUserTypeChange("student")}
+            >
+              Login as Student
+            </button>
+            <button
+              className={userType === "teacher" ? "user-type-button active" : "user-type-button"}
+              onClick={() => handleUserTypeChange("teacher")}
+            >
+              Login as Teacher
+            </button>
           </div>
         ) : null}
       </div>
-      <div className='Logmein-container'>
-        <div className={action=== "Sulod" ?  "submit gray": "submit"} onClick={ () => {setAction("Logmein")}}>Logmein</div>
-      </div>
-      {action === "Sign Up" ? <div></div> :
-        <div className="forgot-password"><span> Forgot Password?</span></div>}
+
+      {action === "Login" ? (
+          <div className="forgot-password"><span> Forgot Password?</span></div>
+        ) : null}
+      
+
+
       <div className="submit-container">
         <div className={action === "Login" ? "submit gray" : "submit"} onClick={() => { setAction("Sign Up") }}>Create Account</div>
         <div className={action === "Sign Up" ? "submit gray" : "submit"} onClick={() => { setAction("Login") }}>Login</div>
