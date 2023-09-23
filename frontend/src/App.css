@@ -8,8 +8,8 @@
   width: 100%;
   height: 100vh;
   position: relative;
-  overflow: hidden;
-  background-image: url('C:\logo/Cour-Cert User Interface Background.png');
+  overflow: hidden;   
+  background-image: url('../public/logo/Cour-Cert\ User\ Interface\ Background.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
