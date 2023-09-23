@@ -1,9 +1,7 @@
 import React from 'react';
 import './StudentSignup.css';
-import './App1.jsx';
 
-
-function CreateAccountStudent()
+function StudentSignup() 
 {
   return(
     <div className='createpagestudent'>
@@ -54,7 +52,7 @@ function CreateAccountStudent()
         </div>
       </body>
     </div>   
-  )
+  );
 }
 
-export default CreateAccountStudent;
+export default StudentSignup;
