@@ -1,8 +1,7 @@
 import React from 'react';
 import './TeacherHomePage.css'
 
-
-function TeacherHomePage()
+const TeacherHomePage = () => 
 {
   return(
       <div className='homepage'>
@@ -28,7 +27,7 @@ function TeacherHomePage()
             <button id="add-button">Add Course</button>
           </div>
       </div>      
-  )
+  );
 }
 
 export default TeacherHomePage;
