@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  
+  .createpagestudent{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(#2a00b7, #efefef);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  body .container{
+     align-items: center;
+     display: flex;
+     width: 43vh;
+     height: 77vh;
+     margin: 200px auto;
+     margin-top: 14vh;
+     background: white;
+     box-shadow: gray (10px);
+     border-radius: 20px;
+     place-items: center;
+     outline: 5px;
+     place-items: center;
+  }
+  
+  h1{
+    text-align: center;
+    width: 43vh;
+    color: #420D09;
+    font-size: 45px;
+  }
+  
+  .input{
+    margin-top: 20px;
+    margin-left: 30px;
+  }
+  
+  .input input{
+    width: 335px;
+    height: 40px;
+    background: rgb(234, 234, 234);
+    border: 1px solid rgb(224, 225, 225);
+    border-radius: 1px solid #fff;
+    outline: none;
+    color: black;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 19px;
+    text-indent: 3vh;
+  }
+  
+  ::placeholder{
+    color: rgb(115, 120, 121);
+    text-justify: auto;
+    font-size: 19px;
+  }
+  
+  button{
+    width: 350px;
+    height: 45px;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: #420D09;
+    color: #E0CDA9;
+    border-radius: 100px;
+    font-size: 18px;
+  }
+  
+  button:hover{
+    background-color: #CFB595;
+    border: none;
+    color: #412920; 
+  }
+  
+  p{
+    text-align: center;
+    width: 43vh;
+    font-size: 19px;
+    font-weight: lighter;
+    color: black;
+  }
+  
+  .input img{
+    width: 21px;
+    height: 20px;
+    position: absolute;
+    margin-top: 16px;
+    margin-left: 1vh;
+  }
+  
+  .row{
+    display: flex;
+    gap: 17px;
+    margin: auto;
+    margin-top: 20px; 
+  }
+  
+  .row .date input{
+    background: rgb(234, 234, 234);
+    border: 1px solid rgb(224, 225, 225);
+    border-radius: 5px;
+    font-size: 19px;
+    margin-left: 3.2vh;
+    width: 17vh;
+    height: 4vh;
+    text-align: center;
+    padding: 3px;
+   
+  }
+  
+  .row .Gender select{
+    background: rgb(234, 234, 234);
+    border: 1px solid rgb(224, 225, 225);
+    border-radius: 5px;
+    font-size: 19px;
+    width: 17vh;
+    height: 5vh;
+    text-align: center;
+    padding: 3px;
+  }
