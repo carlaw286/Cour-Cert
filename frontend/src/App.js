@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import LoginSignup from './Components/LoginSignup/LoginSignup';
 
 
 function HomePage()
@@ -29,6 +30,14 @@ function HomePage()
           </div>
       </div>      
   )
+}
+
+function Loginpage() {
+  return (
+    <div>
+      <LoginSignup/>
+    </div>
+  );
 }
 
 export default HomePage;
