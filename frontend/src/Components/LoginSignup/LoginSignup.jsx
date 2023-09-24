@@ -3,17 +3,22 @@ import './LoginSignup.css';
 import user_icon from '../Assets/person.png';
 import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
+import eye_icon from '../Assets/hide.png';
+import eye_slash_icon from '../Assets/view.png';
 import { useNavigate } from 'react-router-dom';
 
 export const LoginSignup = () => {
   const [action, setAction] = useState("Login");
   const [userType, setUserType] = useState("student"); // Initialize user type to "student"
+  const [showPassword, setShowPassword] = useState(false); 
 
   const handleUserTypeChange = (type) => {
     setUserType(type);
   };
 
   const navigate = useNavigate();
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); };
 
   return (
     <div className='container1'>
@@ -25,7 +30,8 @@ export const LoginSignup = () => {
       
       <div className="inputs">
 
-        {action === "Login" ? <div></div> : <div className="input">
+        {action === "Login" ? <div></div> : 
+        <div className="input">
           <img src={user_icon} alt="" />
           <input type="text" placeholder='Name' />
         </div>}
@@ -33,9 +39,22 @@ export const LoginSignup = () => {
           <img src={email_icon} alt="" />
           <input type="email" placeholder='Email' />
         </div>
+
+
         <div className="input1">
           <img src={password_icon} alt="" />
-          <input type="password" placeholder='Password' />
+          <input
+            type={showPassword ? 'text' : 'password'} // Toggle input type based on showPassword state
+            placeholder='Password'
+          />
+          <div className='password-viewer' onClick={togglePasswordVisibility}>
+            <img src={showPassword ? eye_slash_icon : eye_icon} alt="Toggle Password" />
+          </div>
+        
+        
+        
+        
+        
         </div>
         
         {action === "Login" ? (

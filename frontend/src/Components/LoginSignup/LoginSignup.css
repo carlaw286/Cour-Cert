@@ -61,6 +61,10 @@
   font-size: 19px;
 }
 
+.password-viewer{
+
+  cursor: pointer;
+}
 
 .submit-container{
   display: flex;
