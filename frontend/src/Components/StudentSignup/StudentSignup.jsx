@@ -51,7 +51,7 @@ export function StudentSignup()
                  <button type='submit' id='sub' onClick={() => navigate('/loginsignup')} >Sign Up</button>
             </div>
          
-            <p>Already have an account? <a href='App1.jsx'>Login</a></p>
+            <p>Already have an account? <a href='./loginsignup'>Login</a></p>
           </form>
         </div>
     </div>   
