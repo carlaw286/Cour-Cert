@@ -21,7 +21,7 @@ const TeacherHomePage = () =>
             </ul>
           </div>
         </nav>
-        <div class="container"></div>
+        {/* <div class="container"></div> */}
         <div class ="addCourse">
 
             <button id="add-button">Add Course</button>

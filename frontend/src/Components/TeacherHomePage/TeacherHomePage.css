@@ -1,3 +1,8 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
 
 .homepage{
   width: 100%;
@@ -76,14 +81,17 @@ nav{
 
 .addCourse {
   padding-left: 200px;
+  padding-top: 600px;
 }
 
+
+
 #add-button {
-  background-color: #007bff;
+  background-color: orange;
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 10px 20px;
+  padding: 10px 30px;
   cursor: pointer;
 }
 
