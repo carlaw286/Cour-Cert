@@ -16,7 +16,7 @@ export const LoginSignup = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='container'>
+    <div className='container1'>
       
       <div className="header">
         <div className="text">{action}</div>
@@ -29,11 +29,11 @@ export const LoginSignup = () => {
           <img src={user_icon} alt="" />
           <input type="text" placeholder='Name' />
         </div>}
-        <div className="input">
+        <div className="input1">
           <img src={email_icon} alt="" />
           <input type="email" placeholder='Email' />
         </div>
-        <div className="input">
+        <div className="input1">
           <img src={password_icon} alt="" />
           <input type="password" placeholder='Password' />
         </div>

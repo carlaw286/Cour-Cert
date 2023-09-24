@@ -8,36 +8,35 @@ export function TeacherSignup()
   
   return(
     <div className='createpagestudent'>
-      <body>
-        <div className='container'>
+        <div className='container3'>
           <form>
             <h1> Sign Up</h1>
-            <div className='input'>
+            <div className='createinput'>
             <img src='person.png' alt=''></img>
               <input type='name' id='firstname' placeholder='First Name' required>
               </input>
             </div>
-            <div className='input'>
+            <div className='createinput'>
             <img src='person.png' alt=''></img>
               <input type='name' id='secondname' placeholder='Last Name' required>
               </input>
             </div>
-            <div className='input'>
+            <div className='createinput'>
             <img src='email.png' alt=''></img>
               <input type='email' id='email' placeholder='Email' required>
               </input>
             </div>
-            <div className='input'>
+            <div className='createinput'>
             <img src='password.png' alt=''></img>
               <input type='password' id='password' placeholder='Password' required>
               </input>
             </div>
-            <div className='input'>
+            <div className='createinput'>
             <img src='password.png' alt=''></img>
               <input type='password' id='confirm' placeholder='Confirm Password' required>
               </input>
             </div>
-            <div className='input'>
+            <div className='createinput'>
                 <img src='link.png' alt=''></img>
                 <input type = 'text' id='text' placeholder='Attach link of all the credentials'>
                  </input>
@@ -54,11 +53,13 @@ export function TeacherSignup()
               </select>
               </div>
             </div>
-            <button type='submit' id='sub' onClick={() => navigate('/loginsignup')} >Sign Up</button>
+            <div className='signupbutton'>
+               <button type='submit' id='sub' onClick={() => navigate('/loginsignup')} >Sign Up</button>
+            </div>
+           
             <p>Already have an account? <a href='App1.jsx'>Login</a></p>
           </form>
         </div>
-      </body>
     </div>   
   )
 }
