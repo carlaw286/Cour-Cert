@@ -98,6 +98,7 @@ div .addcoursebutton{
   background-size: 15vh, 15vh;
   background-repeat: no-repeat;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .addcoursebutton button:hover {
