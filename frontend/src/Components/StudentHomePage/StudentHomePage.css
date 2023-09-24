@@ -104,7 +104,6 @@ div .addcoursebutton{
 .addcoursebutton button:hover {
   border-radius: 50%;
   background-image: url(addlogo2.png);
-  background-color: white;
   background-size: 15vh, 15vh;
   background-repeat: no-repeat;
 }

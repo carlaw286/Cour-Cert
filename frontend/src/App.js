@@ -9,6 +9,7 @@ import {StudentHomePage} from './Components/StudentHomePage/StudentHomePage';
 
 
 function App() {
+  console.log(window.location);
   return (
     <>
       <Routes>
@@ -19,6 +20,9 @@ function App() {
         <Route path = '/studenthomepage' element = {<StudentHomePage/>}/>
       </Routes>
     </>
+    
+
+    
   )
 }
 
