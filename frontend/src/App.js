@@ -1,24 +1,39 @@
 import React from 'react';
 import './App.css';
-import LoginSignup from './Components/LoginSignup/LoginSignup';
-import TeacherHomePage from './Components/TeacherHomePage/TeacherHomePage';
+import {Routes, Route} from 'react-router-dom';
+import { LoginSignup} from './Components/LoginSignup/LoginSignup';
+import { TeacherHomePage} from './Components/TeacherHomePage/TeacherHomePage';
 
 
-function HomePageTeacher()
-{
-  return(
-    <div>
-    <TeacherHomePage/>
-  </div>     
-  );
-}
-function Loginpage() {
+function App() {
   return (
-    <div>
-      <LoginSignup/>
-    </div>
-  );
+    <>
+      <Routes>
+        <Route path = '/' element = {<LoginSignup/>}/>
+        <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>
+      </Routes>
+    </>
+  )
 }
 
+export default App;
 
-export default HomePageTeacher;
+
+// function HomePageTeacher()
+// {
+//   return(
+//     <div>
+//     <TeacherHomePage/>
+//   </div>     
+//   );
+// }
+// function Loginpage() {
+//   return (
+//     <div>
+//       <LoginSignup/>
+//     </div>
+//   );
+// }
+
+
+// export default LoginSignup;

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import './LoginSignup.css';
-
 import user_icon from '../Assets/person.png';
 import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
+import { useNavigate } from 'react-router-dom';
 
-const LoginSignup = () => {
+export const LoginSignup = () => {
   const [action, setAction] = useState("Login");
   const [userType, setUserType] = useState("student"); // Initialize user type to "student"
 
   const handleUserTypeChange = (type) => {
     setUserType(type);
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className='container'>
@@ -46,7 +48,7 @@ const LoginSignup = () => {
             </button>
             <button
               className={userType === "teacher" ? "user-type-button active" : "user-type-button"}
-              onClick={() => handleUserTypeChange("teacher")}
+              onClick={() => navigate('/teacherhomepage')}
             >
               Login as Teacher
             </button>
@@ -65,4 +67,3 @@ const LoginSignup = () => {
   );
 }
 
-export default LoginSignup;

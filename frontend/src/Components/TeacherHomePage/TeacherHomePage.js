@@ -1,7 +1,7 @@
 import React from 'react';
 import './TeacherHomePage.css'
 
-const TeacherHomePage = () => 
+export const TeacherHomePage = () => 
 {
   return(
       <div className='homepage'>
@@ -30,4 +30,3 @@ const TeacherHomePage = () =>
   );
 }
 
-export default TeacherHomePage;
