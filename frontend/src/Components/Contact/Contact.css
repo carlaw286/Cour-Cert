@@ -1,0 +1,32 @@
+.contact-page-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 6rem 0rem;
+}
+.contact-form-container {
+    background-color: #EDE9E8;
+    max-width: 700;
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem 40px;
+    border-radius: 5rem;
+}
+.contact-form-container input {
+    background-color: #EDE9E8;
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem;
+}
+.primary-h {
+    margin-top: 200px;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: #4c4c4c;
+    max-width: 600px;
+}
