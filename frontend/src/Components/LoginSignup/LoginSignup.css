@@ -124,3 +124,13 @@ margin-bottom: 50px;
 color: #4500a6;
 cursor: pointer;
 }
+
+.create-account{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+margin-top: -30px;
+color: #797979;
+font-size: 15px;
+margin-bottom: 50px;
+}

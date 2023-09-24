@@ -59,7 +59,9 @@ export const LoginSignup = () => {
       {action === "Login" ? (
           <div className="forgot-password"><span> Forgot Password?</span></div>
         ) : null}
-      
+      <div className="create-account">
+      <p>Don't have an account yet? Create account as <a href='./teachersignup'>Teacher</a> or <a href='./studentsignup'>Student</a>.</p>
+      </div>
 
 
       
