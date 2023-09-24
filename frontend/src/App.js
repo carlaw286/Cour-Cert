@@ -5,6 +5,7 @@ import { LoginSignup} from './Components/LoginSignup/LoginSignup';
 import { TeacherHomePage} from './Components/TeacherHomePage/TeacherHomePage';
 import { TeacherSignup} from './Components/TeacherSignup/TeacherSignup';
 import { StudentSignup} from './Components/StudentSignup/StudentSignup';
+import {StudentHomePage} from './Components/StudentHomePage/StudentHomePage';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>
         <Route path = '/teachersignup' element = {<TeacherSignup/>}/>
         <Route path = '/studentsignup' element = {<StudentSignup/>}/>
+        <Route path = '/studenthomepage' element = {<StudentHomePage/>}/>
       </Routes>
     </>
   )

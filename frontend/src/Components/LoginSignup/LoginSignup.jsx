@@ -42,7 +42,7 @@ export const LoginSignup = () => {
           <div className="user-type">
             <button
               className={userType === "student" ? "user-type-button active" : "user-type-button"}
-              onClick={() => handleUserTypeChange("student")}
+              onClick={() => navigate("/studenthomepage")}
             >
               Login as Student
             </button>
