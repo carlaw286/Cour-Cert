@@ -1,8 +1,11 @@
 import React from 'react';
 import './TeacherSignup.css';
+import { useNavigate } from 'react-router-dom';
 
-function TeacherSignup()
+export function TeacherSignup()
 {
+  const navigate = useNavigate();
+  
   return(
     <div className='createpagestudent'>
       <body>
@@ -51,7 +54,7 @@ function TeacherSignup()
               </select>
               </div>
             </div>
-            <button type='submit' id='sub' >Sign Up</button>
+            <button type='submit' id='sub' onClick={() => navigate('/loginsignup')} >Sign Up</button>
             <p>Already have an account? <a href='App1.jsx'>Login</a></p>
           </form>
         </div>
@@ -59,5 +62,3 @@ function TeacherSignup()
     </div>   
   )
 }
-
-export default TeacherSignup;

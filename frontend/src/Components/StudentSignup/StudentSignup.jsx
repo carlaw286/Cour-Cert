@@ -1,8 +1,12 @@
 import React from 'react';
 import './StudentSignup.css';
+import { useNavigate } from 'react-router-dom';
 
-function StudentSignup() 
+export function StudentSignup() 
 {
+
+  const navigate = useNavigate();
+
   return(
     <div className='createpagestudent'>
       <body>
@@ -46,7 +50,7 @@ function StudentSignup()
               </select>
               </div>
             </div>
-            <button type='submit' id='sub' >Sign Up</button>
+            <button type='submit' id='sub' onClick={() => navigate('/loginsignup')} >Sign Up</button>
             <p>Already have an account? <a href='App1.jsx'>Login</a></p>
           </form>
         </div>
@@ -55,4 +59,3 @@ function StudentSignup()
   );
 }
 
-export default StudentSignup;
