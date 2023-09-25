@@ -62,18 +62,18 @@
 }
 
 .input1 .password-viewer img{
-  height: 50px;
-  width: 50px;
+  height: 24px;
+  width: 24px;
 }
 
 .input1 .password-icon img{
-  height: 50px;
-  width: 50px;
+  height: 21px;
+  width: 19px;
 }
 
 .input1 .email-icon img{
-  height: 50px;
-  width: 50px;
+  height: 16px;
+  width: 21px;
 }
 
 .password-viewer{
