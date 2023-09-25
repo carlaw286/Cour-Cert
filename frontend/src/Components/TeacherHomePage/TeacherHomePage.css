@@ -25,13 +25,13 @@ nav{
   align-items: center;
 }
 
-.app-logo{
+.app-logo1{
   flex-basis: 10%;
   flex: 1;
   margin: 0 10px;
 }
 
-.app-logo img{
+.app-logo1 img{
   width: 150px;
 }
 

@@ -1,14 +1,15 @@
 import React from 'react';
 import './StudentHomePage.css';
-import  './addlogo.png'
+import  './addlogo.png';
+
 
 export const StudentHomePage = () => 
 {
   return(
       <div className='studenthomepage'>
-        <nav>
-          <div class ="app-logo">
-            <img src = "/logo/AppLogo.png" alt= "Cour-Cert" height={150} width={100}></img>
+        <nav classname ="studentnav">
+          <div class ="app-logo1">
+            <img src = "logo.png" alt= "Cour-Cert" height={150} width={100}></img>
           </div>
           <div class = "searchBar">
             <input type = "text" id="search-input" placeholder="Search here"></input>
@@ -20,6 +21,7 @@ export const StudentHomePage = () =>
               <li><a href = "#"> Certifications</a> </li>
               <li><a href = "#"> Support</a> </li>
               <li><a href = "#"> My Profile</a> </li>
+              <li><a href = "./"> Signout</a> </li>
             </ul>
           </div>
         </nav>

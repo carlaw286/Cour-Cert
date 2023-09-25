@@ -12,7 +12,7 @@ export const LandingPage = () =>{
   // console.log(window.location);
   return(
    // <BrowserRouter>
-      <div className="courcert">
+      <div className="courcert" >
          <Home />
          <About />
          <Services />

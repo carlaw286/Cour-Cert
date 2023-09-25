@@ -15,7 +15,7 @@
   background-attachment: fixed;
 }
 
-nav{
+nav .studentnav{
   width: 80%;
   position: sticky;
   margin: auto auto;
@@ -25,13 +25,13 @@ nav{
   align-items: center;
 }
 
-.app-logo{
+.app-logo1{
   flex-basis: 10%;
   flex: 1;
   margin: 0 10px;
 }
 
-.app-logo img{
+.app-logo1 img{
   width: 150px;
 }
 
@@ -84,7 +84,7 @@ div .addcoursebutton{
     background-color: white;
     height: 20vh;
     width: 40vh;
-    margin-top: 20vh;
+    margin-top: 10vh;
     margin-left: 50vh;
 }
 

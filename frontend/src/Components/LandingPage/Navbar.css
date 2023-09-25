@@ -76,6 +76,7 @@ ul li:hover {
     font-size: 1rem;
     font-weight: 500;
     color: #222;
+    margin-right: 60px;
 }
 
 .nav-links i{
