@@ -8,11 +8,14 @@ import { StudentSignup} from './Components/StudentSignup/StudentSignup';
 import {StudentHomePage} from './Components/StudentHomePage/StudentHomePage';
 
 
+import {LandingPage} from './Components/LandingPage/LandingPage';
+
+
 function App() {
-  console.log(window.location);
   return (
     <>
       <Routes>
+        <Route path = '/landingpage' element = {<LandingPage/>}/>
         <Route path = '/loginsignup' element = {<LoginSignup/>}/>
         <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>
         <Route path = '/teachersignup' element = {<TeacherSignup/>}/>

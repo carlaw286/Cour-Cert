@@ -1,22 +1,23 @@
-import "./App.css";
-import Home from "./components/Home";
-import About from "./components/About";
-import Services from "./components/Services";
-import Contact from "./components/Contact";
+import "./LandingPage.css";
+import {Home} from "./Home";
+import {About} from "./About";
+import {Services} from "./Services";
+import {Contact} from "./Contact";
 import { BrowserRouter } from "react-router-dom";
 
 
-
-export default function LandingPage() {
+export const LandingPage = () =>{
   console.log(window.location);
   return(
-    <BrowserRouter>
+   // <BrowserRouter>
       <div className="App">
          <Home />
          <About />
          <Services />
          <Contact />
       </div>
-    </BrowserRouter>
+    //</BrowserRouter>
   );
 }
+
+export default LandingPage;

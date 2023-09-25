@@ -36,13 +36,17 @@ export const LoginSignup = () => {
           <input type="text" placeholder='Name' />
         </div>}
         <div className="input1">
+          <div className='email-icon'>
           <img src={email_icon} alt="" />
+          </div>
           <input type="email" placeholder='Email' />
         </div>
 
-
         <div className="input1">
-          <img src={password_icon} alt="" />
+          <div className='password-icon'>
+            <img src={password_icon} alt="" />
+          </div>
+          
           <input
             type={showPassword ? 'text' : 'password'} // Toggle input type based on showPassword state
             placeholder='Password'
@@ -50,11 +54,6 @@ export const LoginSignup = () => {
           <div className='password-viewer' onClick={togglePasswordVisibility}>
             <img src={showPassword ? eye_slash_icon : eye_icon} alt="Toggle Password" />
           </div>
-        
-        
-        
-        
-        
         </div>
         
         {action === "Login" ? (

@@ -1,5 +1,5 @@
 import React from "react";
-import AboutBackground from "../public/Bg.png";
+import "./Bg.png";
 import "./About.css";
 
 export const About = () => {
@@ -7,7 +7,7 @@ export const About = () => {
         <section id="about">
         <div className="about-section-container">
             <div className="about-background-image-container">
-                 <image src = {AboutBackground} alt="" />
+                 <image src = 'Bg.png' alt="" />
             </div>
             <div className="about-section-text-container">
                  <p className="primary-subheading"> About</p>

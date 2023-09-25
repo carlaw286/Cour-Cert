@@ -1,24 +1,24 @@
 import React from "react";
-import Contentdelivery from "../public/content-delivery.svg";
-import InteractiveLearningTools from "../public/interactive.svg";
-import ProgressTracking from "../public/tasks.svg";
+import "./content-delivery.svg"; 
+import "./interactive.svg";
+import "./tasks.svg";
 import "./Services.css";
 
 
 export const Services = () => {
     const serviceInfoData = [
         {
-            image: Contentdelivery,
+            image: 'content-delivery.svg',
             title: "Content Delivery",
             text: "We provide course materials, such as video lectures, reading materials, assignments, and quizzes, in a user-friendly online format.",
         },
         {
-            image: InteractiveLearningTools,
+            image: 'interactive.svg',
             title: "Interactive Learning Tools",
             text: "Offering tools like discussion forums for students to interact with instructors and peers.",
         },
         {
-            image: ProgressTracking,
+            image: 'tasks.svg',
             title: "Progress Tracking",
             text: "Enabling students to monitor their course progress, view grades, and access certificates upon completion.",
         },

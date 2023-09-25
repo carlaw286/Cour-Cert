@@ -61,6 +61,21 @@
   font-size: 19px;
 }
 
+.input1 .password-viewer img{
+  height: 50px;
+  width: 50px;
+}
+
+.input1 .password-icon img{
+  height: 50px;
+  width: 50px;
+}
+
+.input1 .email-icon img{
+  height: 50px;
+  width: 50px;
+}
+
 .password-viewer{
 
   cursor: pointer;
@@ -138,3 +153,5 @@ color: #797979;
 font-size: 15px;
 margin-bottom: 50px;
 }
+
+

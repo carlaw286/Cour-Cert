@@ -10,9 +10,8 @@ export const Contact = () => {
             <div className="contact-form-container">
                 <input type="text" placeholder="yourmail@gmail.com" />
                 <button className="secondary-button">Submit</button>
-
             </div>
         </div>
         </section>
-    );
-};
+    )
+}

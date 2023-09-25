@@ -1,8 +1,8 @@
 import "./Home.css";
 import { Component } from "react";
-import BackGround from "../public/Bg.png";
+import "./Bg.png";
 import { FiArrowRight } from "react-icons/fi";
-import Navbar from "./Navbar";
+import {Navbar} from "./Navbar";
 
 
 export class Home extends Component {
@@ -13,7 +13,7 @@ export class Home extends Component {
             <Navbar />
             <div className ="home-banner-container">
                 <div className="home-bannerImage-container">
-                    <img src ={BackGround} alt="My BackGround" className="Bg"/>      
+                    <img src ='Bg.png' alt="My BackGround" className="Bg"/>      
                 </div>
                 <div className="home-text-section">
                     <h1 className="primary-heading">
