@@ -27,10 +27,19 @@ export const Services = () => {
         <section id="services">
              <div className="service-section-wrapper">
                 <div className="service-section-top">
-                    <p className="primary-subheading">Services</p>
-                    <h1 className="primary-heading">How It's Done:Navigating Our Services</h1>
-                    <p className="primary-text">
-                          Discovering and engaging with our courses is effortless at Cour-Cert. Begin by browsing our diverse course catalog, create a personal account for enrollment, explore course details, and make seamless payments or subscription selections. Accessing course materials, interacting with instructors and fellow learners, and tracking your progress is intuitive through our user-friendly interface. Our support team is readily available for any assistance you may need. Upon completion, you can earn certificates and achievements, and we encourage you to continue your learning journey with our array of courses and share your success stories within our vibrant learning community. Join us in making learning a seamless and rewarding experience!
+                    <p className="primary-subheading-services">Services</p>
+                    <h1 className="primary-heading-services">How It's Done:Navigating Our Services</h1>
+                    <p className="primary-text-services">
+                          Discovering and engaging with our courses is effortless at Cour-Cert. 
+                          Begin by browsing our diverse course catalog, create a personal account for enrollment, 
+                          explore course details, and make seamless payments or subscription selections.
+                          Accessing course materials, interacting with instructors and fellow learners,
+                          and tracking your progress is intuitive through our user-friendly interface.
+                          Our support team is readily available for any assistance you may need. 
+                          Upon completion, you can earn certificates and achievements, 
+                          and we encourage you to continue your learning journey with our array of courses and 
+                          share your success stories within our vibrant learning community. 
+                          Join us in making learning a seamless and rewarding experience!
                     </p>
                 </div>
                 <div className="service-section-bottom">

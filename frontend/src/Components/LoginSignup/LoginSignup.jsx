@@ -21,8 +21,8 @@ export const LoginSignup = () => {
     setShowPassword(!showPassword); };
 
   return (
+    <div className='containers'>
     <div className='container1' id="login">
-      
       <div className="header">
         <div className="text">{action}</div>
         <div className="underline"></div>
@@ -79,10 +79,8 @@ export const LoginSignup = () => {
         ) : null}
       <div className="create-account">
       <p>Don't have an account yet? Create account as <a href='./teachersignup'>Teacher</a> or <a href='./studentsignup'>Student</a>.</p>
-      </div>
-
-
-      
+      </div>  
+    </div>
     </div>
   );
 }

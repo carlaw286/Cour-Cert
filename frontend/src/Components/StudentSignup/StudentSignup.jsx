@@ -35,6 +35,14 @@ export function StudentSignup()
               <input type='password' id='confirm' placeholder='Confirm Password' required>
               </input>
             </div>
+            <div className='row1'>
+              <div className='datelabel'>
+                <p> Date of Birth</p>
+              </div>
+              <div className='genderlabel'> 
+                <p>Gender</p>
+              </div>
+            </div>
             <div className='row'>
               <div className='date'>
               <input type='date' id='gender'></input>
@@ -50,8 +58,8 @@ export function StudentSignup()
             <div className='signupbutton'>
                  <button type='submit' id='sub' onClick={() => navigate('/loginsignup')} >Sign Up</button>
             </div>
-         
-            <p>Already have an account? <a href='./loginsignup'>Login</a></p>
+            <div className='hrefs'><p>Already have an account? <a href='./loginsignup'>Login</a></p>
+            </div>
           </form>
         </div>
     </div>   
