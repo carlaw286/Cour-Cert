@@ -12,6 +12,10 @@
     flex-direction: column;
 }
 
+.service-section-top p{
+    text-align: center;
+}
+
 .primary-subheading-services{
     margin-top: 13vh;
     font-weight: 700;

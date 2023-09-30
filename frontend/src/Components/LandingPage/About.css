@@ -5,6 +5,10 @@
     background-color: rgb(247,249,250);
 }
 
+.about-section-text-container p{
+    text-align: center;
+}
+
 .primary-subheading-about{
     margin-top: 13vh;
     font-weight: 700;
