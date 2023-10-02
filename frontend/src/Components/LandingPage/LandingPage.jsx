@@ -17,7 +17,7 @@ export const LandingPage = () =>{
          <About />
          <Services />
          <Contact />
-         <LoginSignup/>
+         {/* <LoginSignup/> */}
       </div>
     //</BrowserRouter>
   );

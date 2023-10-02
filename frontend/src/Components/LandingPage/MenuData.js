@@ -25,7 +25,7 @@ export const MenuData = [
      },
      {
          title: "LogIn",
-         url: '#login',
+         url: '/loginsignup',
          cName: "nav-links-LogIn"
      }
  ];
