@@ -55,10 +55,14 @@ export const ProfilePage = () =>
             </div>
 
             <div className='col-7'>
-              <button type='button' onClick={() => navigate('/studenthomepage')}> Back
+              <div className='but1'>
+                <button type='button' onClick={() => navigate('/studenthomepage')}> Back
               </button>
-              <button type='submit' id='updatepassword'> Update
+              </div>
+              <div className='but2'>
+                <button type='submit' id='updatepassword'> Update
               </button>
+              </div>
             </div>
 
 
