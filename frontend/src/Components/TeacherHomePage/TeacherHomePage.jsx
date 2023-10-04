@@ -6,7 +6,7 @@ export const TeacherHomePage = () =>
   const navigate = useNavigate();
   return(
       <div className='homepage'>
-        <nav>
+        <nav className='teachernav'>
           <div class ="app-logo1">
             <img src = "Logo.png" alt= "Cour-Cert" height={150} width={100}></img>
           </div>

@@ -15,7 +15,7 @@ export const StudentHomePage = () =>
             <input type = "text" id="search-input" placeholder="Search here"></input>
             <button id="search-button">Search</button>
           </div>
-          <div class ="nav-links">
+          <div class ="nav-link2">
             <ul>
               <li><a href = "#"> My Course</a> </li>
               <li><a href = "#"> Certifications</a> </li>

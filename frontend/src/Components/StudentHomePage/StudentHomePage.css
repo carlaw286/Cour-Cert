@@ -25,6 +25,12 @@ nav .studentnav{
   align-items: center;
 }
 
+nav .studentnav{
+  border: 1px solid black;
+  height: 10vh;
+  width: 10vh;
+}
+
 .app-logo1{
   flex-basis: 10%;
   flex: 1;
@@ -35,19 +41,28 @@ nav .studentnav{
   width: 150px;
 }
 
-.nav-links{
-  flex: 1;
+.nav-link2{
+  display: flex;
+  gap: 10px;
   text-align: right;
   margin: 0 10px;
 }
 
-.nav-links ul li{
+.nav-link2 ul li{
   list-style: none;
   display: inline-block;
   margin: 0 20px;
 }
 
-.nav-links ul li a{
+.nav-link2 ul li a{
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-link2 ul li a:hover{
+  padding: 7px;
+  border-radius: 5px;
+  background: rgba(80, 80, 238);
   color: #fff;
   text-decoration: none;
 }

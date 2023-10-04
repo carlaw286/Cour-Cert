@@ -11,7 +11,7 @@ export const ProfilePage = () =>
         <div className='row-1'>
           <div className='prof-container'>
           <div className='user-avatar'> 
-                       
+            <img src='./default_profile.webp'></img>           
           </div>
           <div className='user-about'> 
             <h1>About</h1>
