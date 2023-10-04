@@ -35,3 +35,21 @@
     color: #4c4c4c;
     max-width: 600px;
 }
+
+.secondary-button{
+    padding: 1rem 2.5rem;
+    background-color: #fe9e0d;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    transition: 0.2s;
+    justify-content: center;
+}
+
+.secondary-button:hover{
+    background-color: #e48f0f;
+}
