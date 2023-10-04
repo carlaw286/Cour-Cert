@@ -20,7 +20,7 @@ export const StudentHomePage = () =>
               <li><a href = "#"> My Course</a> </li>
               <li><a href = "#"> Certifications</a> </li>
               <li><a href = "#"> Support</a> </li>
-              <li><a href = "#"> My Profile</a> </li>
+              <li><a href = "./profilepage"> My Profile</a> </li>
               <li><a href = "./"> Signout</a> </li>
             </ul>
           </div>

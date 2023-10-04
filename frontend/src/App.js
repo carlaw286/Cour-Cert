@@ -7,10 +7,7 @@ import { TeacherHomePage} from './Components/TeacherHomePage/TeacherHomePage';
 import { TeacherSignup} from './Components/TeacherSignup/TeacherSignup';
 import { StudentSignup} from './Components/StudentSignup/StudentSignup';
 import {StudentHomePage} from './Components/StudentHomePage/StudentHomePage';
-
-
-
-
+import { ProfilePage } from './Components/Profile/ProfilePage';
 
 function App() {
   return (
@@ -22,32 +19,11 @@ function App() {
         <Route path = '/teachersignup' element = {<TeacherSignup/>}/>
         <Route path = '/studentsignup' element = {<StudentSignup/>}/>
         <Route path = '/studenthomepage' element = {<StudentHomePage/>}/>
+        <Route path = '/profilepage' element = {<ProfilePage/>}/>
+        
       </Routes>
     </>
-    
-
-    
   )
 }
 
 export default App;
-
-
-// function HomePageTeacher()
-// {
-//   return(
-//     <div>
-//     <TeacherHomePage/>
-//   </div>     
-//   );
-// }
-// function Loginpage() {
-//   return (
-//     <div>
-//       <LoginSignup/>
-//     </div>
-//   );
-// }
-
-
-// export default LoginSignup;
