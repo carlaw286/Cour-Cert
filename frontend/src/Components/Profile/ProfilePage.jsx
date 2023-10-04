@@ -64,15 +64,6 @@ export const ProfilePage = () =>
               </button>
               </div>
             </div>
-
-
-
-
-
-
-
-
-
           </div>
         </div>
       </form>
