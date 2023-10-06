@@ -4,7 +4,7 @@
   font-family: sans-serif;
 }
 
-.homepage{
+.teacherhomepage{
   width: 100%;
   height: 100vh;
   position: relative;
@@ -13,16 +13,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
-
-nav{
-  width: 80%;
-  position: sticky;
-  margin: auto auto;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .app-logo1{
@@ -35,19 +25,19 @@ nav{
   width: 150px;
 }
 
-.nav-links{
+.nav-links1{
   flex: 1;
   text-align: right;
   margin: 0 10px;
 }
 
-.nav-links ul li{
+.nav-links1 ul li{
   list-style: none;
   display: inline-block;
   margin: 0 20px;
 }
 
-.nav-links ul li a{
+.nav-links1 ul li a{
   color: #fff;
   text-decoration: none;
 }
@@ -55,14 +45,14 @@ nav{
 .searchBar{
   flex: 1;
   display: flex;
-  margin: 0 10px;
 }
 
 #search-input{
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   outline: none;
 }
 
@@ -70,7 +60,8 @@ nav{
   background-color: orange;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
 }
@@ -84,9 +75,7 @@ nav{
   padding-top: 600px;
 }
 
-
-
-#add-button {
+.addCourse button{
   background-color: orange;
   color: #fff;
   border: none;
@@ -95,7 +84,7 @@ nav{
   cursor: pointer;
 }
 
-#add-button:hover {
+.addCourse button:hover {
   background-color: #0056b3;
 }
 
