@@ -165,4 +165,10 @@ font-size: 15px;
 margin-bottom: 50px;
 }
 
-
+.error-message{
+  padding-left: 62px;
+  margin-top: -10px;
+  color: #ba0000;
+  font-size: 18px;
+  margin-bottom: 50px;
+}

@@ -1,24 +1,58 @@
 import React, { useState } from 'react';
 import './LoginSignup.css';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+
 import user_icon from '../Assets/person.png';
 import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
 import eye_icon from '../Assets/hide.png';
 import eye_slash_icon from '../Assets/view.png';
-import { useNavigate } from 'react-router-dom';
 
 export const LoginSignup = () => {
   const [action, setAction] = useState("Login");
   const [userType, setUserType] = useState("student"); // Initialize user type to "student"
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); };
   const handleUserTypeChange = (type) => {
     setUserType(type);
   };
 
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
   const navigate = useNavigate();
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.post('http://localhost:3002/loginsignup', { email, password})
+    .then(result => {
+      console.log(result)
+      if(result.data === "Success") {  
+          setTimeout(() => {
+            navigate('/studenthomepage');
+          }, 2000);   
+      }
+      else if (result.data === "Password is incorrect"){
+        setErrorMessage("Incorrect password.");
+      }
+      else if (result.data === "No record existed"){
+        setErrorMessage("No record existed.");
+      }
+      else {
+        // Update the error message state
+        setErrorMessage("Incorrect username or password.");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      // Update the error message state for any other errors
+      setErrorMessage("An error occurred. Please try again.");
+    });
+  }
+  
 
   return (
     <div className='containers'>
@@ -27,7 +61,7 @@ export const LoginSignup = () => {
         <div className="text">{action}</div>
         <div className="underline"></div>
       </div>
-      
+      <form onSubmit={handleSubmit}>
       <div className="inputs">
 
         {action === "Login" ? <div></div> : 
@@ -39,7 +73,7 @@ export const LoginSignup = () => {
           <div className='email-icon'>
           <img src={email_icon} alt="" />
           </div>
-          <input type="email" placeholder='Email' />
+          <input type="email" placeholder='Email' required onChange={(e) => setEmail(e.target.value)} />
         </div>
 
         <div className="input1">
@@ -49,7 +83,7 @@ export const LoginSignup = () => {
           
           <input
             type={showPassword ? 'text' : 'password'} // Toggle input type based on showPassword state
-            placeholder='Password'
+            placeholder='Password'  required onChange={(e) => setPassword(e.target.value)} 
           />
           <div className='password-viewer' onClick={togglePasswordVisibility}>
             <img src={showPassword ? eye_slash_icon : eye_icon} alt="Toggle Password" />
@@ -60,7 +94,6 @@ export const LoginSignup = () => {
           <div className="user-type">
             <button
               className={userType === "student" ? "user-type-button active" : "user-type-button"}
-              onClick={() => navigate("/studenthomepage")}
             >
               Login as Student
             </button>
@@ -72,6 +105,7 @@ export const LoginSignup = () => {
             </button>
           </div>
         ) : null}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
       </div>
 
       {action === "Login" ? (
@@ -79,9 +113,12 @@ export const LoginSignup = () => {
         ) : null}
       <div className="create-account">
       <p>Don't have an account yet? Create account as <a href='./teachersignup'>Teacher</a> or <a href='./studentsignup'>Student</a>.</p>
-      </div>  
+      </div> 
+      
+    </form> 
     </div>
     </div>
+    
   );
 }
 
