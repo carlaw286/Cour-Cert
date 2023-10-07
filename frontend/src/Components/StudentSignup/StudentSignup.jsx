@@ -23,6 +23,7 @@ export function StudentSignup()
     }
 
     try {
+      //backend website for database storing
       const response = await axios.post('http://localhost:3002/studentsignup', {
         firstName,
         lastName,
@@ -50,6 +51,8 @@ export function StudentSignup()
       setErrorMessage('An error occurred. Please try again.');
     }
   };
+
+
   return(
     <div className='createpagestudent'>
         <div className='container2'>

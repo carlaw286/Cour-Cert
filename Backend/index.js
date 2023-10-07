@@ -2,15 +2,32 @@ const express = require("express")
 const mongoose = require('mongoose')
 const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
+require('dotenv/config')
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect("mongodb://127.0.0.1:27017/Cour-Cert_Users");
 
+//Goes into the database 
 app.post("/loginsignup", (req, res) => {
     const {email, password} = req.body;
+    
+    // if( email == user_StudentModel.findOne({email:email})){
+    // user_StudentModel.findOne({email: email})
+    // .then(userStudent => {
+    //     if(userStudent) {
+    //         if(userStudent.password === password) {
+    //             res.json("Success")
+    //         } else {
+    //             res.json("Password is incorrect")
+    //         }
+    //     } else {
+    //         res.json("No record existed")
+    //     }
+    // })}
+    // Add code for else statement that go find email in teacher database
+
     user_StudentModel.findOne({email: email})
     .then(userStudent => {
         if(userStudent) {
@@ -41,6 +58,14 @@ app.post('/studentsignup', async (req, res) => {
         res.status(500).json({ error: err.message });   
     }
 });
+
+mongoose.connect(process.env.DB_URI, {useNewURLParser: true, useUnifiedTopology: true})
+.then(() => {
+    console.log('DB Connected!');
+})
+.catch ( (err) => {
+    console.log(err);
+})
 
 app.listen(3002, () => {
     console.log("server is running")
