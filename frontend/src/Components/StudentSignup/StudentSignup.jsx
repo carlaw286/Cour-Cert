@@ -118,7 +118,7 @@ export function StudentSignup()
           </div>
           <div className='hrefs'>
             <p>
-              Already have an account? <a href='/Login'>Login</a>
+              Already have an account? <a href='/loginsignup'>Login</a>
             </p>
           </div>
         </form>

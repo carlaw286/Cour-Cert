@@ -82,13 +82,29 @@
     margin-left: 1vh;
   }
   
-  .row{
+  .label-row{
+    display: flex;
+    gap: 5vh;
+  }
+  .label-row .teacher-datelabel p{
+    color:rgb(115, 120, 121);
+    margin-top: 12px;
+    margin-left: 3.8vh;
+  }
+
+  .label-row .teacher-genderlabel p{
+    color:rgb(115, 120, 121);
+    margin-top: 12px;
+    margin-left: 4vh;
+  }
+
+  .teacher-row{
     display: flex;
     gap: 17px;
     margin: auto;
   }
   
-  .row .date input{
+  .teacher-row .teacher-date input{
     background: rgb(234, 234, 234);
     border: 1px solid rgb(224, 225, 225);
     border-radius: 5px;
@@ -101,7 +117,7 @@
    
   }
   
-  .row .Gender select{
+  .teacher-row .teacher-gender select{
     background: rgb(234, 234, 234);
     border: 1px solid rgb(224, 225, 225);
     border-radius: 5px;

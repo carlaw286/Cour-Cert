@@ -1,6 +1,5 @@
 import React from 'react';
 // import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
 import {Routes, Route} from 'react-router-dom';
 import {LandingPage} from './Components/LandingPage/LandingPage';
 import { LoginSignup} from './Components/LoginSignup/LoginSignup';
@@ -9,7 +8,8 @@ import { TeacherSignup} from './Components/TeacherSignup/TeacherSignup';
 import { StudentSignup} from './Components/StudentSignup/StudentSignup';
 import {StudentHomePage} from './Components/StudentHomePage/StudentHomePage';
 import { ProfilePage } from './Components/Profile/ProfilePage';
-import {Trial} from './Components/Trial/trial.jsx';
+import {Trial} from './Components/Trial/trial';
+import{TeacherProfile} from './Components/TeacherProfile/TeacherProfile'
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
         <Route path = '/studenthomepage' element = {<StudentHomePage/>}/>
         <Route path = '/profilepage' element = {<ProfilePage/>}/>
         <Route path = '/trial' element = {<Trial/>}/>
+        <Route path = '/teacherprofile' element = {<TeacherProfile/>}/>
         
       </Routes>
     </>

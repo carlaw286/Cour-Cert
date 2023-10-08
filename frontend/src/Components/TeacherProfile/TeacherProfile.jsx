@@ -1,8 +1,8 @@
 import React from 'react';
-import './ProfilePage.css';
+import './TeacherProfile.css';
 import { useNavigate } from 'react-router-dom';
 
-export const ProfilePage = () => 
+export const TeacherProfile = () => 
 {
   const navigate = useNavigate();
   return(
@@ -18,7 +18,6 @@ export const ProfilePage = () =>
           </div>
           <div className='about1'>
             <div className=''>
-
             </div>
           </div>
           </div>
@@ -53,10 +52,9 @@ export const ProfilePage = () =>
                 <input type='name' id='firstname' placeholder='Enter confirm password'>
                 </input>
             </div>
-
             <div className='col-7'>
               <div className='but1'>
-                <button type='button' onClick={() => navigate('/studenthomepage')}> Back
+                <button type='button' onClick={() => navigate('/teacherhomepage')}> Back
               </button>
               </div>
               <div className='but2'>
