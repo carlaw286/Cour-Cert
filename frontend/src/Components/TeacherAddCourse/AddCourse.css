@@ -35,3 +35,65 @@
     display: flex;
     place-content: center;
 }
+
+.addcourse-row{
+    display: flex;
+}
+
+::placeholder{
+    font-size: 3vh;
+}
+
+.addcourse-col{
+    margin-left: 25%;
+    margin-top: 10vh;
+    border: 1px solid rgb(175, 170, 170);
+    height: 10rem;
+    width: 90vh;
+}
+
+.Forms .form-input1{
+    height: 50px;
+    width: 90vh;
+    border: none;
+    background-color:rgb(175, 170, 170);
+    font-size: 30px;
+    text-indent: 2vh;
+    text-align: justify, center;
+}
+
+.butts .add{
+    margin-top: 15.5vh;
+    margin-left: 2.5vh;
+    height:5vh;
+    width: 17.2vh;
+    font-size: 2.5vh;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.butts .add:hover{
+    background-color:rgb(133, 131, 131);
+}
+
+.addfile{
+    display: flex;
+    gap: 5vh
+    ;
+}
+
+.callname{
+    border: 1px solid rgb(133, 131, 131);
+    margin-left: 5vh;
+    height: 4vh;
+    width: 50vh;
+    text-align: justify, center;
+}
+
+.addfile .inputfiles input{
+    margin-left: 5vh;
+    padding: 3vh;
+    height: 4vh;
+    width: 50vh;
+}

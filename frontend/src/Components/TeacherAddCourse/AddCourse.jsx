@@ -17,11 +17,37 @@ export const TeacherAddCourse = () =>
                 <p className='p2'> "Empowering Your Learning Journey"</p>
                 </div>
             </div>
-
         </nav>
-        <nav className=' second-nav'>lo
-
+        <nav className=' second-nav'>
         </nav>
+        <div className='addcourse-row'>
+            <div className='addcourse-col'>
+                <div className='Forms'>
+                    <input className='form-input1'
+                        type='text' 
+                        id='topicnumber' 
+                        placeholder='Week #'>
+                    </input>
+                </div>
+                <div className='addfile'>
+                    <div className='callname'>
+                        Call name
+                    </div>
+                    <div className='inputfile'>
+                        <input 
+                             type='file'>
+                        </input>
+                    </div>
+                    
+
+                </div>
+            </div>
+            <div className='butts'>
+                <button className='add' type='add' > + Add new tile
+                </button>
+            </div>
+        </div>
+       
     </div>
   )
 }
