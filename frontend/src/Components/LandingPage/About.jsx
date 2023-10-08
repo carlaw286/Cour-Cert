@@ -1,11 +1,14 @@
 import React from "react";
-import "./Bg.png";
+import "./AboutBg.png";
 import "./About.css";
 
 export const About = () => {
     return(
         <section id="about">
         <div className="about-section-container">
+        <div className="about-background-image-container">
+                 <img src='AboutBg.png' alt="" className="Background"/>
+            </div>
             <div className="about-section-text-container">
                  <p className="primary-subheading-about"> About</p>
                  <h5 className="primary-heading-about">

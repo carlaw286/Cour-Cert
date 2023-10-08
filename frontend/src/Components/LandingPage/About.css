@@ -2,7 +2,24 @@
     margin-top: 0.01rem;
     border: 1px solid rgb(247,249,250) ;
     height: 100vh;
-    background-color: rgb(247,249,250);
+    /* background-color: rgb(247,249,250); */
+    /* background-image: ; */
+}
+
+ .about-background-image-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.Background {
+    width: 100%;
+    height: 150%;
+    object-fit: cover;
 }
 
 .about-section-text-container p{

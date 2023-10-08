@@ -18,8 +18,32 @@ export const TeacherAddCourse = () =>
                 </div>
             </div>
         </nav>
-        <nav className=' second-nav'>
+        <nav className='second-nav'>
+        <div class ="second-nav-links">
+            <ul>
+              <li><a href = "#"> View Course</a> </li>
+              <li><a href = "./teacherprofile"> Account Profile</a> </li>
+              <li><a href = "/teacherhomepage"> Back</a> </li>
+             </ul>
+           </div>
         </nav>
+        <div className='details'>
+            <div className='title'>
+                <input 
+                    type='text'
+                    id='title' 
+                    placeholder='Your Title'>
+                </input>
+            </div>
+            <div className='description'>
+                <input 
+                    type='text'
+                     id='title' 
+                    placeholder='Course Description'>
+                </input>
+            </div>
+
+        </div>
         <div className='addcourse-row'>
             <div className='addcourse-col'>
                 <div className='Forms'>
@@ -30,16 +54,13 @@ export const TeacherAddCourse = () =>
                     </input>
                 </div>
                 <div className='addfile'>
-                    <div className='callname'>
-                        Call name
+                    <div className='callname'> Name of the file after adding the file
                     </div>
                     <div className='inputfile'>
                         <input 
-                             type='file'>
+                             type='file' id='filename'>
                         </input>
                     </div>
-                    
-
                 </div>
             </div>
             <div className='butts'>
@@ -47,7 +68,6 @@ export const TeacherAddCourse = () =>
                 </button>
             </div>
         </div>
-       
     </div>
   )
 }
