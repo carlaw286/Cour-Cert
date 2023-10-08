@@ -23,7 +23,7 @@ export const TeacherHomePage = () =>
            </div>
        </nav>
        <div class ="addCourse">
-          <button id="addbutton">Add Course</button>
+          <button id="addbutton"  onClick={() => navigate('/teacheraddcourse')}>Add Course</button>
        </div>
      </div>     
 

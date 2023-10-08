@@ -9,8 +9,8 @@ import { StudentSignup} from './Components/StudentSignup/StudentSignup';
 import {StudentHomePage} from './Components/StudentHomePage/StudentHomePage';
 import { ProfilePage } from './Components/Profile/ProfilePage';
 import {Trial} from './Components/Trial/trial';
-import{TeacherProfile} from './Components/TeacherProfile/TeacherProfile'
-
+import{TeacherProfile} from './Components/TeacherProfile/TeacherProfile';
+import{TeacherAddCourse} from './Components/TeacherAddCourse/AddCourse';
 function App() {
   return (
     <>
@@ -24,7 +24,8 @@ function App() {
         <Route path = '/profilepage' element = {<ProfilePage/>}/>
         <Route path = '/trial' element = {<Trial/>}/>
         <Route path = '/teacherprofile' element = {<TeacherProfile/>}/>
-        
+        <Route path = '/teacheraddcourse' element = {<TeacherAddCourse/>}/>
+
       </Routes>
     </>
   )
