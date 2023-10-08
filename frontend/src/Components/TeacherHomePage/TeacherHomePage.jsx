@@ -43,9 +43,6 @@ export const TeacherHomePage = () =>
              </ul>
            </div>
        </nav>
-       {/* <div class ="addCourse">
-          <button id="addbutton"  onClick={() => navigate('/teacheraddcourse')}>Add Course</button>
-       </div> */}
         <div className='addCourse'>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Course
@@ -56,6 +53,7 @@ export const TeacherHomePage = () =>
           <DialogContentText>
             Please Input Details Below:
           </DialogContentText>
+          
           <TextField
             autoFocus
             margin="dense"

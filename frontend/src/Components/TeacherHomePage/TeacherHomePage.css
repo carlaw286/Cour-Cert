@@ -88,3 +88,7 @@
   background-color: #0056b3;
 }
 
+Dialog{
+  height: 20vh;
+  width: 20vh;
+}
