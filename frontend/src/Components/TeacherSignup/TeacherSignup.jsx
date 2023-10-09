@@ -1,42 +1,112 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './TeacherSignup.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 export function TeacherSignup()
 {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match.');
+      return;
+    }
+
+    try {
+      //backend website for database storing
+      const response = await axios.post('http://localhost:3002/teachersignup', {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+
+      console.log(response.data);
+
+      // Check if the response contains an error message
+      if (response.data === 'Email already in use.') {
+        setErrorMessage('Email is already in use.');
+      } else {
+        // Successful registration
+        setSuccessMessage('Sign up successful! Redirecting to login...');
+        setErrorMessage(''); // Clear any existing error message
+        // Redirect to login after a delay
+        setTimeout(() => {
+          navigate('/loginsignup');
+        }, 2000); // Adjust the delay as needed
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle other errors if needed
+      setErrorMessage('An error occurred. Please try again.');
+    }
+  };
   
   return(
     <div className='createpageteacher'>
         <div className='container3'>
-          <form>
-            <h1> Sign Up</h1>
-            <div className='createinput'>
-            <img src='person.png' alt=''></img>
-              <input type='name' id='firstname' placeholder='First Name' required>
-              </input>
-            </div>
-            <div className='createinput'>
-            <img src='person.png' alt=''></img>
-              <input type='name' id='secondname' placeholder='Last Name' required>
-              </input>
-            </div>
-            <div className='createinput'>
-            <img src='email.png' alt=''></img>
-              <input type='email' id='email' placeholder='Email' required>
-              </input>
-            </div>
-            <div className='createinput'>
-            <img src='password.png' alt=''></img>
-              <input type='password' id='password' placeholder='Password' required>
-              </input>
-            </div>
-            <div className='createinput'>
-            <img src='password.png' alt=''></img>
-              <input type='password' id='confirm' placeholder='Confirm Password' required>
-              </input>
-            </div>
-            <div className='createinput'>
+          <form  onSubmit={handleSubmit}>
+          <div className='createinput'>
+            <img src='person.png' alt='' />
+            <input
+              type='name'
+              id='firstName'
+              placeholder='First Name'
+              required
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className='createinput'>
+            <img src='person.png' alt='' />
+            <input
+              type='name'
+              id='lastName'
+              placeholder='Last Name'
+              required
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className='createinput'>
+            <img src='email.png' alt='' />
+            <input
+              type='email'
+              id='email'
+              placeholder='Email'
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className='createinput'>
+            <img src='password.png' alt='' />
+            <input
+              type='password'
+              id='password'
+              placeholder='Password'
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className='createinput'>
+            <img src='password.png' alt='' />
+            <input
+              type='password'
+              id='confirm'
+              placeholder='Confirm Password'
+              required
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>            
+          <div className='createinput'>
                 <img src='link.png' alt=''></img>
                 <input type = 'text' id='text' placeholder='Attach link of all the credentials'>
                  </input>
@@ -61,10 +131,20 @@ export function TeacherSignup()
                   </select>
                 </div>
             </div>
-            <div className='signupbutton'>
-               <button type='submit' id='sub' onClick={() => navigate('/loginsignup')} >Sign Up</button>
-            </div>
-           <div className='hrefs'><p>Already have an account? <a href='./loginsignup'>Login</a></p>
+
+            {/* error messages */}
+          {/* Display error or success message if present */}
+          {successMessage && <div className='success-message'>{successMessage}</div>}
+          {errorMessage && <div className='error-message'>{errorMessage}</div>}
+          <div className='signupbutton'>
+            <button type='submit' id='sub'>
+              Sign Up
+            </button>
+          </div>
+          <div className='hrefs'>
+            <p>
+              Already have an account? <a href='/loginsignup'>Login</a>
+            </p>
             </div>
             </form>
         </div>

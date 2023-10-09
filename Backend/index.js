@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require('mongoose')
 const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
+const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
 require('dotenv/config')
 
@@ -41,6 +42,21 @@ app.post("/loginsignup", (req, res) => {
             res.json("No record existed")
         }
     })
+
+    user_TeacherModel.findOne({email: email})
+    .then(userTeacher => {
+        if(userTeacher) {
+            if(userTeacher.password === password) {
+                res.json("Success")
+            } else {
+                res.json("Password is incorrect")
+            }
+        } else {
+            res.json("No record existed")
+        }
+    })
+
+    
 })
 
 app.post('/studentsignup', async (req, res) => {
@@ -53,6 +69,23 @@ app.post('/studentsignup', async (req, res) => {
         } else {
             // If the email is not in use, proceed with user registration
             const newUser = await user_StudentModel.create(req.body);
+            res.json(newUser);
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });   
+    }
+});
+
+app.post('/teachersignup', async (req, res) => {
+    const { email } = req.body;try {
+        // Check if the email already exists in the database
+        const existingUser = await user_TeacherModel.findOne({ email: email });
+
+        if (existingUser) {
+            res.json("Email already in use.");
+        } else {
+            // If the email is not in use, proceed with user registration
+            const newUser = await user_TeacherModel.create(req.body);
             res.json(newUser);
         }
     } catch (err) {

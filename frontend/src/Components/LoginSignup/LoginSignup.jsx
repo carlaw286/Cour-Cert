@@ -11,7 +11,8 @@ import eye_slash_icon from '../Assets/view.png';
 
 export const LoginSignup = () => {
   const [action, setAction] = useState("Login");
-  const [userType, setUserType] = useState("student"); // Initialize user type to "student"
+  const [userType, setUserType] = useState("student");
+   // Initialize user type to "student"
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -31,9 +32,13 @@ export const LoginSignup = () => {
     .then(result => {
       console.log(result)
       if(result.data === "Success") {  
-          setTimeout(() => {
+        setTimeout(() => {
+          if (userType === "student") {
             navigate('/studenthomepage');
-          }, 2000);   
+          } else if (userType === "teacher") {
+            navigate('/teacherhomepage');
+          }
+        }, 2000);   
       }
       else if (result.data === "Password is incorrect"){
         setErrorMessage("Incorrect password.");
@@ -94,12 +99,13 @@ export const LoginSignup = () => {
           <div className="user-type">
             <button
               className={userType === "student" ? "user-type-button active" : "user-type-button"}
+              onClick={() => handleUserTypeChange("student")}
             >
               Login as Student
             </button>
             <button
               className={userType === "teacher" ? "user-type-button active" : "user-type-button"}
-              onClick={() => navigate('/teacherhomepage')}
+              onClick={() => handleUserTypeChange("teacher")}
             >
               Login as Teacher
             </button>
