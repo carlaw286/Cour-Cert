@@ -12,7 +12,7 @@ app.use(cors())
 
 
 //Goes into the database 
-app.post("/loginsignup", (req, res) => {
+app.post("/loginsignupstudent", (req, res) => {
     const {email, password} = req.body;
     
     // if( email == user_StudentModel.findOne({email:email})){
@@ -42,7 +42,11 @@ app.post("/loginsignup", (req, res) => {
             res.json("No record existed")
         }
     })
+})
 
+app.post("/loginsignupteacher", (req, res) => {
+    const {email, password} = req.body;
+    
     user_TeacherModel.findOne({email: email})
     .then(userTeacher => {
         if(userTeacher) {
@@ -58,6 +62,8 @@ app.post("/loginsignup", (req, res) => {
 
     
 })
+
+
 
 app.post('/studentsignup', async (req, res) => {
     const { email } = req.body;try {

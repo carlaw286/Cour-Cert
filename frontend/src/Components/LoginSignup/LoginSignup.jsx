@@ -28,16 +28,14 @@ export const LoginSignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3002/loginsignup', { email, password})
+    if (userType === "student"){
+      axios.post('http://localhost:3002/loginsignupstudent', { email, password})
     .then(result => {
       console.log(result)
       if(result.data === "Success") {  
         setTimeout(() => {
-          if (userType === "student") {
             navigate('/studenthomepage');
-          } else if (userType === "teacher") {
-            navigate('/teacherhomepage');
-          }
+          
         }, 2000);   
       }
       else if (result.data === "Password is incorrect"){
@@ -55,8 +53,35 @@ export const LoginSignup = () => {
       console.log(err);
       // Update the error message state for any other errors
       setErrorMessage("An error occurred. Please try again.");
-    });
+    });}
+    else if (userType === "teacher"){
+      axios.post('http://localhost:3002/loginsignupteacher', { email, password})
+    .then(result => {
+      console.log(result)
+      if(result.data === "Success") {  
+        setTimeout(() => {
+            navigate('/teacherhomepage');
+        }, 2000);   
+      }
+      else if (result.data === "Password is incorrect"){
+        setErrorMessage("Incorrect password.");
+      }
+      else if (result.data === "No record existed"){
+        setErrorMessage("No record existed.");
+      }
+      else {
+        // Update the error message state
+        setErrorMessage("Incorrect username or password.");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      // Update the error message state for any other errors
+      setErrorMessage("An error occurred. Please try again.");
+    });}
   }
+
+  
   
 
   return (
@@ -99,13 +124,13 @@ export const LoginSignup = () => {
           <div className="user-type">
             <button
               className={userType === "student" ? "user-type-button active" : "user-type-button"}
-              onClick={() => handleUserTypeChange("student")}
+               onClick={() => handleUserTypeChange("student")}
             >
               Login as Student
             </button>
             <button
               className={userType === "teacher" ? "user-type-button active" : "user-type-button"}
-              onClick={() => handleUserTypeChange("teacher")}
+               onClick={() => handleUserTypeChange("teacher")}
             >
               Login as Teacher
             </button>
