@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './TeacherHomePage.css'
 import { useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
@@ -8,10 +8,45 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import axios from 'axios'
 
 export const TeacherHomePage = () => 
 {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [course_title, setCourseTitle] = useState('');
+  const [course_description, setCourseDescription] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+    
+      try {
+        //backend website for database storing
+        const response = await axios.post('http://localhost:3002/teacher_AddCourse', {
+          course_title,
+          course_description,
+        });
+    
+        console.log(response.data);
+    
+        // Check if the response contains an error message
+        if (response.data === 'Course already added') {
+          setErrorMessage('Course already added');
+        } else {
+           // Successful registration
+          setSuccessMessage('Add Course Success!');
+          setErrorMessage(''); // Clear any existing error message            // Redirect to view course after a delay
+           setTimeout(() => {
+            navigate('/teacherviewcourse');
+          }, 2000); // Adjust the delay as needed
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle other errors if needed
+        setErrorMessage('An error occurred. Please try again.');
+  }};
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,10 +75,10 @@ export const TeacherHomePage = () =>
            </div>
        </nav>
         <div className='addCourse'>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen} >
         Add Course
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} onSubmit={handleSubmit}>
         <DialogTitle>Add Courses</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -58,6 +93,7 @@ export const TeacherHomePage = () =>
             type="text"
             fullWidth
             variant="standard"
+            onChange={(e) => setCourseTitle(e.target.value)}
           />
 
           <TextField
@@ -68,11 +104,15 @@ export const TeacherHomePage = () =>
             type="text"
             fullWidth
             variant="standard"
+            onChange={(e) => setCourseDescription(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
+          {/* Display error or success message if present */}
+          {successMessage && <div className='success-message'>{successMessage}</div>}
+          {errorMessage && <div className='error-message'>{errorMessage}</div>}
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => navigate('/teacheraddcourse')}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

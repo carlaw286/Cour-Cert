@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require('mongoose')
 const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
+const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
 require('dotenv/config')
 
 const app = express()
@@ -58,6 +59,43 @@ app.post('/studentsignup', async (req, res) => {
         res.status(500).json({ error: err.message });   
     }
 });
+
+// app.get('/getteacher_Addcourse', async (req,res) => {
+//     const courses = teacher_AddCourseModel;
+
+//     const teacherCourse =  await courses.find({}).populate('').exec((err, courseData)) => {
+//         if (err) throw err;
+//         if (courseData){
+//             res.end(JSON.stringify(courseData));
+//         } else {
+//             res.end();
+//         }
+//     };
+// })
+
+app.get('/getTeachercourses', (req, res) => {
+    teacher_AddCourseModel.find()
+    .then(courses => res.json(courses))
+    .catch( err => res.json(err))
+})
+
+app.post('/teacher_AddCourse', async (req, res) => {
+    const { course_title } = req.body;try {
+        // Check if the course already exists in the database
+        const existingCourse_Title = await teacher_AddCourseModel.findOne({ course_title: course_title });
+
+        if (existingCourse_Title) {
+            res.json("Course already exists");
+        } else {
+            // If the course does not exist, proceeds to create course
+            const newCourse = await teacher_AddCourseModel.create(req.body);
+            res.json(newCourse);
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });   
+    }
+})
+
 
 mongoose.connect(process.env.DB_URI, {useNewURLParser: true, useUnifiedTopology: true})
 .then(() => {
