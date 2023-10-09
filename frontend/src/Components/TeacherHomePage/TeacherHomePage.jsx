@@ -33,7 +33,7 @@ export const TeacherHomePage = () =>
           </div>
           <div class ="nav-links1">
             <ul>
-              <li><a href = "#"> View Course</a> </li>
+              <li><a href = "./teacherviewcourse"> View Course</a> </li>
               <li><a href = "./teacherprofile"> Account Profile</a> </li>
               <li><a href = "./"> Signout</a> </li>
              </ul>
