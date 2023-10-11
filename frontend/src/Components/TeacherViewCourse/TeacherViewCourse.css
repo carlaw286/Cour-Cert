@@ -25,22 +25,22 @@
 }
 
 
-a:link {
+.title1 a:link {
     text-decoration: none;
     color: black;
 }
   
-a:visited {
+.title1 a:visited {
     text-decoration: none;
     color: black;
 }
   
-a:hover {
+.title1 a:hover {
     text-decoration: none;
     color: black;
 }
   
-a:active {
+.title1 a:active {
     text-decoration: none;
     color: black;
  }

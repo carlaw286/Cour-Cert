@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './StudentSignup.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 export function StudentSignup() 
 {
@@ -150,10 +153,6 @@ export function StudentSignup()
             </select>
           </div>
        </div>
-    
-          {/* Display error or success message if present */}
-          {successMessage && <div className='success-message'>{successMessage}</div>}
-          {errorMessage && <div className='error-message'>{errorMessage}</div>}
           <div className='signupbutton'>
             <button type='submit' id='sub'>
               Sign Up
@@ -165,7 +164,30 @@ export function StudentSignup()
             </p>
           </div>
         </form>
-      </div>
+        {/* Display success message if present  */}
+      {successMessage && 
+          <div className='success-message'>
+            <Stack sx={{ width: 300 }} spacing={2} position={'absolute'}  marginLeft={7} marginTop={2}>
+               <Alert severity="success">
+                 <AlertTitle>Success</AlertTitle>
+                 {successMessage}
+                </Alert>
+            </Stack>
+          </div>
+            }
+
+
+          {/* Display error message if present  */}
+          {errorMessage && 
+          <div className='error-message'>
+            <Stack sx={{ width: 292 }} spacing={2} position={'absolute'} marginTop={3}>
+               <Alert severity="error">
+                 <AlertTitle>Error</AlertTitle>
+                  {errorMessage}
+                </Alert>
+            </Stack>
+          </div>}
+      </div>  
     </div>
   );
 }
