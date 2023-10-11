@@ -9,6 +9,9 @@ export function StudentSignup()
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [gender, setGender] = useState('');
+
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -29,6 +32,8 @@ export function StudentSignup()
         lastName,
         email,
         password,
+        birthDate,
+        gender,
       });
 
       console.log(response.data);
@@ -108,6 +113,35 @@ export function StudentSignup()
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+{/* birthdate */}
+          <div className='row'>
+          <div className='date'>
+            <input
+              type='date'
+              id='birthdate'
+              required
+              onChange={(e) => setBirthDate(e.target.value)}
+            />
+          </div>
+        </div>
+
+{/* gender */}
+          <div className='Gender'>
+        <select
+          name='select'
+          id='gender'
+          defaultValue='Select Gender'
+          required
+          onChange={(e) => setGender(e.target.value)}
+        >
+          <option disabled={true} value='Select Gender'> Select Gender </option>
+          <option value='Male'>Male</option>
+          <option value='Female'>Female</option>
+        </select>
+      </div>
+
+
+            
           {/* Display error or success message if present */}
           {successMessage && <div className='success-message'>{successMessage}</div>}
           {errorMessage && <div className='error-message'>{errorMessage}</div>}

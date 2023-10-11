@@ -6,7 +6,9 @@ const user_StudentSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     email: String,
-    password: String
+    password: String,
+    birthDate: String,
+    gender: String
 })
 
 
