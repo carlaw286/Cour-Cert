@@ -106,6 +106,22 @@
     margin-left: 4vh;
   }
   
+  .label-row{
+    display: flex;
+    gap: 5vh;
+  }
+  .label-row .student-datelabel p{
+    color:rgb(115, 120, 121);
+    margin-top: 12px;
+    margin-left: 3.8vh;
+  }
+
+  .label-row .student-genderlabel p{
+    color:rgb(115, 120, 121);
+    margin-top: 12px;
+    margin-left: 4vh;
+  }
+
   .row{
     display: flex;
     gap: 17px;

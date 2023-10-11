@@ -113,8 +113,19 @@ export function StudentSignup()
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
+
+          <div className='label-row'>
+            <div className='student-datelabel'>
+              <p>Date of Birth</p>
+            </div>
+            <div className='student-genderlabel'>
+              <p>Gender</p>
+            </div>
+          </div>
+
+
 {/* birthdate */}
-          <div className='row'>
+        <div className='row'>
           <div className='date'>
             <input
               type='date'
@@ -123,25 +134,23 @@ export function StudentSignup()
               onChange={(e) => setBirthDate(e.target.value)}
             />
           </div>
-        </div>
 
 {/* gender */}
           <div className='Gender'>
-        <select
-          name='select'
-          id='gender'
-          defaultValue='Select Gender'
-          required
-          onChange={(e) => setGender(e.target.value)}
-        >
-          <option disabled={true} value='Select Gender'> Select Gender </option>
-          <option value='Male'>Male</option>
-          <option value='Female'>Female</option>
-        </select>
-      </div>
-
-
-            
+            <select
+                name='select'
+                id='gender'
+                defaultValue='Select Gender'
+                required
+                 onChange={(e) => setGender(e.target.value)}
+            >
+              <option disabled={true} value='Select Gender'> Select Gender </option>
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
+          </div>
+       </div>
+    
           {/* Display error or success message if present */}
           {successMessage && <div className='success-message'>{successMessage}</div>}
           {errorMessage && <div className='error-message'>{errorMessage}</div>}
