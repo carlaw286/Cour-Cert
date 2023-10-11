@@ -12,6 +12,7 @@ import {Trial} from './Components/Trial/trial';
 import{TeacherProfile} from './Components/TeacherProfile/TeacherProfile';
 import{TeacherAddCourse} from './Components/TeacherAddCourse/AddCourse';
 import{TeacherViewCourse} from './Components/TeacherViewCourse/TeacherViewCourse';
+import{StudentViewCourse} from './Components/StudentViewCourse/StudentViewCourse';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path = '/teacherprofile' element = {<TeacherProfile/>}/>
         <Route path = '/teacheraddcourse' element = {<TeacherAddCourse/>}/>
         <Route path = '/teacherviewcourse' element = {<TeacherViewCourse/>}/>
+        <Route path = '/studentviewcourse' element = {<StudentViewCourse/>}/>
 
       </Routes>
     </>

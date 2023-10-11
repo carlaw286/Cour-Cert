@@ -17,7 +17,7 @@ export const StudentHomePage = () =>
           </div>
           <div class ="nav-link2">
             <ul>
-              <li><a href = "#"> My Course</a> </li>
+              <li><a href = "./studentviewcourse"> My Course</a> </li>
               <li><a href = "#"> Certifications</a> </li>
               <li><a href = "#"> Support</a> </li>
               <li><a href = "./profilepage"> My Profile</a> </li>
