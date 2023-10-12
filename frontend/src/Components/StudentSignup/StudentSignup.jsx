@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './StudentSignup.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 export function StudentSignup() 
 {
@@ -9,6 +12,9 @@ export function StudentSignup()
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [gender, setGender] = useState('');
+
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -29,6 +35,8 @@ export function StudentSignup()
         lastName,
         email,
         password,
+        birthDate,
+        gender,
       });
 
       console.log(response.data);
@@ -108,9 +116,43 @@ export function StudentSignup()
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-          {/* Display error or success message if present */}
-          {successMessage && <div className='success-message'>{successMessage}</div>}
-          {errorMessage && <div className='error-message'>{errorMessage}</div>}
+
+          <div className='label-row'>
+            <div className='student-datelabel'>
+              <p>Date of Birth</p>
+            </div>
+            <div className='student-genderlabel'>
+              <p>Gender</p>
+            </div>
+          </div>
+
+
+{/* birthdate */}
+        <div className='row'>
+          <div className='date'>
+            <input
+              type='date'
+              id='birthdate'
+              required
+              onChange={(e) => setBirthDate(e.target.value)}
+            />
+          </div>
+
+{/* gender */}
+          <div className='Gender'>
+            <select
+                name='select'
+                id='gender'
+                defaultValue='Select Gender'
+                required
+                 onChange={(e) => setGender(e.target.value)}
+            >
+              <option disabled={true} value='Select Gender'> Select Gender </option>
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
+          </div>
+       </div>
           <div className='signupbutton'>
             <button type='submit' id='sub'>
               Sign Up
@@ -122,7 +164,30 @@ export function StudentSignup()
             </p>
           </div>
         </form>
-      </div>
+        {/* Display success message if present  */}
+      {successMessage && 
+          <div className='success-message'>
+            <Stack sx={{ width: 300 }} spacing={2} position={'absolute'}  marginLeft={7} marginTop={2}>
+               <Alert severity="success">
+                 <AlertTitle>Success</AlertTitle>
+                 {successMessage}
+                </Alert>
+            </Stack>
+          </div>
+            }
+
+
+          {/* Display error message if present  */}
+          {errorMessage && 
+          <div className='error-message'>
+            <Stack sx={{ width: 292 }} spacing={2} position={'absolute'} marginTop={3}>
+               <Alert severity="error">
+                 <AlertTitle>Error</AlertTitle>
+                  {errorMessage}
+                </Alert>
+            </Stack>
+          </div>}
+      </div>  
     </div>
   );
 }

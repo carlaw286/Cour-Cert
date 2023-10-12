@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './TeacherSignup.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 export function TeacherSignup()
 {
@@ -9,6 +12,9 @@ export function TeacherSignup()
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [gender, setGender] = useState('');
+  const [credentialsLink, setCredentialsLink] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -29,6 +35,9 @@ export function TeacherSignup()
         lastName,
         email,
         password,
+        birthDate,
+        gender,
+        credentialsLink,
       });
 
       console.log(response.data);
@@ -55,6 +64,7 @@ export function TeacherSignup()
   return(
     <div className='createpageteacher'>
         <div className='container3'>
+          <h1> SignUp</h1>
           <form  onSubmit={handleSubmit}>
           <div className='createinput'>
             <img src='person.png' alt='' />
@@ -105,8 +115,54 @@ export function TeacherSignup()
               required
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-          </div>            
+          </div>          
           <div className='createinput'>
+            <img src='link.png' alt='' />
+            <input
+              type='text'
+              id='text'
+              placeholder='Attach link of all the credentials'
+              required
+              onChange={(e) => setCredentialsLink(e.target.value)}
+            />
+          </div>
+
+          <div className='label-row'>
+            <div className='teacher-datelabel'>
+              <p>Date of Birth</p>
+            </div>
+            <div className='teacher-genderlabel'>
+              <p>Gender</p>
+            </div>
+          </div>
+
+          <div className='teacher-row'>
+            <div className='teacher-date'>
+              <input
+                type='date'
+                id='birthdate'
+                required
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
+            </div>
+            <div className='teacher-gender'>
+              <select
+                name='select'
+                id='gender'
+                defaultValue='Select Gender'
+                required
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <option disabled={true} value='Select Gender'>
+                  Select Gender
+                </option>
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
+              </select>
+            </div>
+          </div>
+  
+          {/* <div className='createinput'>
                 <img src='link.png' alt=''></img>
                 <input type = 'text' id='text' placeholder='Attach link of all the credentials'>
                  </input>
@@ -121,7 +177,7 @@ export function TeacherSignup()
               </div>
               <div className='teacher-row'>
                 <div className='teacher-date'>
-                  <input type='date' id='gender'></input>
+                  <input type='date' id='birthdate'></input>
                 </div>
                 <div className='teacher-gender'>
                  <select name='select' id='gender' defaultValue='Select Gender'>
@@ -130,12 +186,8 @@ export function TeacherSignup()
                      <option value='Female'> Female</option>
                   </select>
                 </div>
-            </div>
+            </div> */}
 
-            {/* error messages */}
-          {/* Display error or success message if present */}
-          {successMessage && <div className='success-message'>{successMessage}</div>}
-          {errorMessage && <div className='error-message'>{errorMessage}</div>}
           <div className='signupbutton'>
             <button type='submit' id='sub'>
               Sign Up
@@ -147,6 +199,29 @@ export function TeacherSignup()
             </p>
             </div>
             </form>
+            {/* Display success message if present  */}
+      {successMessage && 
+          <div className='success-message'>
+            <Stack sx={{ width: 300 }} spacing={2} position={'absolute'}  marginLeft={7} marginTop={2}>
+               <Alert severity="success">
+                 <AlertTitle>Success</AlertTitle>
+                 {successMessage}
+                </Alert>
+            </Stack>
+          </div>
+            }
+
+
+          {/* Display error message if present  */}
+          {errorMessage && 
+          <div className='error-message'>
+            <Stack sx={{ width: 292 }} spacing={2} position={'absolute'} marginTop={3}>
+               <Alert severity="error">
+                 <AlertTitle>Error</AlertTitle>
+                  {errorMessage}
+                </Alert>
+            </Stack>
+          </div>}
         </div>
     </div>   
   )

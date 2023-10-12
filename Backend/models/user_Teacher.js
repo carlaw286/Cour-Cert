@@ -6,7 +6,10 @@ const user_TeacherSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     email: String,
-    password: String
+    password: String,
+    birthDate: String,
+    gender: String,
+    credentialsLink: String
 })
 
 
