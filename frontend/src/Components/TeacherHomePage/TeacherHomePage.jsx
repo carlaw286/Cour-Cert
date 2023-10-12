@@ -17,9 +17,28 @@ export const TeacherHomePage = () =>
   const [course_description, setCourseDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [titleValid, setTitleValid] = useState(true); // Track the validity of the title input
+  const [descriptionValid, setDescriptionValid] = useState(true);// Track the validity of the description input
+
 
   const handleSubmit = async (e) => {
       e.preventDefault();
+
+      // Check if the input fields are empty
+      if (course_title.trim() === '') {
+        setTitleValid(false);
+       return; // Don't proceed if the title is empty
+      } else {
+       setTitleValid(true);
+      }
+
+      if (course_description.trim() === '') {
+        setDescriptionValid(false);
+        return; // Don't proceed if the description is empty
+      } else {
+        setDescriptionValid(true);
+      }
+
     
       try {
         //backend website for database storing
@@ -95,7 +114,11 @@ export const TeacherHomePage = () =>
             fullWidth
             variant="standard"
             required
-            onChange={(e) => setCourseTitle(e.target.value)}
+            onChange={(e) => {
+              setCourseTitle(e.target.value);
+              setTitleValid(e.target.value.trim() !== '');
+            }}
+            error={!titleValid}
           />
 
           <TextField
@@ -107,7 +130,11 @@ export const TeacherHomePage = () =>
             fullWidth
             variant="standard"
             required
-            onChange={(e) => setCourseDescription(e.target.value)}
+            onChange={(e) => {
+              setCourseDescription(e.target.value);
+              setDescriptionValid(e.target.value.trim() !== '');
+            }}
+            error={!descriptionValid}
           />
         </DialogContent>
         <DialogActions>
