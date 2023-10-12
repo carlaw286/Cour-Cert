@@ -36,7 +36,8 @@ export const TeacherHomePage = () =>
         } else {
            // Successful registration
           setSuccessMessage('Add Course Success!');
-          setErrorMessage(''); // Clear any existing error message            // Redirect to view course after a delay
+          setErrorMessage(''); // Clear any existing error message            
+          // Redirect to view course after a delay
            setTimeout(() => {
             navigate('/teacherviewcourse');
           }, 2000); // Adjust the delay as needed
@@ -93,6 +94,7 @@ export const TeacherHomePage = () =>
             type="text"
             fullWidth
             variant="standard"
+            required
             onChange={(e) => setCourseTitle(e.target.value)}
           />
 
@@ -104,6 +106,7 @@ export const TeacherHomePage = () =>
             type="text"
             fullWidth
             variant="standard"
+            required
             onChange={(e) => setCourseDescription(e.target.value)}
           />
         </DialogContent>
