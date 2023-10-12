@@ -34,6 +34,7 @@ img {
 
 }
 
+
 .app-title {
     font-size: 2.2rem;
     text-decoration: none;
@@ -53,7 +54,6 @@ ul:hover li {
     opacity: 0.2;
     filter: blur(0.0625rem);
 }
-
 ul li:hover {
     opacity: 1;
     filter: blur(0rem);
@@ -76,7 +76,6 @@ ul li:hover {
     font-size: 1rem;
     font-weight: 500;
     color: #222;
-    margin-right: 60px;
 }
 
 .nav-links i{
