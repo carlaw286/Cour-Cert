@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './AddCourse.css';
 import { useNavigate } from 'react-router-dom';
+import { Textarea } from 'theme-ui'
+import { NoSsr } from '@mui/material';
 
 export const TeacherAddCourse = () => 
 {
@@ -36,17 +38,19 @@ export const TeacherAddCourse = () =>
                 </input>
             </div>
             <div className='description'>
-                <input 
+            <Textarea placeholder='Course Description' />
+                {/* <input 
                     type='text'
                      id='title' 
                     placeholder='Course Description'>
-                </input>
+                </input> */}
             </div>
 
         </div>
         <div className='addcourse-row'>
             <div className='addcourse-col'>
                 <div className='Forms'>
+                
                     <input className='form-input1'
                         type='text' 
                         id='topicnumber' 
