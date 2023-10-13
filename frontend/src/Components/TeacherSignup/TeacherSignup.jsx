@@ -161,33 +161,6 @@ export function TeacherSignup()
               </select>
             </div>
           </div>
-  
-          {/* <div className='createinput'>
-                <img src='link.png' alt=''></img>
-                <input type = 'text' id='text' placeholder='Attach link of all the credentials'>
-                 </input>
-              </div>
-
-              <div className='label-row'>
-                <div className='teacher-datelabel'>
-                  <p> Date of Birth</p></div>
-                <div className='teacher-genderlabel'> 
-                 <p>Gender</p>
-                </div>
-              </div>
-              <div className='teacher-row'>
-                <div className='teacher-date'>
-                  <input type='date' id='birthdate'></input>
-                </div>
-                <div className='teacher-gender'>
-                 <select name='select' id='gender' defaultValue='Select Gender'>
-                    <option disabled={true} value='Select Gender'> Select Gender</option>
-                    <option value='Male'> Male</option>
-                     <option value='Female'> Female</option>
-                  </select>
-                </div>
-            </div> */}
-
           <div className='signupbutton'>
             <button type='submit' id='sub'>
               Sign Up
@@ -200,7 +173,7 @@ export function TeacherSignup()
             </div>
             </form>
             {/* Display success message if present  */}
-      {successMessage && 
+           {successMessage && 
           <div className='success-message'>
             <Stack sx={{ width: 300 }} spacing={2} position={'absolute'}  marginLeft={7} marginTop={2}>
                <Alert severity="success">
@@ -210,8 +183,6 @@ export function TeacherSignup()
             </Stack>
           </div>
             }
-
-
           {/* Display error message if present  */}
           {errorMessage && 
           <div className='error-message'>

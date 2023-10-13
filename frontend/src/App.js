@@ -34,22 +34,16 @@ function App() {
             <Route path = '/loginsignup' element = {<LoginSignup/>}/>
             <Route path = '/teachersignup' element = {<TeacherSignup/>}/>
             <Route path = '/studentsignup' element = {<StudentSignup/>}/>
+            <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>
+            <Route path = '/studenthomepage' element = {<StudentHomePage/>}/>
+            <Route path = '/profilepage' element = {<ProfilePage/>}/>
+            <Route path = '/trial' element = {<Trial/>}/>
+           <Route path = '/teacherprofile' element = {<TeacherProfile/>}/>
+           <Route path = '/teacheraddcourse' element = {<TeacherAddCourse/>}/>
+           <Route path = '/teacherviewcourse' element = {<TeacherViewCourse/>}/>
+           <Route path = '/studentviewcourse' element = {<StudentViewCourse/>}/>
           </Routes>
     </Router>
-
-     <Router>
-      <Routes>
-        <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>
-        <Route path = '/studenthomepage' element = {<StudentHomePage/>}/>
-        <Route path = '/profilepage' element = {<ProfilePage/>}/>
-        <Route path = '/trial' element = {<Trial/>}/>
-        <Route path = '/teacherprofile' element = {<TeacherProfile/>}/>
-        <Route path = '/teacheraddcourse' element = {<TeacherAddCourse/>}/>
-        <Route path = '/teacherviewcourse' element = {<TeacherViewCourse/>}/>
-        <Route path = '/studentviewcourse' element = {<StudentViewCourse/>}/>
-
-      </Routes>
-     </Router>
     </>
   );
 }
