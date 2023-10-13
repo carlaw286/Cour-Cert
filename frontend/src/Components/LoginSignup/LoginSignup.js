@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './LoginSignup.css';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../LandingPage/components/Navbar';
 
 import user_icon from '../Assets/person.png';
 import email_icon from '../Assets/email.png';
@@ -86,6 +87,7 @@ export const LoginSignup = () => {
 
   return (
     <div className='containers'>
+      <Navbar/>
     <div className='container1' id="login">
       <div className="header">
         <div className="text">{action}</div>
