@@ -3,6 +3,7 @@ import {useRef} from "react";
 import "../styles/Contact.css";
 import ContactBackground from "../public/assets/ContactBg.png";
 import emailjs from "@emailjs/browser";
+import Navbar from "../components/Navbar";
 
 
 
@@ -46,6 +47,7 @@ const Contact = () => {
    
     return (
         <div className="contact-page-wrapper">
+            <Navbar/>
             <div className="contact-background-image-container">
                 <img src={ContactBackground} alt="" className="C-Bg"/>
             </div>

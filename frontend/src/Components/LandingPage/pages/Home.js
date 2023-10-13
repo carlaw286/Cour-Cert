@@ -3,12 +3,14 @@ import { Component } from "react";
 import BackGround from "../public/assets/Bg.png";
 import { FiArrowRight } from "react-icons/fi";
 import { HashLink as Link } from "react-router-hash-link";
+import Navbar from "../components/Navbar";
 
 
 class Home extends Component {
     render() {
     return (
         <section>
+            <Navbar/>
         <div className = "home-container">
             <div className ="home-banner-container">
                 <div className="home-bannerImage-container">

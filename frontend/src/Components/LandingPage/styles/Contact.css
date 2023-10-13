@@ -94,7 +94,7 @@
     font-weight: bold;
 }
 .primary-h {
-    margin-top: 190px;
+    margin-top: 175px;
     font-size: clamp(2rem, 5vw, 4rem);
     color: white;
     max-width: 900px;

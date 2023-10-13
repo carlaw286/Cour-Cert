@@ -1,10 +1,12 @@
 import React from "react";
 import ABackground from "../public/assets/AboutBg.png";
 import "../styles/LearnMore.css";
+import Navbar from "../components/Navbar";
 
 const LearnMore = () => {
     return(
         <div className="Wrapper">
+            <Navbar/>
             <div className="LearnMore-background-container">
                 <img src={ABackground} alt="" className="LMBg" />
             </div>

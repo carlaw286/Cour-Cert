@@ -4,6 +4,7 @@ import InteractiveLearningTools from "../public/assets/interactive.svg";
 import ProgressTracking from "../public/assets/tasks.svg";
 import "../styles/Services.css";
 import ServiceBackground from "../public/assets/ServiceBg.png"
+import Navbar from "../components/Navbar";
 
 
 const Services = () => {
@@ -26,6 +27,7 @@ const Services = () => {
     ];
     return ( 
         <section>
+            <Navbar/>
              <div className="service-section-wrapper">
                 <div className="service-background-image-container">
                     <img src = {ServiceBackground} alt="" className="S-Bg"/>

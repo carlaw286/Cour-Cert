@@ -4,11 +4,13 @@ import Content1 from "../public/assets/Content1.png";
 import Content2 from "../public/assets/Content2.png";
 import Content3 from "../public/assets/Content3.png";
 import "../styles/MoreDetails.css";
+import Navbar from "../components/Navbar";
 
 
 const MoreDetails = () => {
     return(
         <div className="More-section-Wrapper">
+            <Navbar/>
             <h1 className="first-header">Embark and Learn</h1>
             <div className="MoreDetails-background-image-container">
                 <img src = {MDBackground} alt = "" className="Bg1"/>
