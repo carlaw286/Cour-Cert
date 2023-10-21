@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './StudentHomePage.css';
 import  './addlogo.png';
 
 
 export const StudentHomePage = () => 
 {
+  const navigate  = useNavigate();
   return(
      <div className='studenthomepage'>
        <nav className='navHomepage'>
@@ -26,7 +28,7 @@ export const StudentHomePage = () =>
            </div>
        </nav>
        <div class ="addcoursebutton">
-          <button id="addbutton"></button>
+          <button id="addbutton"  onClick={() => navigate('/studentaddcourse')}></button>
        </div>
      </div>     
   );
