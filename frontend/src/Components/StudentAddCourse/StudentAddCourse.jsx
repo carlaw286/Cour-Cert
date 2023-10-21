@@ -44,9 +44,17 @@ export const StudentAddCourse = () =>
                 <div className='titles1'>
                     {course.course_title}
                 </div>
-                <div className='descriptions1'>
-                    {course.course_description}
-                </div>             
+                <div className='Courses'>
+                    <div className='description1'>
+                        <p>{course.course_description}</p>
+                    </div>
+                    <div className='enrollcourse'>
+                        <button type='submit'>
+                            Enroll Course
+                        </button>
+                    </div>
+                </div>
+                           
         </div>
         })
     }

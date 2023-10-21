@@ -66,11 +66,10 @@
 }
 
 .course-box{
-    margin-top:1vh;
+    margin-top:2vh;
     width: 60rem;
     height: 20vh;
     border: 1px solid black;
-    font-size: 25px;
     padding: 8px;
     border-radius: 5px;
     color: black;
@@ -79,36 +78,48 @@
 .titles1{
     border: 1px solid black;
     height: 4vh;
+    font-size: 23px;
+    padding: 6px;
+    text-indent: 5px;
 }
 
-.descriptions1{
+.titles1:hover{
+    background-color: aqua;
+}
+
+.Courses{
+    font-size: 20px;
+    text-indent: 5vh;
+    text-align: justify;
+    display: flex;
     margin-top: 1vh;
     height: 13vh;
-    border: 1px solid black;
-}
+    border: 1px solid rgb(115, 120, 121);
+  }
 
-/* .titles1:hover{
-    background-color:rgb(211, 208, 208);
-}
+  .Courses .description1 {
+    margin-top: 1vh;
+    margin-left: 1vh;
+    width: 48rem;
+    height: 13vh;
+    color:rgb(54, 53, 53);
+  }
 
+  .Courses .enrollcourse button{
+    color:white;
+    background-color: rgb(243,148,30);
+    border-radius: 5px;
+    font-size: 20px;
+    width: 17vh;
+    height: 5vh;
+    margin-top: 3.5vh;
+    border: 1px solid rgb(243,148,30);
+  }
 
-.titles1 a:link {
-    text-decoration: none;
-    color: black;
-}
-  
-.titles1 a:visited {
-    text-decoration: none;
-    color: black;
-}
-  
-.titles1 a:hover {
-    text-decoration: none;
-    color: black;
-}
-  
-.titles1 a:active {
-    text-decoration: none;
-    color: black;
- } */
+  .Courses .enrollcourse button:hover{
+    cursor: pointer;
+    background-color:rgb(189, 118, 32) ;
+    border: 1px solid rgb(189, 118, 32);
+  }
+
 
