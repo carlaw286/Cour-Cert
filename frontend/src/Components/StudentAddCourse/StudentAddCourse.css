@@ -72,19 +72,17 @@
     border: 1px solid black;
     padding: 8px;
     border-radius: 5px;
-    color: black;
 }
 
 .titles1{
-    border: 1px solid black;
+    border: 1px solid rgb(224, 223, 223);
+    background-color: rgb(224, 223, 223);
+    border-radius: 5px;
     height: 4vh;
     font-size: 23px;
     padding: 6px;
     text-indent: 5px;
-}
-
-.titles1:hover{
-    background-color: aqua;
+    color: black;
 }
 
 .Courses{
@@ -94,7 +92,7 @@
     display: flex;
     margin-top: 1vh;
     height: 13vh;
-    border: 1px solid rgb(115, 120, 121);
+    border: 1px solid white;
   }
 
   .Courses .description1 {
