@@ -54,8 +54,15 @@
     font-size: 20px;
 }
 
+.Descript{
+    margin-top: 5vh;
+    margin-left: 38.6%;
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+
 .details1{
-    margin-top: 10vh;
     margin-left: 27%;
     height: 10vh;
     width: 90vh;
@@ -63,6 +70,7 @@
     font-weight: 400px;
     justify-items: left;
     text-align: left;
+    
 }
 
 .course-box{
