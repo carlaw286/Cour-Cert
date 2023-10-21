@@ -121,7 +121,7 @@ app.get('/getTeachercourses', (req, res) => {
 app.post('/teacher_AddCourse', async (req, res) => {
     const { course_title } = req.body;try {
         // Check if the course already exists in the database
-        const existingCourse_Title = await teacher_AddCourseModel.findOne({ course_title: course_title });
+        const existingCourse_Title = await teacher_AddCourseModel.findOne({ course_title: course_title});
 
         if (existingCourse_Title) {
             res.json("Course already exists");
