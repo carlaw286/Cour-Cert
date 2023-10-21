@@ -32,12 +32,14 @@ export const StudentAddCourse = () =>
     <div class ="second-nav-links2">
         <ul>
           <li><a href = "#"> View Course</a> </li>
-          <li><a href = "./studentprofile"> Account Profile</a> </li>
           <li><a href = "/studenthomepage"> Back</a> </li>
          </ul>
        </div>
     </nav>
 
+    <div className='Descript'>
+        ALL COURSES AVAILABLE
+    </div>
     <div className='details1'> 
         {courses.map(course => {
             return <div className='course-box'>
@@ -53,12 +55,14 @@ export const StudentAddCourse = () =>
                             Enroll Course
                         </button>
                     </div>
-                </div>
-                           
-        </div>
-        })
-    }
+                </div>                    
+            </div>
+            })
+        }
     </div>
-</div>
+    <div className='space'>
+    </div>
+    </div>
     )
 }
+
