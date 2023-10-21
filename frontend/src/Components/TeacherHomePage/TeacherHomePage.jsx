@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './TeacherHomePage.css'
 import { useNavigate } from 'react-router-dom';
 import Button from "@mui/material/Button";
@@ -76,7 +76,20 @@ export const TeacherHomePage = () =>
     setOpen(false);
   };
   const navigate = useNavigate();
-  return(
+  //jwt
+    axios.defaults.withCredentials = true;
+    useEffect(()=> {
+      axios.get('http://localhost:3002/teacherhomepage')
+      .then(result => {console.log(result)
+          if(result.data !== "Success")
+          {
+              navigate('/loginsignup')
+          }
+      })
+      .catch(err=> console.log(err))
+    }, [])
+  //jwt
+    return(
       <div className='teacherhomepage'>
        <nav className='navHomepage'>
           <div class ="app-logo1">

@@ -5,6 +5,8 @@ const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
 //
 const bcrypt = require('bcrypt')
+const jwt = require ('jsonwebtoken')
+const cookieParser = require ('cookie-parser')
 //
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
 
@@ -12,7 +14,35 @@ require('dotenv/config')
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
+
+}))
+app.use(cookieParser())
+
+//jwt
+const verifyUser = (req, res, next) => {
+    const token = req.cookies.token;
+    if(!token){
+        return res.json("The token was not available")
+    } else {
+        jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+            if(err) return res.json("Token is wrong")
+            next();
+        })
+    }
+}
+
+app.get('/studenthomepage',verifyUser, (req, res) => {
+    return res.json("Success")
+})
+
+app.get('/teacherhomepage',verifyUser, (req, res) => {
+    return res.json("Success")
+})
+//jwt
 
 
 //Goes into the database 
@@ -40,9 +70,11 @@ app.post("/loginsignupstudent", (req, res) => {
         if(userStudent) {
             bcrypt.compare(password, userStudent.password, (err, response) => {
                 if (response) {
+                    const token = jwt.sign({email: userStudent.email}, "jwt-secret-key", {expiresIn:"1d"})
+                    res.cookie("token",  token);
                     res.json("Success")
                 }
-                else  {//optional getuyo ra para d ka proceed if i input ang hash password
+                else  {
                     res.json("Password is incorrect")
                 }//
             })
@@ -61,6 +93,8 @@ app.post("/loginsignupteacher", (req, res) => {
         if(userTeacher) {
             bcrypt.compare(password, userTeacher.password, (err, response) => {
                 if (response) {
+                    const token = jwt.sign({email: userTeacher.email}, "jwt-secret-key", {expiresIn:"1d"})
+                    res.cookie("token",  token);
                     res.json("Success")
                 }
                 else  {//optional getuyo ra para d ka proceed if i input ang hash password
