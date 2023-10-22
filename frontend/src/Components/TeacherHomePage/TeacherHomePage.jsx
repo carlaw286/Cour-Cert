@@ -19,7 +19,7 @@ export const TeacherHomePage = () =>
   const [successMessage, setSuccessMessage] = useState('');
   const [titleValid, setTitleValid] = useState(true); // Track the validity of the title input
   const [descriptionValid, setDescriptionValid] = useState(true);// Track the validity of the description input
-
+  const [search, setSearch] = useState('');
 
   const handleSubmit = async (e) => {
       e.preventDefault();
@@ -83,7 +83,7 @@ export const TeacherHomePage = () =>
             <img src = "logo.png" alt= "Cour-Cert" height={160} width={100}></img>
           </div>
           <div class = "searchBar1">
-            <input type = "text" id="search-input" placeholder="Search here"></input>
+            <input type = "text" id="search-input" placeholder="Search here" onChange={event=>{setSearch(event.target.value)}}></input>
             <button id="search-button">Search</button>
           </div>
           <div class ="nav-links1">

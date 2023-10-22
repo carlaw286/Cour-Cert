@@ -27,6 +27,16 @@
     color: rgb(175, 170, 170);
 }
 
+.studentsearch{
+    margin-top: 7px;
+    margin-left: 40%;
+    
+}
+
+.studentsearch input{
+    width: 30rem;
+    border-radius: 5px;
+}
 .second-nav2{
     border: none;
     background-color: rgb(87, 85, 85);

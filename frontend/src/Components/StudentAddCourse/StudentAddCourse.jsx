@@ -6,7 +6,8 @@ import './StudentAddCourse.css';
 
 export const StudentAddCourse = () => 
 {
-    const [courses, getCourses] = useState([])
+    const [search, setSearch] = useState('');
+    const [courses, getCourses] = useState([]);
 
     useEffect( ()=>{
         axios.get('http://localhost:3002/getTeachercourses')
@@ -29,6 +30,13 @@ export const StudentAddCourse = () =>
         </div>
     </nav>
     <nav className='second-nav2'>
+    <div className='studentsearch'>
+    <input 
+        type = "text" 
+        id="search-input" 
+        placeholder="Search here" 
+        onChange={event=>{setSearch(event.target.value)}}></input>
+    </div>
     <div class ="second-nav-links2">
         <ul>
           <li><a href = "#"> View Course</a> </li>
