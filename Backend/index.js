@@ -27,41 +27,7 @@ app.use(cookieParser())
 
 
 
-//nodemailer
-app.post('/forgotpassword', (req, res) => {
-    const {email} = req.body;
 
-    user_StudentModel.findOne({email: email})
-    .then(user_Student => {
-        if(!user_Student){
-            return res.send({Status: "User doesn't exist."})
-        }
-        const token = jwt.sign({id: user_Student._id}, "jwt_secret_key", {expiresIn: "1d"})
-                
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-            user: 'courcertdeveloper@gmail.com',
-            pass: 'lstu ntsg pqzb lwwt'
-            }
-        });
-        
-        var mailOptions = {
-            from: 'youremail@gmail.com',
-            to: 'carlo.amadeo286@gmail.com',
-            subject: 'Reset Your Cour-Cert Account Password',
-            text: `http://localhost:3000/resetpassword/${user_Student._id}/${token}`
-        };
-        
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-            console.log(error);
-            } else {
-            return res.send({Status: "Success"})
-            }
-        });
-    })
-})
 //jwt
 const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
@@ -262,4 +228,59 @@ mongoose.connect(process.env.DB_URI, {useNewURLParser: true, useUnifiedTopology:
 
 app.listen(3002, () => {
     console.log("server is running")
+})
+
+//nodemailer
+app.post('/forgotpassword', (req, res) => {
+    const {email} = req.body;
+
+    user_StudentModel.findOne({email: email})
+    .then(user_Student => {
+        if(!user_Student){
+            return res.send({Status: "User doesn't exist."})
+        }
+        const token = jwt.sign({id: user_Student._id}, "jwt_secret_key", {expiresIn: "1d"})
+                
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+            user: 'courcertdeveloper@gmail.com',
+            pass: 'lstu ntsg pqzb lwwt'
+            }
+        });
+        
+        var mailOptions = {
+            from: 'youremail@gmail.com',
+            to: email,
+            subject: 'Reset Your Cour-Cert Account Password',
+            text: `http://localhost:3000/resetpassword/${user_Student._id}/${token}`
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            return res.send({Status: "Success"})
+            }
+        });
+    })
+})
+
+app.post('/resetpassword/:id/:token', (req, res) => {
+    const {id, token} = req.params
+    const {password} = req.body
+
+    jwt.verify(token, "jwt_secret_key", (err, decoded) => {
+        if(err) {
+            return res.json({Status: "Error with token"})
+        } else {
+            bcrypt.hash(password, 10)
+            .then(hash => {
+                user_StudentModel.findByIdAndUpdate({_id: id}, {password: hash})
+                .then(u => res.send({Status: "Success"}))
+                .catch(err => res.send({Status: err}))
+            })
+            .catch(err => res.send({Status: err}))
+        }
+    })
 })

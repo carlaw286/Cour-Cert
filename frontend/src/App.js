@@ -9,6 +9,7 @@ import MoreDetails from './Components/LandingPage/pages/MoreDetails';
 import LearnMore from './Components/LandingPage/pages/LearnMore';
 import { LoginSignup} from './Components/LoginSignup/LoginSignup';
 import { ForgotPassword} from './Components/ForgotPassword/ForgotPassword';
+import { ResetPassword} from './Components/ResetPassword/ResetPassword';
 import { TeacherHomePage} from './Components/TeacherHomePage/TeacherHomePage';
 import { TeacherSignup} from './Components/TeacherSignup/TeacherSignup';
 import { StudentSignup} from './Components/StudentSignup/StudentSignup';
@@ -36,6 +37,7 @@ function App() {
             <Route path = '/About/LearnMore' element={<LearnMore />} />
             <Route path = '/loginsignup' element = {<LoginSignup/>}/>
             <Route path = '/forgotpassword' element = {<ForgotPassword/>}/>
+            <Route path = '/resetpassword/:id/:token' element = {<ResetPassword/>}/>
             <Route path = '/teachersignup' element = {<TeacherSignup/>}/>
             <Route path = '/studentsignup' element = {<StudentSignup/>}/>
             <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>
