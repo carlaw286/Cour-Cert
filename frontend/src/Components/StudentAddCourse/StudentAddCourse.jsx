@@ -59,7 +59,7 @@ export const StudentAddCourse = () =>
                         <p>{course.course_description}</p>
                     </div>
                     <div className='enrollcourse'>
-                        <button type='submit'>
+                        <button type='submit' onClick={() => navigate('/courseviewpage')}>
                             Enroll Course
                         </button>
                     </div>

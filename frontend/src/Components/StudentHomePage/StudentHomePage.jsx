@@ -41,7 +41,7 @@ export const StudentHomePage = () =>
            </div>
        </nav>
        <div class ="addcoursebutton">
-          <button id="addbutton"  onClick={() => navigate('/studentaddcourse')}></button>
+          <button id="addbutton"  onClick={() => navigate('/allcourselist')}></button>
        </div>
      </div>     
   );
