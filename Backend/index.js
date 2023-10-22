@@ -3,12 +3,15 @@ const mongoose = require('mongoose')
 const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
-//
+const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
+//jwt
 const bcrypt = require('bcrypt')
 const jwt = require ('jsonwebtoken')
 const cookieParser = require ('cookie-parser')
-//
-const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
+//jwt
+//nodemailer
+var nodemailer = require('nodemailer');
+//nodemailer
 
 require('dotenv/config')
 
@@ -22,6 +25,43 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
+
+
+//nodemailer
+app.post('/forgotpassword', (req, res) => {
+    const {email} = req.body;
+
+    user_StudentModel.findOne({email: email})
+    .then(user_Student => {
+        if(!user_Student){
+            return res.send({Status: "User doesn't exist."})
+        }
+        const token = jwt.sign({id: user_Student._id}, "jwt_secret_key", {expiresIn: "1d"})
+                
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+            user: 'courcertdeveloper@gmail.com',
+            pass: 'lstu ntsg pqzb lwwt'
+            }
+        });
+        
+        var mailOptions = {
+            from: 'youremail@gmail.com',
+            to: 'carlo.amadeo286@gmail.com',
+            subject: 'Reset Your Cour-Cert Account Password',
+            text: `http://localhost:3000/resetpassword/${user_Student._id}/${token}`
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+            console.log(error);
+            } else {
+            return res.send({Status: "Success"})
+            }
+        });
+    })
+})
 //jwt
 const verifyUser = (req, res, next) => {
     const token = req.cookies.token;
