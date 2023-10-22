@@ -27,7 +27,7 @@ export const StudentAddCourse = () =>
             <div className='first-nav-title1'>
                 <p className='p1'> Course-Certification</p>
             <div className='first-nav-title1'>
-            <p className='p3'> "Empowering Your Learning Journey"</p>
+            <p className='p2'> "Empowering Your Learning Journey"</p>
             </div>
         </div>
     </nav>
