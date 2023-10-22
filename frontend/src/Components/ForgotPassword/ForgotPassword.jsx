@@ -5,10 +5,16 @@ import { useNavigate } from "react-router-dom";
 import email_icon from '../Assets/email.png';
 import axios from 'axios'
 import Navbar from '../LandingPage/components/Navbar';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 
 export function ForgotPassword() {
     const [email, setEmail] = useState()
+    
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate()
 
     axios.defaults.withCredentials = true;
@@ -17,9 +23,15 @@ export function ForgotPassword() {
         axios.post('http://localhost:3002/forgotpassword', {email})
         .then(res => {
             if(res.data.Status === "Success") {
-                navigate('/loginsignup')
+                setSuccessMessage('Password reset link sent successfully.');
+                setErrorMessage('');
+                setTimeout(() => {
+                  navigate('/loginsignup');
+                }, 2000);
             } else {
-                 navigate('/forgotpassword')
+                setErrorMessage('Invalid email. Please enter a registered email.');
+          // Optionally, you can clear the success message if it was set previously
+                navigate('/forgotpassword')
             }
         }).catch(err => console.log(err))
     }
@@ -57,6 +69,27 @@ export function ForgotPassword() {
             Send Password Reset Link
           </button>
           </div>
+
+          {successMessage && 
+          <div className='success-message'>
+            <Stack sx={{ width: 300 }} spacing={2} position={'absolute'}  marginLeft={7} marginTop={2}>
+               <Alert severity="success">
+                 <AlertTitle>Success</AlertTitle>
+                 {successMessage}
+                </Alert>
+            </Stack>
+          </div>
+            }
+
+        {errorMessage && 
+          <div className='error-message'>
+            <Stack sx={{ width: 292 }} spacing={2} position={'absolute'} marginTop={3}>
+               <Alert severity="error">
+                 <AlertTitle>Error</AlertTitle>
+                  {errorMessage}
+                </Alert>
+            </Stack>
+          </div>}
           </form>
       </div>
     </div>

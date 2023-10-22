@@ -4,25 +4,47 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import password_icon from '../Assets/password.png';
 import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
+
+import eye_icon from '../Assets/hide.png';
+import eye_slash_icon from '../Assets/view.png';
 
 
 export function ResetPassword() {
+    const [showPassword, setShowPassword] = useState(false);
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword); };
     const [password, setPassword] = useState()
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate()
     const {id, token} = useParams()
 
     axios.defaults.withCredentials = true;
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:3002/resetpassword/${id}/${token}`, {password})
-        .then(res => {
+        
+        if (password !== confirmPassword) {
+            setErrorMessage('Passwords do not match.');
+            return;
+          }
+          else{
+            axios.post(`http://localhost:3002/resetpassword/${id}/${token}`, {password})
+            .then(res => {
             if(res.data.Status === "Success") {
-                navigate('/loginsignup')
+                setSuccessMessage('Sign up successful! Redirecting to login...');
+                setErrorMessage('');
+                setTimeout(() => {
+                    navigate('/loginsignup');
+                  }, 2000);
             } else {
                  navigate('/resetpassword')
             }
         }).catch(err => console.log(err))
-    }
+    }}
 
     return(
         <div className='containers'>
@@ -31,8 +53,8 @@ export function ResetPassword() {
         <div className="FPtext">Reset Password</div>
         <div className="FPunderline"></div>
       </div>
-      <div className="messagebelowforgotpassword">
-        <p>Enter the email address you registered for your Cour-Cert Account, and we will send you an email message with password reset information.</p>
+      <div className="messagebelowresetpassword">
+        <p>Please use a NEW password! For best account security, please do not re-use old passwords.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -40,22 +62,65 @@ export function ResetPassword() {
           <div className='password-icon'>
           <img src={password_icon} alt="" />
           </div>
-          <input type="password" placeholder='New Password' required onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type={showPassword ? 'text' : 'password'} // Toggle input type based on showPassword state
+            placeholder='Password'  required onChange={(e) => setPassword(e.target.value)} 
+          />
+          <div className='password-viewer' onClick={togglePasswordVisibility}>
+            <img src={showPassword ? eye_slash_icon : eye_icon} alt="Toggle Password" />
+          </div>
+        </div>
+        <div style={{ marginBottom: '10px' }}></div>
+        <div className="input1">
+          <div className='password-icon'>
+          <img src={password_icon} alt="" />
+          </div>
+          <input type="password" placeholder='Confirm New Password' required onChange={(e) => setConfirmPassword(e.target.value)} />
         </div>
         
+
+        
+        
         <div className="FPheader"><div className="FPunderline"></div></div>
-
         <div className="FPbuttons">
-        <button className="btn btn-cancel w-100 rounded-0" onClick={() => navigate('/loginsignup')}
-          >
-            Cancel
-          </button>  
 
-          <button type="submit" className="btn btn-success w-100 rounded-0"
+          <button type="submit" className="btn btn-RSTsuccess w-100 rounded-0"
           >
-            Update
+            Set New Password
           </button>
           </div>
+          <div className="messagebelowresetpassword">
+        <p>
+
+        <strong>Secure password tips:</strong><br />
+            <br />• Use numbers, letters, and only these symbols:
+            <br />&nbsp;&nbsp;@ # ! $ ^ & * : ( ) - = + [ ] { } | ?
+            <br />• Use a password that is a minimum of eight characters long, alphanumeric, and case sensitive.
+            <br />• Use a different password for each web site you use.
+            <br />• Do not use the same password as your email service account.
+            <br />• Do not use an old password from an account that was hacked or shared.
+        </p>
+        </div>
+        {successMessage && 
+          <div className='success-message'>
+            <Stack sx={{ width: 300 }} spacing={2} position={'absolute'}  marginLeft={7} marginTop={2}>
+               <Alert severity="success">
+                 <AlertTitle>Success</AlertTitle>
+                 {successMessage}
+                </Alert>
+            </Stack>
+          </div>
+            }
+
+        {errorMessage && 
+          <div className='error-message'>
+            <Stack sx={{ width: 292 }} spacing={2} position={'absolute'} marginTop={3}>
+               <Alert severity="error">
+                 <AlertTitle>Error</AlertTitle>
+                  {errorMessage}
+                </Alert>
+            </Stack>
+          </div>}
           </form>
       </div>
     </div>

@@ -9,9 +9,7 @@ const bcrypt = require('bcrypt')
 const jwt = require ('jsonwebtoken')
 const cookieParser = require ('cookie-parser')
 //jwt
-//nodemailer
 var nodemailer = require('nodemailer');
-//nodemailer
 
 require('dotenv/config')
 
@@ -232,55 +230,88 @@ app.listen(3002, () => {
 
 //nodemailer
 app.post('/forgotpassword', (req, res) => {
-    const {email} = req.body;
+    const { email } = req.body;
 
-    user_StudentModel.findOne({email: email})
-    .then(user_Student => {
-        if(!user_Student){
-            return res.send({Status: "User doesn't exist."})
-        }
-        const token = jwt.sign({id: user_Student._id}, "jwt_secret_key", {expiresIn: "1d"})
+    // Check both student and teacher models
+    Promise.all([
+        user_StudentModel.findOne({ email }),
+        user_TeacherModel.findOne({ email }),
+    ])
+    .then(([user_Student, user_Teacher]) => {
+        // Check if either a student or a teacher with the given email exists
+        if (user_Student || user_Teacher) {
+            const user = user_Student || user_Teacher; // Use the first non-null user
+
+            const token = jwt.sign({ id: user._id }, "jwt_secret_key", { expiresIn: "1d" });
+
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'courcertdeveloper@gmail.com',
+                    pass: 'lstu ntsg pqzb lwwt'
+                }
+            });
+
+            var mailOptions = {
+                from: 'youremail@gmail.com',
+                to: email,
+                subject: 'Reset Your Cour-Cert Account Password',
+                text: `Dear Cour-Cert User,
                 
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-            user: 'courcertdeveloper@gmail.com',
-            pass: 'lstu ntsg pqzb lwwt'
-            }
-        });
-        
-        var mailOptions = {
-            from: 'youremail@gmail.com',
-            to: email,
-            subject: 'Reset Your Cour-Cert Account Password',
-            text: `http://localhost:3000/resetpassword/${user_Student._id}/${token}`
-        };
-        
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-            console.log(error);
-            } else {
-            return res.send({Status: "Success"})
-            }
-        });
+                Here are your Cour-Cert Account Reset Password Link.
+                The Reset Password link will expire in 24 hours.
+
+                http://localhost:3000/resetpassword/${user._id}/${token}
+
+                
+                The Cour-Cert Developer Team`
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    return res.send({ Status: "Error sending email" });
+                } else {
+                    return res.send({ Status: "Success" });
+                }
+            });
+        } else {
+            return res.send({ Status: "User doesn't exist." });
+        }
     })
-})
+    .catch(error => {
+        console.log(error);
+        return res.send({ Status: "Error" });
+    });
+});
+
 
 app.post('/resetpassword/:id/:token', (req, res) => {
-    const {id, token} = req.params
-    const {password} = req.body
+    const { id, token } = req.params;
+    const { password } = req.body;
 
     jwt.verify(token, "jwt_secret_key", (err, decoded) => {
-        if(err) {
-            return res.json({Status: "Error with token"})
+        if (err) {
+            return res.json({ Status: "Error with token" });
         } else {
             bcrypt.hash(password, 10)
-            .then(hash => {
-                user_StudentModel.findByIdAndUpdate({_id: id}, {password: hash})
-                .then(u => res.send({Status: "Success"}))
-                .catch(err => res.send({Status: err}))
-            })
-            .catch(err => res.send({Status: err}))
+                .then(hash => {
+                    // Check both student and teacher models
+                    Promise.all([
+                        user_StudentModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+                        user_TeacherModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+                    ])
+                        .then(([studentUpdate, teacherUpdate]) => {
+                            // Check if either a student or a teacher with the given ID exists
+                            if (studentUpdate || teacherUpdate) {
+                                return res.send({ Status: "Success" });
+                            } else {
+                                return res.send({ Status: "User doesn't exist." });
+                            }
+                        })
+                        .catch(err => res.send({ Status: err }));
+                })
+                .catch(err => res.send({ Status: err }));
         }
-    })
-})
+    });
+});
