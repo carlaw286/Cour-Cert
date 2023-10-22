@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './StudentHomePage.css';
 import  './addlogo.png';
-
+import axios from 'axios'
 
 export const StudentHomePage = () => 
 {
   const navigate  = useNavigate();
+//jwt
+  axios.defaults.withCredentials = true;
+  useEffect(()=> {
+    axios.get('http://localhost:3002/studenthomepage')
+    .then(result => {console.log(result)
+        if(result.data !== "Success")
+        {
+            navigate('/loginsignup')
+        }
+    })
+    .catch(err=> console.log(err))
+  }, [])
+//jwt
   return(
      <div className='studenthomepage'>
        <nav className='navHomepage'>
