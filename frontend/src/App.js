@@ -19,6 +19,7 @@ import{TeacherAddCourse} from './Components/TeacherAddCourse/AddCourse';
 import{TeacherViewCourse} from './Components/TeacherViewCourse/TeacherViewCourse';
 import{StudentViewCourse} from './Components/StudentViewCourse/StudentViewCourse';
 import{StudentAddCourse} from './Components/StudentAddCourse/StudentAddCourse';
+import{CourseViewPage} from './Components/CourseViewPage/CourseViewPage';
 
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
            <Route path = '/teacheraddcourse' element = {<TeacherAddCourse/>}/>
            <Route path = '/teacherviewcourse' element = {<TeacherViewCourse/>}/>
            <Route path = '/studentviewcourse' element = {<StudentViewCourse/>}/>
-           <Route path = '/studentaddcourse' element = {<StudentAddCourse/>}/>
+           <Route path = '/allcourselist' element = {<StudentAddCourse/>}/>
+           <Route path = '/courseviewpage' element = {<CourseViewPage/>}/>
           </Routes>
     </Router>
     </>
