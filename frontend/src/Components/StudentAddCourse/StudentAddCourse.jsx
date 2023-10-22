@@ -20,7 +20,9 @@ export const StudentAddCourse = () =>
         <div className='addcoursecontainer1'>
         <nav className='first-nav1'>
             <div class ="first-nav-logo1">
-               <img src = "Logo1.1.png" alt=    "Cour-Cert"></img>
+            <a href='/studenthomepage'>
+                     <img src = "Logo1.1.png" alt=    "Cour-Cert"></img>
+                </a>
          </div>
             <div className='first-nav-title1'>
                 <p className='p1'> Course-Certification</p>
@@ -39,7 +41,6 @@ export const StudentAddCourse = () =>
     </div>
     <div class ="second-nav-links2">
         <ul>
-          <li><a href = "#"> View Course</a> </li>
           <li><a href = "/studenthomepage"> Back</a> </li>
          </ul>
        </div>
@@ -52,14 +53,16 @@ export const StudentAddCourse = () =>
         {courses.map(course => {
             return <div className='course-box'>
                 <div className='titles1'>
-                    {course.course_title}
+                    <a href='courseviewpage'>
+                        {course.course_title}
+                    </a>  
                 </div>
                 <div className='Courses'>
                     <div className='description1'>
                         <p>{course.course_description}</p>
                     </div>
                     <div className='enrollcourse'>
-                        <button type='submit' onClick={() => navigate('/courseviewpage')}>
+                        <button type='submit' onClick={() => navigate('/mycourse')}>
                             Enroll Course
                         </button>
                     </div>

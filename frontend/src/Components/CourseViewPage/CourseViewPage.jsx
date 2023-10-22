@@ -22,7 +22,7 @@ export const CourseViewPage = () =>
     <nav className='second-nav2'>
     <div class ="second-nav-links2">
         <ul>
-          <li><a href = "#"> View Course</a> </li>
+          <li><a href = "/allcourselist"> View Course</a> </li>
           <li><a href = "/allcourselist"> Back</a> </li>
          </ul>
        </div>
