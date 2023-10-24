@@ -32,7 +32,7 @@ export const LoginSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (userType === "student"){
-      axios.post('http://cour-cert-api.vercel.app/loginsignupstudent', { email, password})
+      axios.post('http://localhost:3002/loginsignupstudent', { email, password})
     .then(result => {
       console.log(result)
       if(result.data === "Success") {  
@@ -58,7 +58,7 @@ export const LoginSignup = () => {
       setErrorMessage("An error occurred. Please try again.");
     });}
     else if (userType === "teacher"){
-      axios.post('http://cour-cert-api.vercel.app/loginsignupteacher', { email, password})
+      axios.post('http://localhost:3002/loginsignupteacher', { email, password})
     .then(result => {
       console.log(result)
       if(result.data === "Success") {  
