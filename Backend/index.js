@@ -17,14 +17,13 @@ const app = express()
 app.use(express.json())
 app.use(cors({
     // origin: ["http://localhost:3000"],
-    origin: ["*"],
+    origin: ["https://cour-cert.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true
 
 }))
 app.use(cookieParser())
 
-mongoose.connect(process.env.DB_URI, {useNewURLParser: true, useUnifiedTopology: true})
 
 
 
@@ -220,6 +219,7 @@ app.post('/teacher_AddCourse', async (req, res) => {
 })
 
 
+mongoose.connect(process.env.DB_URI, {useNewURLParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log('DB Connected!');
 })
