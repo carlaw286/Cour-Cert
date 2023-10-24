@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(cors({
     // origin: ["http://localhost:3000"],
     origin: ["https://cour-cert.vercel.app"],
-    methods: ["POST", "GET"],
+    methods: ["GET", "POST"],
     credentials: true
 
 }))
@@ -48,9 +48,7 @@ app.get('/teacherhomepage',verifyUser, (req, res) => {
     return res.json("Success")
 })
 //jwt
-app.get("/", (req, res) => {
-    res.json("Hello");
-})
+
 
 //Goes into the database 
 app.post("/loginsignupstudent", (req, res) => {

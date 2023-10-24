@@ -30,7 +30,7 @@ export function StudentSignup()
 
     try {
       //backend website for database storing
-      const response = await axios.post('https://cour-cert-api.vercel.app/studentsignup', {
+      const response = await axios.post('http://cour-cert-api.vercel.app/studentsignup', {
         firstName,
         lastName,
         email,
