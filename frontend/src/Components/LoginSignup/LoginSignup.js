@@ -32,7 +32,11 @@ export const LoginSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (userType === "student"){
-      axios.post('https://cour-cert-api.vercel.app/loginsignupstudent', { email, password})
+      axios.post(
+        'https://cour-cert-api.vercel.app/loginsignupstudent',
+        { email, password },
+        { withCredentials: true }
+      )
     .then(result => {
       console.log(result)
       if(result.data === "Success") {  
