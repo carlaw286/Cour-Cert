@@ -17,7 +17,7 @@ const app = express()
 app.use(express.json())
 app.use(cors({
     // origin: ["http://localhost:3000"],
-    origin: ["https://cour-cert.vercel.app/"],
+    origin: ["https://cour-cert.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true
 
@@ -219,7 +219,7 @@ app.post('/teacher_AddCourse', async (req, res) => {
 })
 
 
-mongoose.connect(process.env.DB_URI, {useNewURLParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb+srv://courcertdeveloper:Asterisk123!@courcert.wyhqo0c.mongodb.net/courcert_db?retryWrites=true&w=majority')
 .then(() => {
     console.log('DB Connected!');
 })
