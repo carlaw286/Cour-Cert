@@ -2,10 +2,12 @@ import React from "react";
 import AboutBackground from "../public/assets/AboutBg.png";
 import "../styles/About.css";
 import { HashLink as Link } from "react-router-hash-link";
+import Navbar from "../components/Navbar";
 
 const About = () => {
     return(
         <section>
+            <Navbar/>
         <div className="about-section-container">
             <div className="about-background-image-container">
                  <img src={AboutBackground} alt="" className="Background"/>

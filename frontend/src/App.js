@@ -8,6 +8,8 @@ import Contact from './Components/LandingPage/pages/Contact';
 import MoreDetails from './Components/LandingPage/pages/MoreDetails';
 import LearnMore from './Components/LandingPage/pages/LearnMore';
 import { LoginSignup} from './Components/LoginSignup/LoginSignup';
+import { ForgotPassword} from './Components/ForgotPassword/ForgotPassword';
+import { ResetPassword} from './Components/ResetPassword/ResetPassword';
 import { TeacherHomePage} from './Components/TeacherHomePage/TeacherHomePage';
 import { TeacherSignup} from './Components/TeacherSignup/TeacherSignup';
 import { StudentSignup} from './Components/StudentSignup/StudentSignup';
@@ -18,20 +20,24 @@ import{TeacherProfile} from './Components/TeacherProfile/TeacherProfile';
 import{TeacherAddCourse} from './Components/TeacherAddCourse/AddCourse';
 import{TeacherViewCourse} from './Components/TeacherViewCourse/TeacherViewCourse';
 import{StudentViewCourse} from './Components/StudentViewCourse/StudentViewCourse';
+import{StudentAddCourse} from './Components/StudentAddCourse/StudentAddCourse';
+import{CourseViewPage} from './Components/CourseViewPage/CourseViewPage';
+
 
 function App() {
   return (
     <>
     <Router>
-      <Navbar />
           <Routes>
-            <Route path = '/' element={<Home />} />
+            <Route path = '/' element={<Home/>} />
             <Route path = '/about' element={<About />} />
             <Route path = '/services' element={<Services />} />
             <Route path = '/contact' element={<Contact />} />
             <Route path = '/MoreDetails' element={<MoreDetails />} />
             <Route path = '/About/LearnMore' element={<LearnMore />} />
             <Route path = '/loginsignup' element = {<LoginSignup/>}/>
+            <Route path = '/forgotpassword' element = {<ForgotPassword/>}/>
+            <Route path = '/resetpassword/:id/:token' element = {<ResetPassword/>}/>
             <Route path = '/teachersignup' element = {<TeacherSignup/>}/>
             <Route path = '/studentsignup' element = {<StudentSignup/>}/>
             <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>

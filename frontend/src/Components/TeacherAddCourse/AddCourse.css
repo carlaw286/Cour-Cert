@@ -65,12 +65,11 @@
     text-indent: 2.5vh;
 }
 
-.description input{
+.description textarea{
     height: 20vh;
     width: 90vh;
-    text-indent: 2.5vh;
+    resize: none;
 }
-
 
 .addcourse-row{
     display: flex;
