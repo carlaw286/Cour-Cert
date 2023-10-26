@@ -65,21 +65,14 @@ export const TeacherViewCourse = () => {
                 </div>
             </nav>
 
-            <div className='detail'>
-                <div>
-                    List of courses
-                </div>
-                {courses.map(course => {
-                    console.log(course)
-                    return (
-                        <div className='title1'>
-                            <Link to={`/teacheraddcourse?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
-                                {course.course_title}
-                            </Link>
-                        </div>
-                    )
-                })}
-
+        <div className='detail'> 
+            <div>
+                List of courses
+            </div>
+            {courses.map(course => {
+                return <div className='title1'>
+                <a href='teacheraddcourse'> {course.course_title}
+                </a>
             </div>
         </div>
     )

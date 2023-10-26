@@ -27,6 +27,16 @@
     color: rgb(175, 170, 170);
 }
 
+.studentsearch{
+    margin-top: 7px;
+    margin-left: 40%;
+    
+}
+
+.studentsearch input{
+    width: 30rem;
+    border-radius: 5px;
+}
 .second-nav2{
     border: none;
     background-color: rgb(87, 85, 85);
@@ -69,8 +79,7 @@
     font-size: 35px;
     font-weight: 400px;
     justify-items: left;
-    text-align: left;
-    
+    text-align: left; 
 }
 
 .course-box{
@@ -92,6 +101,26 @@
     text-indent: 5px;
     color: black;
 }
+
+.titles1 a:link {
+    text-decoration: none;
+    color: black;
+}
+  
+.titles1 a:visited {
+    text-decoration: none;
+    color: black;
+}
+  
+.titles1 a:hover {
+    text-decoration: none;
+    color: black;
+}
+  
+.titles1 a:active {
+    text-decoration: none;
+    color: black;
+ }
 
 .Courses{
     font-size: 20px;
@@ -127,5 +156,3 @@
     background-color:rgb(189, 118, 32) ;
     border: 1px solid rgb(189, 118, 32);
   }
-
-

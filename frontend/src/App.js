@@ -8,6 +8,8 @@ import Contact from './Components/LandingPage/pages/Contact';
 import MoreDetails from './Components/LandingPage/pages/MoreDetails';
 import LearnMore from './Components/LandingPage/pages/LearnMore';
 import { LoginSignup} from './Components/LoginSignup/LoginSignup';
+import { ForgotPassword} from './Components/ForgotPassword/ForgotPassword';
+import { ResetPassword} from './Components/ResetPassword/ResetPassword';
 import { TeacherHomePage} from './Components/TeacherHomePage/TeacherHomePage';
 import { TeacherSignup} from './Components/TeacherSignup/TeacherSignup';
 import { StudentSignup} from './Components/StudentSignup/StudentSignup';
@@ -19,6 +21,7 @@ import{TeacherAddCourse} from './Components/TeacherAddCourse/AddCourse';
 import{TeacherViewCourse} from './Components/TeacherViewCourse/TeacherViewCourse';
 import{StudentViewCourse} from './Components/StudentViewCourse/StudentViewCourse';
 import{StudentAddCourse} from './Components/StudentAddCourse/StudentAddCourse';
+import{CourseViewPage} from './Components/CourseViewPage/CourseViewPage';
 
 
 function App() {
@@ -33,6 +36,8 @@ function App() {
             <Route path = '/MoreDetails' element={<MoreDetails />} />
             <Route path = '/About/LearnMore' element={<LearnMore />} />
             <Route path = '/loginsignup' element = {<LoginSignup/>}/>
+            <Route path = '/forgotpassword' element = {<ForgotPassword/>}/>
+            <Route path = '/resetpassword/:id/:token' element = {<ResetPassword/>}/>
             <Route path = '/teachersignup' element = {<TeacherSignup/>}/>
             <Route path = '/studentsignup' element = {<StudentSignup/>}/>
             <Route path = '/teacherhomepage' element = {<TeacherHomePage/>}/>
@@ -43,7 +48,8 @@ function App() {
            <Route path = '/teacheraddcourse' element = {<TeacherAddCourse/>}/>
            <Route path = '/teacherviewcourse' element = {<TeacherViewCourse/>}/>
            <Route path = '/studentviewcourse' element = {<StudentViewCourse/>}/>
-           <Route path = '/studentaddcourse' element = {<StudentAddCourse/>}/>
+           <Route path = '/allcourselist' element = {<StudentAddCourse/>}/>
+           <Route path = '/courseviewpage' element = {<CourseViewPage/>}/>
           </Routes>
     </Router>
     </>

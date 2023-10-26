@@ -4,12 +4,20 @@ const multer = require('multer');
 const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
-//
+const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
+//jwt
 const bcrypt = require('bcrypt')
+<<<<<<< HEAD
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 //
 const teacher_AddCourseModel = require('./models/teacher_Addcourse')
+=======
+const jwt = require ('jsonwebtoken')
+const cookieParser = require ('cookie-parser')
+//jwt
+var nodemailer = require('nodemailer');
+>>>>>>> 94868c0191b4650571bf6720da4472d8899633cd
 
 require('dotenv/config')
 
@@ -22,6 +30,9 @@ app.use(cors({
 
 }))
 app.use(cookieParser())
+
+
+
 
 //jwt
 const verifyUser = (req, res, next) => {
@@ -342,3 +353,91 @@ mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology
 app.listen(3002, () => {
     console.log("server is running")
 })
+
+//nodemailer
+app.post('/forgotpassword', (req, res) => {
+    const { email } = req.body;
+
+    // Check both student and teacher models
+    Promise.all([
+        user_StudentModel.findOne({ email }),
+        user_TeacherModel.findOne({ email }),
+    ])
+    .then(([user_Student, user_Teacher]) => {
+        // Check if either a student or a teacher with the given email exists
+        if (user_Student || user_Teacher) {
+            const user = user_Student || user_Teacher; // Use the first non-null user
+
+            const token = jwt.sign({ id: user._id }, "jwt_secret_key", { expiresIn: "1d" });
+
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'courcertdeveloper@gmail.com',
+                    pass: 'lstu ntsg pqzb lwwt'
+                }
+            });
+
+            var mailOptions = {
+                from: 'youremail@gmail.com',
+                to: email,
+                subject: 'Reset Your Cour-Cert Account Password',
+                text: `Dear Cour-Cert User,
+                
+                Here are your Cour-Cert Account Reset Password Link.
+                The Reset Password link will expire in 24 hours.
+
+                http://localhost:3000/resetpassword/${user._id}/${token}
+
+                
+                The Cour-Cert Developer Team`
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    return res.send({ Status: "Error sending email" });
+                } else {
+                    return res.send({ Status: "Success" });
+                }
+            });
+        } else {
+            return res.send({ Status: "User doesn't exist." });
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        return res.send({ Status: "Error" });
+    });
+});
+
+
+app.post('/resetpassword/:id/:token', (req, res) => {
+    const { id, token } = req.params;
+    const { password } = req.body;
+
+    jwt.verify(token, "jwt_secret_key", (err, decoded) => {
+        if (err) {
+            return res.json({ Status: "Error with token" });
+        } else {
+            bcrypt.hash(password, 10)
+                .then(hash => {
+                    // Check both student and teacher models
+                    Promise.all([
+                        user_StudentModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+                        user_TeacherModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+                    ])
+                        .then(([studentUpdate, teacherUpdate]) => {
+                            // Check if either a student or a teacher with the given ID exists
+                            if (studentUpdate || teacherUpdate) {
+                                return res.send({ Status: "Success" });
+                            } else {
+                                return res.send({ Status: "User doesn't exist." });
+                            }
+                        })
+                        .catch(err => res.send({ Status: err }));
+                })
+                .catch(err => res.send({ Status: err }));
+        }
+    });
+});
