@@ -166,21 +166,7 @@ export const LoginSignup = () => {
         </form>
       </div>
     </div>
-
-<<<<<<< HEAD
-=======
-      {action === "Login" ? (
-          <div className="forgot-password"><a href='./forgotpassword'> Forgot Password?</a></div>
-        ) : null}
-      <div className="create-account">
-      <p>Don't have an account yet? Create account as <a href='./teachersignup'>Teacher</a> or <a href='./studentsignup'>Student</a>.</p>
-      </div> 
-      
-    </form> 
-    </div>
-    </div>
     
->>>>>>> 94868c0191b4650571bf6720da4472d8899633cd
   );
 }
 

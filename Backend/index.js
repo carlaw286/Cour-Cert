@@ -7,17 +7,9 @@ const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
 //jwt
 const bcrypt = require('bcrypt')
-<<<<<<< HEAD
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
-//
-const teacher_AddCourseModel = require('./models/teacher_Addcourse')
-=======
-const jwt = require ('jsonwebtoken')
-const cookieParser = require ('cookie-parser')
-//jwt
 var nodemailer = require('nodemailer');
->>>>>>> 94868c0191b4650571bf6720da4472d8899633cd
 
 require('dotenv/config')
 
@@ -183,50 +175,10 @@ app.post('/teachersignup', async (req, res) => {
 
 
 app.get('/getTeachercourses', (req, res) => {
-    console.log("asdadassadsadsddasasfasf")
     teacher_AddCourseModel.find()
         .then(courses => res.json(courses))
         .catch(err => res.json(err))
 })
-
-// app.get('/getTeachercourses', (req, res) => {
-//     const { user_id } = req.query;
-
-//     console.log(user_id);
-//     teacher_AddCourseModel.findOne({user_id: user_id})
-//         .then(userCourses =>{
-//             if(userCourses){
-
-//                 res.json({
-//                     status: "Found one",
-//                     userCourses
-//                 })
-//             }
-//             else{
-//                 res.json("No Courses Found")
-//             }
-//         })
-// })
-
-// app.post('/teacher_AddCourse', async (req, res) => {
-//     const { course_title } = req.body; 
-//     console.log(req.body);
-
-//     try {
-//         // Check if the course already exists in the database
-//         const existingCourse_Title = await teacher_AddCourseModel.findOne({ course_title: course_title });
-
-//         if (existingCourse_Title) {
-//             res.json("Course already exists");
-//         } else {
-//             // If the course does not exist, proceeds to create course
-//             const newCourse = await teacher_AddCourseModel.create(req.body);
-//             res.json(newCourse);
-//         }
-//     } catch (err) {
-//         res.status(500).json({ error: err.message });
-//     }
-// })
 
 
 const storage = multer.diskStorage({
@@ -340,20 +292,6 @@ app.put('/updateCourse', upload.single('pdfFile'), async (req, res) => {
 });
 
 
-
-
-mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('DB Connected!');
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-
-app.listen(3002, () => {
-    console.log("server is running")
-})
-
 //nodemailer
 app.post('/forgotpassword', (req, res) => {
     const { email } = req.body;
@@ -441,3 +379,15 @@ app.post('/resetpassword/:id/:token', (req, res) => {
         }
     });
 });
+
+mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('DB Connected!');
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+app.listen(3002, () => {
+    console.log("server is running")
+})

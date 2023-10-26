@@ -19,11 +19,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.2",
-<<<<<<< HEAD
     "multer": "^1.4.5-lts.1",
-=======
-    "nodemailer": "^6.9.6",
->>>>>>> 94868c0191b4650571bf6720da4472d8899633cd
-    "nodemon": "^3.0.1"
+    "nodemailer": "^6.9.7",
+    "nodemon": "^3.0.1",
+    "vite-plugin-rewrite-all": "^1.0.1"
   }
 }
