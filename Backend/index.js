@@ -5,7 +5,7 @@ const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
-const user_AdminModel = require('./models/user_admins')
+const user_AdminModel = require('./models/user_admin')
 //jwt
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -175,11 +175,19 @@ app.post('/teachersignup', async (req, res) => {
 });
 
 
+
 app.get('/getTeachercourses', (req, res) => {
-    teacher_AddCourseModel.find()
-        .then(courses => res.json(courses))
-        .catch(err => res.json(err))
-})
+    const { id } = req.query;
+    
+    if (!id) {
+      return res.status(400).json({ error: 'Missing user_id in the request body' });
+    }
+    
+    teacher_AddCourseModel
+      .find({ user_id: id })
+      .then(courses => res.json(courses))
+      .catch(err => res.json(err));
+});
 
 
 const storage = multer.diskStorage({
@@ -193,29 +201,25 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Add new teacher course with file upload
+// Add new teacher course 
 app.post('/teacher_AddCourse', upload.single('pdfFile'), async (req, res) => {
-    const { course_title, course_description, week_numbers } = req.body;
-    const pdfFile = req.file; // Assuming you have a single file upload input named 'pdfFile'
-
+    const { course_title, course_description, user_id } = req.body;
+    
     try {
         const existingCourseTitle = await teacher_AddCourseModel.findOne({ course_title: course_title });
-
+        
         if (existingCourseTitle) {
             res.json("Course already exists");
         } else {
             const newCourse = await teacher_AddCourseModel.create({
                 course_title,
                 course_description,
-                week_numbers: JSON.parse(week_numbers),
-                uploaded_files: [
-                    {
-                        filename: pdfFile.originalname,
-                        path: pdfFile.path,
-                    }
-                ]
+                user_id,
             });
+            
+
             res.json(newCourse);
+            
         }
     } catch (err) {
         res.status(500).json({ error: err.message });

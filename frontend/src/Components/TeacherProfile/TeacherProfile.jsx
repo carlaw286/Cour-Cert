@@ -109,7 +109,7 @@ export const TeacherProfile = () =>
 
             <div className='col-7'>
               <div className='but1'>
-                <button type='button' onClick={() => navigate('/studenthomepage')}> Back
+                <button type='button' onClick={() => navigate('/teacherhomepage')}> Back
               </button>
               </div>
               <div className='but2'>

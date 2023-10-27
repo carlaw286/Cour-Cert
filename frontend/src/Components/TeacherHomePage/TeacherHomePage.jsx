@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './TeacherHomePage.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -24,7 +24,7 @@ export const TeacherHomePage = () =>
 
   // AUTHENTICATION
 
-  // console.log("data: " + userData._id);
+  console.log("data: " + userData._id);
   const [search, setSearch] = useState('');
 
   const handleSubmit = async (e) => {
@@ -55,9 +55,6 @@ export const TeacherHomePage = () =>
           course_description,
           user_id: _id
         });
-    
-        console.log(response.data);
-        
     
         // Check if the response contains an error message
         if (response.data === 'Course already added') {
@@ -112,9 +109,9 @@ export const TeacherHomePage = () =>
           </div>
           <div class ="nav-links1">
             <ul>
-              <li><a href = "./teacherviewcourse"> View Course</a> </li>
-              <li><a href = "./teacherprofile"> Account Profile</a> </li>
-              <li><a href = "./"> Signout</a> </li>
+              <li><Link to = "/teacherviewcourse"> View Course</Link> </li>
+              <li><Link to = "/teacherprofile"> Account Profile</Link> </li>
+              <li><Link to = "/"> Signout</Link> </li>
              </ul>
            </div>
        </nav>

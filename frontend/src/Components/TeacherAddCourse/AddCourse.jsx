@@ -3,6 +3,7 @@ import './AddCourse.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Textarea } from 'theme-ui'
 import axios from 'axios';
+import { useUserDataAtom } from '../../hooks/user_data_atom';
 
 export const TeacherAddCourse = () => {
   const location = useLocation();
@@ -17,7 +18,9 @@ export const TeacherAddCourse = () => {
   const [file, setFile] = useState(null);
   const [titlePDF, setTitlePDF] = useState('');
   const id = queryParams.get('id');
+  const [userData, setUserData] = useUserDataAtom();
 
+  console.log("data from add course:" + userData.id)
   const handleAddWeekNumber = () => {
     setWeekNumbers([...weekNumbers, { topicnumber: '', callname: '' }]);
   };
@@ -49,7 +52,6 @@ export const TeacherAddCourse = () => {
 
   return (
     <div className='addcoursecontainer'>
-      {/* ... Your navigation and form elements ... */}
       <nav className='first-nav'>
         <div class="first-nav-logo">
           <img src="Logo1.1.png" alt="Cour-Cert"></img>

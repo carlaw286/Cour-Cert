@@ -2,45 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import './TeacherViewCourse.css';
 import axios from 'axios'
+import { useUserDataAtom } from '../../hooks/user_data_atom';
 
 export const TeacherViewCourse = () => {
     const [courses, getCourses] = useState([])
-
-    useEffect(() => {
-        axios.get('http://localhost:3002/getTeachercourses')
-            .then(courses => getCourses(courses.data))
-            .catch(err => console.log(err))
-    }, [])
-
-    // console.log(userData)
-
+    const [userData, setUserData] = useUserDataAtom();
+    const userId = userData._id
     // useEffect(() => {
-
-
-    //     if(userData){
-    //         console.log("dapat nnaay value" + userData);
-    //         // const { _id } = userData
-
-    //     // const params = {
-    //     //     user_id: _id
-    //     // }
-
-    //     axios.get('http://localhost:3002/getTeachercourses'
-    //     // , 
-    //     // { params }
-    //     )
-    //         .then(courses => {
-    //             if (courses.data.status === "Found one") {
-    //                 setUserData(courses.data.userCourses);
-    //             } else {
-    //             }
-    //         })
+    //     axios.get('http://localhost:3002/getTeachercourses')
+    //         .then(courses => getCourses(courses.data))
     //         .catch(err => console.log(err))
-
-    //     }
-
-
     // }, [])
+    useEffect(() => {
+        axios.get('http://localhost:3002/getTeachercourses', {
+            params: {
+                id: userId
+            }
+        })
+        .then(response => {
+            getCourses(response.data);
+        })
+        .catch(err => console.log(err));
+    }, []);
+    
+
+    console.log("data from view course:" + userId)
+    
 
     return (
         <div className='addcoursecontainer'>
@@ -58,9 +45,9 @@ export const TeacherViewCourse = () => {
             <nav className='second-nav'>
                 <div class="second-nav-links">
                     <ul>
-                        <li><a href="#"> View Course</a> </li>
-                        <li><a href="./teacherprofile"> Account Profile</a> </li>
-                        <li><a href="/teacherhomepage"> Back</a> </li>
+                        <li><Link to="/teacherviewcourse"> View Course</Link> </li>
+                        <li><Link to="/teacherprofile"> Account Profile</Link> </li>
+                        <li><Link to="/teacherhomepage"> Back</Link> </li>
                     </ul>
                 </div>
             </nav>
