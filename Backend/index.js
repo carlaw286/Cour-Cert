@@ -226,7 +226,7 @@ app.post('/teacher_AddCourse', upload.single('pdfFile'), async (req, res) => {
     }
 });
 
-// Update teacher course with file upload
+// Update teacher course with topics and file upload
 app.put('/updateCourse', upload.single('pdfFile'), async (req, res) => {
     console.log("AFJSFJSFJSDJF")
 
@@ -295,6 +295,7 @@ app.put('/updateCourse', upload.single('pdfFile'), async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 
 //nodemailer

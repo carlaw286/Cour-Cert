@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './AddCourse.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useUserDataAtom } from '../../hooks/user_data_atom';
 import { Textarea } from 'theme-ui'
 import axios from 'axios';
-import { useUserDataAtom } from '../../hooks/user_data_atom';
+
 
 export const TeacherAddCourse = () => {
   const location = useLocation();
@@ -20,7 +21,7 @@ export const TeacherAddCourse = () => {
   const id = queryParams.get('id');
   const [userData, setUserData] = useUserDataAtom();
 
-  console.log("data from add course:" + userData.id)
+  
   const handleAddWeekNumber = () => {
     setWeekNumbers([...weekNumbers, { topicnumber: '', callname: '' }]);
   };
@@ -66,13 +67,13 @@ export const TeacherAddCourse = () => {
       <nav className='second-nav'>
         <div class="second-nav-links">
           <ul>
-            <li><a href="./teacherviewcourse"> View Course</a> </li>
-            <li><a href="./teacherprofile"> Account Profile</a> </li>
-            <li><a href="./teacherviewcourse"> Back</a> </li>
+            <li><Link to="/teacherviewcourse"> View Course</Link > </li>
+            <li><Link to="/teacherprofile"> Account Profile</Link > </li>
+            <li><Link to="/teacherviewcourse"> Back</Link > </li>
           </ul>
         </div>
       </nav>
-      <form >
+      <form>
         <div className='details'>
           <div className='title'>
             <input
@@ -92,48 +93,62 @@ export const TeacherAddCourse = () => {
           </div>
         </div>
         {weekNumbers.map((week, index) => (
-        <div className='addcourse-row' key={index}>
-          <div className='addcourse-col'>
-            <div className='Forms'>
-              <input
-                className='form-input1'
-                type='text'
-                id='topicnumber'
-                placeholder='Week #'
-                value={week.topicnumber}
-                onChange={(e) => {
+          <div className='addcourse-row' key={index}>
+            <div className='addcourse-col'>
+              {/* ... Week input fields ... */}
+              <div className='Forms'>
+                {/* <input
+                  className='form-input1'
+                  type='text'
+                  id='topicnumber'
+                  placeholder='Week #'
+                  value={week.topicnumber}
+                  onChange={(e) => {
                   const newWeekNumbers = [...weekNumbers];
                   newWeekNumbers[index].topicnumber = e.target.value;
                   setWeekNumbers(newWeekNumbers);
-                }}
-              />
-            </div>
-            <div className='addfile'>
-              <input
-                type="text"
-                className="callname"
-                placeholder="Name of the file after adding the file"
-                value={week.callname}
-                onChange={(e) => {
-                  
-                }}
-              />
-              <div className='inputfile'>
-                <input
-                  type='file'
-                  id='filename'
-                  onChange={handleFileUpload}
+                  }} */}
+                  <input
+                    className='form-input1'
+                    type='text'
+                    id='topicnumber'
+                    placeholder='Week #'
+                    value={week.topicnumber}
+                    onChange={(e) => {
+                    const newWeekNumbers = [...weekNumbers];
+                    newWeekNumbers[index].topicnumber = e.target.value;
+                    setWeekNumbers(newWeekNumbers);
+                  }}
                 />
+              </div>
+              <div className='addfile'>
+                <input
+                  type='text'
+                  className='callname'
+                  placeholder='Name of the file after adding the file'
+                  value={week.callname}
+                  onChange={(e) => {
+                  const newWeekNumbers = [...weekNumbers];
+                  newWeekNumbers[index].callname = e.target.value;
+                  setWeekNumbers(newWeekNumbers);
+                   }}
+                />
+                <div className='inputfile'>
+                  <input
+                    type='file'
+                    id='filename'
+                    onChange={handleFileUpload}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
         ))}
         <div className='butts'>
-        <button className='add' type='add' onClick={handleAddWeekNumber}>+ Add new tile</button>
-        <button type="submit" onClick={handleSaveChanges}>Save Changes</button>
+          <button className='add' type='button' onClick={handleAddWeekNumber}>+ Add new tile</button>
+          <button type="submit" onClick={handleSaveChanges}>Save Changes</button>
         </div>
-        </form>
+      </form>
     </div>
   );
 };
