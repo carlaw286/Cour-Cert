@@ -175,6 +175,23 @@ h1{
     background: rgb(0, 105, 217);
 }
 
+.but3 button{
+    width: 13vh;
+    height: 4.2vh;
+    color: white;
+    background: rgb(0, 125, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+.but3 button:hover{
+    color: white;
+    background: rgb(0, 105, 217);
+}
+
 
 /* .col-7{
     margin-top: 22vh;

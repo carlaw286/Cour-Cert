@@ -9,6 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from 'axios'
+import { useUserDataAtom } from '../../hooks/user_data_atom';
 
 export const TeacherHomePage = () => 
 {
@@ -19,6 +20,11 @@ export const TeacherHomePage = () =>
   const [successMessage, setSuccessMessage] = useState('');
   const [titleValid, setTitleValid] = useState(true); // Track the validity of the title input
   const [descriptionValid, setDescriptionValid] = useState(true);// Track the validity of the description input
+  const [userData, setUserData] = useUserDataAtom();
+
+  // AUTHENTICATION
+
+  // console.log("data: " + userData._id);
   const [search, setSearch] = useState('');
 
   const handleSubmit = async (e) => {
@@ -41,18 +47,23 @@ export const TeacherHomePage = () =>
 
     
       try {
+        const { _id } = userData
+
         //backend website for database storing
         const response = await axios.post('http://localhost:3002/teacher_AddCourse', {
           course_title,
           course_description,
+          user_id: _id
         });
     
         console.log(response.data);
+        
     
         // Check if the response contains an error message
         if (response.data === 'Course already added') {
           setErrorMessage('Course already added');
         } else {
+          // setUserData(response.data)
            // Successful registration
           setSuccessMessage('Add Course Success!');
           setErrorMessage(''); // Clear any existing error message            
