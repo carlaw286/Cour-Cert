@@ -5,6 +5,7 @@ const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
+const user_AdminModel = require('./models/user_admins')
 //jwt
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -378,6 +379,29 @@ app.post('/resetpassword/:id/:token', (req, res) => {
                 .catch(err => res.send({ Status: err }));
         }
     });
+});
+
+app.get("/Admin", cors(),(req,res)=>{
+
+})
+
+
+app.post("/Admin",async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const check = await user_AdminModel.findOne({email:email})
+
+        if(check){
+            res.json("exist")
+        }
+        else{
+            res.json("not exist")
+        }
+    }
+    catch(e){
+        res.json("fail")
+    }
 });
 
 mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology: true })

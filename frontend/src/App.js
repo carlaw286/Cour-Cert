@@ -7,6 +7,9 @@ import Services from './Components/LandingPage/pages/Services';
 import Contact from './Components/LandingPage/pages/Contact';
 import MoreDetails from './Components/LandingPage/pages/MoreDetails';
 import LearnMore from './Components/LandingPage/pages/LearnMore';
+import AdminLogin from './Components/Admin/AdminLogin';
+import AdminHomePage from './Components/Admin/AdminHomePage';
+import AdminForgotPass from './Components/Admin/AdminForgotPass';
 import { LoginSignup} from './Components/LoginSignup/LoginSignup';
 import { ForgotPassword} from './Components/ForgotPassword/ForgotPassword';
 import { ResetPassword} from './Components/ResetPassword/ResetPassword';
@@ -35,6 +38,9 @@ function App() {
             <Route path = '/contact' element={<Contact />} />
             <Route path = '/MoreDetails' element={<MoreDetails />} />
             <Route path = '/About/LearnMore' element={<LearnMore />} />
+            <Route path = '/Admin' element={<AdminLogin />} />
+            <Route path = '/Admin/Home' element={<AdminHomePage/>} />
+            <Route path = '/Admin/ForgotPassword' element={<AdminForgotPass />} />
             <Route path = '/loginsignup' element = {<LoginSignup/>}/>
             <Route path = '/forgotpassword' element = {<ForgotPassword/>}/>
             <Route path = '/resetpassword/:id/:token' element = {<ResetPassword/>}/>
