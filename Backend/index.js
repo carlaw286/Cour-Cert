@@ -189,20 +189,8 @@ app.get('/getTeachercourses', (req, res) => {
       .catch(err => res.json(err));
 });
 
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Define the upload directory
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
-
-const upload = multer({ storage: storage });
-
 // Add new teacher course 
-app.post('/teacher_AddCourse', upload.single('pdfFile'), async (req, res) => {
+app.post('/teacher_AddCourse', async (req, res) => {
     const { course_title, course_description, user_id } = req.body;
     
     try {
@@ -226,56 +214,56 @@ app.post('/teacher_AddCourse', upload.single('pdfFile'), async (req, res) => {
     }
 });
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploaded-files'); // Define the upload directory
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+
+
 // Update teacher course with topics and file upload
-app.put('/updateCourse', upload.single('pdfFile'), async (req, res) => {
-    console.log("AFJSFJSFJSDJF")
+app.put('/updateCourse', upload.single("file"), async (req, res) => {
+    const data = req.body;
+    const {id} = data
+    console.log(data);
+    console.log(req.file)
 
-    const data = req.body
 
-    const { id } = data
+    const { course_title, course_description, weekNumber, title} = data;
+    const fileName = req.file.filename; // Assuming you have a single file upload input named 'pdfFile'
+    console.log("coursetitle: " + course_title)
+    console.log("coursedescription: " + course_description)
+    console.log("week: " + weekNumber)
+    console.log("PDFtitle: " + title)
 
-    console.log('id: ' + id);
-    console.log(data)
-
-    const { title, description, weekNumbers } = req.body;
-    const pdfFile = req.file; // Assuming you have a single file upload input named 'pdfFile'
-
+    console.log("name:" + fileName)
     try {
-        console.log(id)
+        console.log(id);
         const existingCourse = await teacher_AddCourseModel.findById(id);
 
-        console.log('111')
+        console.log('111');
 
         if (!existingCourse) {
             return res.status(404).json("Course not found");
         }
 
-        console.log('A')
+        console.log('A');
 
         const updatedCourse = {
-            course_title: title,
-            course_description: description,
-            week_numbers: weekNumbers,
-        };
-        console.log("week:" + weekNumbers)
-
-        console.log('b')
-
-        if (pdfFile) {
-            updatedCourse.uploaded_files = [
-                {
-                    filename: pdfFile.originalname,
-                    path: pdfFile.path,
-                }
-            ];
+            course_title : course_title,
+            course_description : course_description,
+            weekNumber : weekNumber,
+            title : title,
+            file : fileName,
         }
 
-        console.log('C')
-
-        console.log("updatedCourse.course_title: " + updatedCourse.course_title);
-        console.log("updatedCourse.course_description: " + updatedCourse.course_description);
-        console.log("updatedCourse.week_numbers: " + updatedCourse.week_numbers);
-
+        console.log('updatedCourse:', updatedCourse);
 
         const updatedCourseResult = await teacher_AddCourseModel.findByIdAndUpdate(
             id,
@@ -283,7 +271,7 @@ app.put('/updateCourse', upload.single('pdfFile'), async (req, res) => {
             { new: true }
         );
 
-        console.log('D')
+        console.log('D');
 
         if (updatedCourseResult) {
             res.json(updatedCourseResult);
@@ -295,6 +283,7 @@ app.put('/updateCourse', upload.single('pdfFile'), async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 
 

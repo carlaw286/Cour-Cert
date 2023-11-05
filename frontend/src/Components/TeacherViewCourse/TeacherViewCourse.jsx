@@ -8,11 +8,7 @@ export const TeacherViewCourse = () => {
     const [courses, getCourses] = useState([])
     const [userData, setUserData] = useUserDataAtom();
     const userId = userData._id
-    // useEffect(() => {
-    //     axios.get('http://localhost:3002/getTeachercourses')
-    //         .then(courses => getCourses(courses.data))
-    //         .catch(err => console.log(err))
-    // }, [])
+    
     useEffect(() => {
         axios.get('http://localhost:3002/getTeachercourses', {
             params: {
