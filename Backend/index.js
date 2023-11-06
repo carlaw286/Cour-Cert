@@ -63,7 +63,12 @@ app.post("/loginsignupstudent", (req, res) => {
                     if (response) {
                         const token = jwt.sign({ email: userStudent.email }, "jwt-secret-key", { expiresIn: "1d" })
                         res.cookie("token", token);
-                        res.json("Success")
+                        // res.json("Success")
+                        
+                        res.json({
+                            status: "Success",
+                            userStudent
+                        })
                     }
                     else {
                         res.json("Password is incorrect")
@@ -285,8 +290,8 @@ app.put('/updateCourse', upload.single("file"), async (req, res) => {
 });
 
 app.get('/studentprofile', (req, res) => {
-    const { email } = req.query; // Use req.query to get query parameters
-    user_StudentModel.findOne({ email }) // Use findOne instead of find to get a single user
+    const { userId } = req.query; // Use req.query to get query parameters
+    user_StudentModel.findById(userId) // Use findOne instead of find to get a single user
       .then(studentUser => res.json(studentUser))
       .catch(err => res.json(err));
   });
