@@ -25,6 +25,8 @@ export const TeacherHomePage = () =>
   // AUTHENTICATION
 
   console.log("data: " + userData._id);
+  
+  
   const [search, setSearch] = useState('');
 
   const handleSubmit = async (e) => {
@@ -170,4 +172,3 @@ export const TeacherHomePage = () =>
      </div>           
   );
 }
-
