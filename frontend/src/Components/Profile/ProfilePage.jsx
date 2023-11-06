@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './ProfilePage.css';
 import { useNavigate } from 'react-router-dom';
-
+import axios from "axios";
 export const ProfilePage = () => 
 {
   const navigate = useNavigate();
@@ -38,40 +38,53 @@ export const ProfilePage = () =>
       }
       setEditMode(!editMode);
     };
+
+    const [studentUser, setStudentUser] = useState({});
+
+    useEffect(() => {
+      // Replace 'user@example.com' with the actual email you want to query
+      axios.get(`http://localhost:3002/studentprofile?email=carlo.amadeo286@gmail.com`)
+        .then(result => setStudentUser(result.data))
+        .catch(err => console.log(err));
+    }, []);
+
   return(
     <div className='profilepage'>
       <form>
         <div className='row-1'>
-          <div className='prof-container'>
-          <div className='user-avatar'> 
-            <img src='./default_profile.webp'></img>           
-          </div>
-          <div className='user-about'> 
-            <h1>About</h1>
-          </div>
-          <div className='about1'>
-            <div className=''>
-
+            <div className='prof-container'>
+            <div className='user-avatar'> 
+              <img src='./default_profile.webp'></img>           
             </div>
-          </div>
-          </div>
+            <div className='user-about'> 
+              <h1> About </h1>
+            </div>
+            <div className='about1'>
+              <div className=''>
+              </div>
+            </div>
+            </div>
           <div className='info-container'>
             <div className='label0'>
               <p> Personal Information</p>
             </div>
+            
             <div className='col-1'>
-              <p>First Name</p>
-              <p>Last Name</p>
-            </div>
+  <p>First Name</p>
+  <p>Last Name</p>
+</div>
+
+            
+            
             <div className='col-2'>
                 <input type='name' id='firstName' placeholder='Enter first name' 
-                value={formData.firstName}
+                value={studentUser.firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}> 
                 {/* // Disable input if not in edit mode */}
                 </input>
                 <input type='name' id='lastName' placeholder='Enter last name' 
-                value={formData.lastName}
+                value={studentUser.firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}> 
                 {/* // Disable input if not in edit mode */}
@@ -82,7 +95,7 @@ export const ProfilePage = () =>
             </div>
             <div className='col-4'>
               <input type='email' id='email' placeholder='Enter email' 
-                value={formData.email}
+                value={studentUser.email}
                 onChange={handleInputChange}
                 disabled={!editMode}> 
                 {/* // Disable input if not in edit mode */}
@@ -122,7 +135,9 @@ export const ProfilePage = () =>
               </button>
               </div>
             </div>
+            
           </div>
+          
         </div>
       </form>
     </div>

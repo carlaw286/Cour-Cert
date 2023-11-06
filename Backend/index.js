@@ -284,8 +284,13 @@ app.put('/updateCourse', upload.single("file"), async (req, res) => {
     }
 });
 
-
-
+app.get('/studentprofile', (req, res) => {
+    const { email } = req.query; // Use req.query to get query parameters
+    user_StudentModel.findOne({ email }) // Use findOne instead of find to get a single user
+      .then(studentUser => res.json(studentUser))
+      .catch(err => res.json(err));
+  });
+  
 
 //nodemailer
 app.post('/forgotpassword', (req, res) => {
