@@ -54,10 +54,13 @@ export const ProfilePage = () => {
   const [studentUser, setStudentUser] = useState({});
 
   useEffect(() => {
+    
+    console.log('miagi sa profile sa student')
+    
     // Replace 'user@example.com' with the actual email you want to query
     axios
       .get(
-        `http://localhost:3002/studentprofile?userId=carlo.amadeo286@gmail.com`
+        `http://localhost:3002/studentprofile?userId=${_id}`
       )
       .then((result) => setStudentUser(result.data))
       .catch((err) => console.log(err));
