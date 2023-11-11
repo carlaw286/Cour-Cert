@@ -291,9 +291,15 @@ app.put('/updateCourse', upload.single("file"), async (req, res) => {
 
 app.get('/studentprofile', (req, res) => {
     const { userId } = req.query; // Use req.query to get query parameters
-    console.log(userId)
     user_StudentModel.findById(userId) // Use findOne instead of find to get a single user
       .then(studentUser => res.json(studentUser))
+      .catch(err => res.json(err));
+  });
+
+  app.get('/teacherprofile', (req, res) => {
+    const { userId } = req.query; // Use req.query to get query parameters
+    user_TeacherModel.findById(userId) // Use findOne instead of find to get a single user
+      .then(teacherUser => res.json(teacherUser))
       .catch(err => res.json(err));
   });
   
