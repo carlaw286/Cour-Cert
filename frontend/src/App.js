@@ -54,6 +54,8 @@ function App() {
             <Route path = '/teacheraddcourse' element = {<TeacherAddCourse/>}/>
             <Route path = '/teacherviewcourse' element = {<TeacherViewCourse/>}/>
             <Route path = '/studentviewcourse' element = {<StudentViewCourse/>}/>
+            <Route path = '/allcourselist' element = {<StudentAddCourse/>}/>
+            <Route path = '/courseviewpage' element = {<CourseViewPage/>}/>
       </Routes>
      </Router>
     </>

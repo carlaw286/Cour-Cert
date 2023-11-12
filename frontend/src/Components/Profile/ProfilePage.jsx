@@ -117,7 +117,7 @@ export const ProfilePage = () => {
                 type="name"
                 id="firstName"
                 placeholder="Enter first name"
-                value={formData.firstName || firstName}
+                value={editMode ? formData.firstName : firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -127,7 +127,7 @@ export const ProfilePage = () => {
                 type="name"
                 id="lastName"
                 placeholder="Enter last name"
-                value={formData.lastName || lastName}
+                value={editMode ? formData.lastName : lastName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -142,7 +142,7 @@ export const ProfilePage = () => {
             type="email"
             id="email"
             placeholder="Enter email"
-            value={formData.email || email}
+            value={editMode ? formData.email : email}
             onChange={handleInputChange}
             disabled={!editMode}
               >

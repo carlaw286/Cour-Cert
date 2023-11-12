@@ -10,7 +10,7 @@ export const StudentAddCourse = () =>
     const [courses, getCourses] = useState([]);
 
     useEffect( ()=>{
-        axios.get('http://localhost:3002/getTeachercourses')
+        axios.get('http://localhost:3002/getStudentcourses')
         .then(courses => getCourses(courses.data))
         .catch( err => console.log(err))
     },[])
@@ -51,7 +51,7 @@ export const StudentAddCourse = () =>
     </div>
     <div className='details1'> 
         {courses.map(course => {
-            return <div className='course-box'>
+            return (<div className='course-box'>
                 <div className='titles1'>
                     <a href='courseviewpage'>
                         {course.course_title}
@@ -68,7 +68,7 @@ export const StudentAddCourse = () =>
                     </div>
                 </div>                    
             </div>
-            })
+        )})
         }
     </div>
     <div className='space'>

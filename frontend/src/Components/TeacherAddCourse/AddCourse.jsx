@@ -17,30 +17,47 @@ export const TeacherAddCourse = () => {
   const [week, setWeek] = useState('')
   const [pdfTitle, setPdfTitle] = useState('');
   const [pdfFile, setPdfFile] = useState('');
-  console.log("user id:" + id);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+
+  console.log("data ID from view course: " + id);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const WeeklyData = {
+      id,
+      weekNumber: week,
+      file: pdfFile,
+      PDFdescription: pdfTitle,
+    };
+    console.log("Add topic data" + WeeklyData);
+    try {
+      // Attempt to make the POST request
+      const TopicData = await axios.post("http://localhost:3002/AddFiles", WeeklyData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // If the request is successful, set the success message
+      setUploadSuccess(true);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
 
-
     const courseData = {
       id,
-      course_title : courseTitle,
+      course_title: courseTitle,
       course_description: courseDescription,
-      weekNumber: week,
-      title: courseTitle,
-      file: pdfFile
     };
 
-    console.log(courseTitle,courseDescription,week,pdfTitle,pdfFile,id)
+    console.log(courseTitle, courseDescription, week, pdfTitle, pdfFile, id);
     // Handle your axios request with the updated courseData
-    const data = await axios.put("http://localhost:3002/updateCourse", courseData,{
-      headers : {"Content-Type": "multipart/form-data"},
-    });
+    const data = await axios.put("http://localhost:3002/updateCourse", courseData);
     console.log(data);
   };
-  
-  
 
   return (
     <div className="addcoursecontainer">
@@ -83,39 +100,44 @@ export const TeacherAddCourse = () => {
             />
           </div>
         </div>
-          <div className="addcourse-row">
-            <div className="addcourse-col">
-              <div className="Forms">
+        <div className="addcourse-row">
+          <div className="addcourse-col">
+            <div className="Forms">
+              <input
+                className="form-input1"
+                type="text"
+                id="topicnumber"
+                placeholder="Week #"
+                value={week}
+                onChange={(e) => setWeek(e.target.value)}
+              />
+              <input
+                type="text"
+                className="PdfFilename"
+                placeholder="Title of the file"
+                value={pdfTitle}
+                onChange={(e) => setPdfTitle(e.target.value)}
+              />
+              <div className="inputfile">
                 <input
-                  className="form-input1"
-                  type="text"
-                  id="topicnumber"
-                  placeholder="Week #"
-                  value={week}
-                  onChange= {(e) => setWeek(e.target.value)}
+                  type="file"
+                  name="pdfFile"
+                  accept=".pdf"
+                  onChange={(e) => setPdfFile(e.target.files[0])}
                 />
-                <input
-                  type="text"
-                  className="PdfFilename"
-                  placeholder="Title of the file"
-                  value={pdfTitle}
-                  onChange={(e) => setPdfTitle(e.target.value)}
-                />
-                <div className="inputfile">
-                  <input
-                    type="file"
-                    name="pdfFile"
-                    accept=".pdf"
-                    onChange={(e) => setPdfFile(e.target.files[0])}
-                  />
-                </div>
               </div>
             </div>
+            <button type="submit" onClick={handleSubmit}>
+              Upload File
+            </button>
           </div>
+        </div>
+        {uploadSuccess && (
+          <div className="success-message">
+            File upload successful!
+          </div>
+        )}
         <div className="butts">
-          <button type="button" >
-            + Add new week
-          </button>
           <button type="submit" onClick={handleSaveChanges}>
             Save Changes
           </button>
