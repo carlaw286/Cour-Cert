@@ -152,6 +152,7 @@ export const ProfilePage = () => {
             <div>
               <button
                 className="dropdown-toggle"
+                type = "button"
                 onClick={() => setShowDropdown(!showDropdown)}
               >
                 {showDropdown ? "Hide" : "Edit Passwords"}
