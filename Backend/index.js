@@ -5,6 +5,7 @@ const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
+const teacher_AddTopicModel = require('./models/teacher_Addtopic')
 const user_AdminModel = require('./models/user_admin')
 //jwt
 const bcrypt = require('bcrypt')
@@ -174,7 +175,11 @@ app.post('/teachersignup', async (req, res) => {
     }
 });
 
-
+app.get('/getStudentcourses', (req, res) => {
+    teacher_AddCourseModel.find()
+        .then(courses => res.json(courses))
+        .catch(err => res.json(err))
+})
 
 app.get('/getTeachercourses', (req, res) => {
     const { id } = req.query;
@@ -225,26 +230,58 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-
-// Update teacher course with topics and file upload
-app.put('/updateCourse', upload.single("file"), async (req, res) => {
+app.post('/AddFiles', upload.single("file"), async (req,res) => {
     const data = req.body;
     const {id} = data
     console.log(data);
-    console.log(req.file)
+    console.log(req.file);
+
+    const { weekNumber, PDFdescription} = data;
+    const fileName = req.file.originalname;
+
+    console.log("week " + weekNumber);
+    console.log("week " + PDFdescription);
+    try {
+        const existingCourse = await teacher_AddCourseModel.findById(id);
 
 
-    const { course_title, course_description, weekNumber, title} = data;
-    const fileName = req.file.filename; // Assuming you have a single file upload input named 'pdfFile'
+        
+        if (!existingCourse) {
+            return res.status(404).json("Course not found");
+        }
+        const Addtopic = await teacher_AddTopicModel.create({
+            weekNumber : weekNumber,
+            PDFdescription : PDFdescription,
+            file : fileName,
+            course_id : id,
+        })
+
+
+        console.log("data from Addtopic" + Addtopic);
+
+        if (Addtopic) {
+            res.json(Addtopic);
+        } else {
+            res.status(404).json("Course not found");
+        }
+    } catch (error) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Update teacher course's topic and description
+app.put('/updateCourse', async (req, res) => {
+    const data = req.body;
+    const {id} = data
+    console.log(data);
+
+
+    const { course_title, course_description} = data;
+    console.log("Course id: " + id);
     console.log("coursetitle: " + course_title)
     console.log("coursedescription: " + course_description)
-    console.log("week: " + weekNumber)
-    console.log("PDFtitle: " + title)
 
-    console.log("name:" + fileName)
     try {
-        console.log(id);
         const existingCourse = await teacher_AddCourseModel.findById(id);
 
         console.log('111');
@@ -256,11 +293,8 @@ app.put('/updateCourse', upload.single("file"), async (req, res) => {
         console.log('A');
 
         const updatedCourse = {
-            course_title : course_title,
+            course_title : course_title, 
             course_description : course_description,
-            weekNumber : weekNumber,
-            title : title,
-            file : fileName,
         }
 
         console.log('updatedCourse:', updatedCourse);
