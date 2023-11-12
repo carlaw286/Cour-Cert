@@ -17,6 +17,7 @@ export const ProfilePage = () => {
     confirmPassword: "",
   });
 
+  const [successMessage, setSuccessMessage] = useState('');
   const [userData, setUserData] = useUserDataAtom();
   
   console.log(userData);
@@ -66,9 +67,28 @@ export const ProfilePage = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // Send updated data to the server
+    axios
+      .put(`http://localhost:3002/updatestudentprofile?userId=${_id}`, formData)
+      .then((response) => {
+        // Assuming your server sends back the updated user data
+        setUserData(response.data);
+        // Disable edit mode after successful update
+        setEditMode(false);
+        setSuccessMessage("Profile details updated successfully"); // Set success message
+        setTimeout(() => setSuccessMessage(""), 3000);
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+      });
+  };
+
   return (
     <div className="profilepage">
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <div className="row-1">
           <div className="prof-container">
             <div className="user-avatar">
@@ -96,7 +116,7 @@ export const ProfilePage = () => {
                 type="name"
                 id="firstName"
                 placeholder="Enter first name"
-                value={firstName}
+                value={formData.firstName || firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -106,7 +126,7 @@ export const ProfilePage = () => {
                 type="name"
                 id="lastName"
                 placeholder="Enter last name"
-                value={lastName}
+                value={formData.lastName || lastName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -114,16 +134,16 @@ export const ProfilePage = () => {
               </input>
             </div>
             <div className="col-3">
-              <p>Email</p>
-            </div>
-            <div className="col-4">
-              <input
-                type="email"
-                id="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={handleInputChange}
-                disabled={!editMode}
+          <p>Email</p>
+        </div>
+        <div className="col-4">
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter email"
+            value={formData.email || email}
+            onChange={handleInputChange}
+            disabled={!editMode}
               >
                 {/* // Disable input if not in edit mode */}
               </input>
@@ -171,10 +191,13 @@ export const ProfilePage = () => {
                 </button>
               </div>
               <div className="but3">
-                <button type="submit" id="update" disabled={!editMode}>
-                  {" "}
-                  Update
-                </button>
+          <button type="submit" id="update" disabled={!editMode}>
+            {" "}
+            Update
+          </button>
+              </div>
+              <div className="success-message" style={{ color: "green" }}>
+             {successMessage}
               </div>
             </div>
           </div>
