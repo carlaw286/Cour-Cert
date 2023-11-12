@@ -64,7 +64,12 @@ app.post("/loginsignupstudent", (req, res) => {
                     if (response) {
                         const token = jwt.sign({ email: userStudent.email }, "jwt-secret-key", { expiresIn: "1d" })
                         res.cookie("token", token);
-                        res.json("Success")
+                        // res.json("Success")
+                        
+                        res.json({
+                            status: "Success",
+                            userStudent
+                        })
                     }
                     else {
                         res.json("Password is incorrect")
@@ -318,8 +323,82 @@ app.put('/updateCourse', async (req, res) => {
     }
 });
 
+//For student profile
+app.get('/studentprofile', (req, res) => {
+    const { userId } = req.query; // Use req.query to get query parameters
+    user_StudentModel.findById(userId) // Use findOne instead of find to get a single user
+      .then(studentUser => res.json(studentUser))
+      .catch(err => res.json(err));
+  });
+//for teaacher profile
+  app.get('/teacherprofile', (req, res) => {
+    const { userId } = req.query; // Use req.query to get query parameters
+    user_TeacherModel.findById(userId) // Use findOne instead of find to get a single user
+      .then(teacherUser => res.json(teacherUser))
+      .catch(err => res.json(err));
+  });
+  
+  //for student update profile details
+  app.put('/updatestudentprofile', verifyUser, async (req, res) => {
+    const data = req.body;
+    
+    // Extract relevant fields from the formData object
+    const { firstName, lastName, email } = data;
+    const { userId } = req.query;
+  
+    try {
+      // Find the user by userId
+      const user = await user_StudentModel.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Update user fields if provided in the request
+      if (firstName) user.firstName = firstName;
+      if (lastName) user.lastName = lastName;
+      if (email) user.email = email;
+  
+      // Save the updated user
+      const updatedUser = await user.save();
+  
+      res.json(updatedUser);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
-
+  //for teacher update profile details
+  app.put('/updateteacherprofile', verifyUser, async (req, res) => {
+    const data = req.body;
+    
+    // Extract relevant fields from the formData object
+    const { firstName, lastName, email } = data;
+    const { userId } = req.query;
+  
+    try {
+      // Find the user by userId
+      const user = await user_TeacherModel.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Update user fields if provided in the request
+      if (firstName) user.firstName = firstName;
+      if (lastName) user.lastName = lastName;
+      if (email) user.email = email;
+  
+      // Save the updated user
+      const updatedUser = await user.save();
+  
+      res.json(updatedUser);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 //nodemailer
 app.post('/forgotpassword', (req, res) => {

@@ -18,6 +18,8 @@ export const LoginSignup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [userData, setUserData] = useUserDataAtom();
+  
+  console.log('userData:', userData)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -35,22 +37,30 @@ export const LoginSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (userType === "student") {
+      
       axios.post('http://localhost:3002/loginsignupstudent', { email, password })
         .then(result => {
           console.log(result)
-          if (result.data === "Success") {
+          if (result.data.status === "Success") {
+            
+            console.log(result.data.userStudent)
+            setUserData(result.data.userStudent)
+            
             setTimeout(() => {
               navigate('/studenthomepage');
 
             }, 2000);
           }
           else if (result.data === "Password is incorrect") {
+            console.log('hello worldo')
             setErrorMessage("Incorrect password.");
           }
           else if (result.data === "No record existed") {
+            console.log('hello worldo')
             setErrorMessage("No record existed.");
           }
           else {
+            
             // Update the error message state
             setErrorMessage("Incorrect username or password.");
           }
@@ -169,4 +179,3 @@ export const LoginSignup = () => {
     
   );
 }
-

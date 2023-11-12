@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TeacherProfile.css';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { useUserDataAtom } from "../../hooks/user_data_atom";
 
 export const TeacherProfile = () => 
 {
@@ -15,6 +17,18 @@ export const TeacherProfile = () =>
     password: '',
     confirmPassword: '',
   });
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [userData, setUserData] = useUserDataAtom();
+  
+  console.log(userData);
+  const {
+    birthDate = "",
+    email = "",
+    firstName = "",
+    lastName = "",
+    _id = "",
+  } = userData || {};
 
     // Function to handle input changes
     const handleInputChange = (e) => {
@@ -38,93 +52,154 @@ export const TeacherProfile = () =>
       }
       setEditMode(!editMode);
     };
-  return(
-    <div className='profilepage'>
-      <form>
-        <div className='row-1'>
-          <div className='prof-container'>
-          <div className='user-avatar'> 
-            <img src='./default_profile.webp'></img>           
-          </div>
-          <div className='user-about'> 
-            <h1>About</h1>
-          </div>
-          <div className='about1'>
-            <div className=''>
 
+    const [teacherUser, setTeacherUser] = useState({});
+
+  useEffect(() => {
+    // Replace 'user@example.com' with the actual email you want to query
+    axios
+      .get(
+        `http://localhost:3002/studentprofile?userId=carlo.amadeo286@gmail.com`
+      )
+      .then((result) => setTeacherUser(result.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // Send updated data to the server
+    axios
+      .put(`http://localhost:3002/updateteacherprofile?userId=${_id}`, formData)
+      .then((response) => {
+        // Assuming your server sends back the updated user data
+        setUserData(response.data);
+        // Disable edit mode after successful update
+        setEditMode(false);
+        setSuccessMessage("Profile details updated successfully"); // Set success message
+        setTimeout(() => setSuccessMessage(""), 3000);
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+      });
+  };
+  return (
+    <div className="profilepage">
+      <form onSubmit={handleFormSubmit}>
+        <div className="row-1">
+          <div className="prof-container">
+            <div className="user-avatar">
+              <img src="./default_profile.webp"></img>
+            </div>
+            <div className="user-about">
+              <h1> About </h1>
+            </div>
+            <div className="about1">
+              <div className=""></div>
             </div>
           </div>
-          </div>
-          <div className='info-container'>
-            <div className='label0'>
+          <div className="info-container">
+            <div className="label0">
               <p> Personal Information</p>
             </div>
-            <div className='col-1'>
+
+            <div className="col-1">
               <p>First Name</p>
               <p>Last Name</p>
             </div>
-            <div className='col-2'>
-                <input type='name' id='firstName' placeholder='Enter first name' 
-                value={formData.firstName}
+
+            <div className="col-2">
+              <input
+                type="name"
+                id="firstName"
+                placeholder="Enter first name"
+                value={formData.firstName || firstName}
                 onChange={handleInputChange}
-                disabled={!editMode}> 
+                disabled={!editMode}
+              >
                 {/* // Disable input if not in edit mode */}
-                </input>
-                <input type='name' id='lastName' placeholder='Enter last name' 
-                value={formData.lastName}
+              </input>
+              <input
+                type="name"
+                id="lastName"
+                placeholder="Enter last name"
+                value={formData.lastName || lastName}
                 onChange={handleInputChange}
-                disabled={!editMode}> 
-                {/* // Disable input if not in edit mode */}
-                </input>
-            </div>
-            <div className='col-3'>
-              <p>Email</p>
-            </div>
-            <div className='col-4'>
-              <input type='email' id='email' placeholder='Enter email' 
-                value={formData.email}
-                onChange={handleInputChange}
-                disabled={!editMode}> 
+                disabled={!editMode}
+              >
                 {/* // Disable input if not in edit mode */}
               </input>
             </div>
-            <div className='col-5'>
+            <div className="col-3">
+          <p>Email</p>
+        </div>
+        <div className="col-4">
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter email"
+            value={formData.email || email}
+            onChange={handleInputChange}
+            disabled={!editMode}
+              >
+                {/* // Disable input if not in edit mode */}
+              </input>
+            </div>
+            <div className="col-5">
               <p>Password</p>
               <p>Confirm Password</p>
             </div>
-            <div className='col-6'>
-                <input type='name' id='password' placeholder='Enter password' 
+            <div className="col-6">
+              <input
+                type="name"
+                id="password"
+                placeholder="Enter password"
                 value={formData.password}
                 onChange={handleInputChange}
-                disabled={!editMode}> 
+                disabled={!editMode}
+              >
                 {/* // Disable input if not in edit mode */}
-                </input>
-                <input type='name' id='confirmPassword' placeholder='Enter confirm password' 
+              </input>
+              <input
+                type="name"
+                id="confirmPassword"
+                placeholder="Enter confirm password"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                disabled={!editMode}> 
+                disabled={!editMode}
+              >
                 {/* // Disable input if not in edit mode */}
-                </input>
+              </input>
             </div>
 
-            <div className='col-7'>
-              <div className='but1'>
-                <button type='button' onClick={() => navigate('/teacherhomepage')}> Back
-              </button>
+            <div className="col-7">
+              <div className="but1">
+                <button
+                  type="button"
+                  onClick={() => navigate("/studenthomepage")}
+                >
+                  {" "}
+                  Back
+                </button>
               </div>
-              <div className='but2'>
-            <button type='button' id='edit' onClick={toggleEditMode}>
-              {editMode ? 'Cancel' : 'Edit'}
-            </button>
-            </div>
-              <div className='but3'>
-              <button type='submit' id='update' disabled={!editMode}> Update
-              </button>
+              <div className="but2">
+                <button type="button" id="edit" onClick={toggleEditMode}>
+                  {editMode ? "Cancel" : "Edit"}
+                </button>
+              </div>
+              <div className="but3">
+          <button type="submit" id="update" disabled={!editMode}>
+            {" "}
+            Update
+          </button>
+          <div className="success-message" style={{ color: "green" }}>
+             {successMessage}
+              </div>
               </div>
             </div>
           </div>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
