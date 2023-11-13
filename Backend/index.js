@@ -399,7 +399,24 @@ app.get('/studentprofile', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+  
+  //for search course --searchbar in student
+  app.get('/searchcourse', async (req, res) => {
+    try {
+        const { query } = req.query;
 
+        // Use a regular expression to perform a case-insensitive search
+        const courses = await teacher_AddCourseModel.find({
+            course_title: { $regex: new RegExp(query, 'i') },
+        });
+
+        res.json(courses);
+    } catch (error) {
+        console.error('Error searching courses:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+  
 //nodemailer
 app.post('/forgotpassword', (req, res) => {
     const { email } = req.body;
