@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./StudentHomePage.css";
 import "./addlogo.png";
@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 export const StudentHomePage = () => {
   const [userData, setUserData] = useUserDataAtom();
   const navigate = useNavigate();
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   console.log(userData);
 
   //jwt
@@ -25,6 +26,16 @@ export const StudentHomePage = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const handleSearch = () => {
+    axios
+      .get(`http://localhost:3002/searchcourse?query=${searchQuery}`)
+      .then((result) => {
+        console.log(result);
+        setSearchResults(result.data);
+      })
+      .catch((err) => console.log(err));
+  };
   //jwt
   
   const handleSignout = async () => {
@@ -52,9 +63,24 @@ export const StudentHomePage = () => {
             type="search"
             id="search-input"
             placeholder="Search here"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           ></input>
-          <button id="search-button">Search</button>
+          <button id="search-button" onClick={handleSearch}
+          >Search</button>
         </div>
+        {searchResults.length > 0 && (
+          <div className="search-results">
+            <h2>Search Results:</h2>
+            <ul>
+              {searchResults.map((course) => (
+                <li key={course.id}>
+                  <Link to={`/course/${course.id}`}>{course.course_title}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div class="nav-link2">
           <ul>
             <li>
