@@ -18,6 +18,7 @@ export const TeacherProfile = () =>
     confirmPassword: '',
   });
 
+  const [showDropdown, setShowDropdown] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [userData, setUserData] = useUserDataAtom();
   
@@ -113,7 +114,7 @@ export const TeacherProfile = () =>
                 type="name"
                 id="firstName"
                 placeholder="Enter first name"
-                value={formData.firstName || firstName}
+                value={editMode ? formData.firstName : firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -123,7 +124,7 @@ export const TeacherProfile = () =>
                 type="name"
                 id="lastName"
                 placeholder="Enter last name"
-                value={formData.lastName || lastName}
+                value={editMode ? formData.lastName : lastName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -138,38 +139,48 @@ export const TeacherProfile = () =>
             type="email"
             id="email"
             placeholder="Enter email"
-            value={formData.email || email}
+            value={editMode ? formData.email : email}
             onChange={handleInputChange}
             disabled={!editMode}
               >
                 {/* // Disable input if not in edit mode */}
               </input>
             </div>
-            <div className="col-5">
-              <p>Password</p>
-              <p>Confirm Password</p>
-            </div>
-            <div className="col-6">
-              <input
-                type="name"
-                id="password"
-                placeholder="Enter password"
-                value={formData.password}
-                onChange={handleInputChange}
-                disabled={!editMode}
+            <div>
+              <button
+                className="dropdown-toggle"
+                type = "button"
+                onClick={() => setShowDropdown(!showDropdown)}
               >
-                {/* // Disable input if not in edit mode */}
-              </input>
-              <input
-                type="name"
-                id="confirmPassword"
-                placeholder="Enter confirm password"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                disabled={!editMode}
-              >
-                {/* // Disable input if not in edit mode */}
-              </input>
+                {showDropdown ? "Hide" : "Edit Passwords"}
+              </button>
+
+              {showDropdown && (
+                <div>
+                  <div className="col-5">
+                    <p>Password</p>
+                    <p>Confirm Password</p>
+                  </div>
+                  <div className="col-6">
+                    <input
+                      type="password"
+                      id="password"
+                      placeholder="Enter password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      disabled={!editMode}
+                    />
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      placeholder="Enter confirm password"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      disabled={!editMode}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="col-7">
