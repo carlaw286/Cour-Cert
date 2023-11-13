@@ -249,7 +249,6 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
     try {
         const existingCourse = await teacher_AddCourseModel.findById(id);
 
-
         
         if (!existingCourse) {
             return res.status(404).json("Course not found");
