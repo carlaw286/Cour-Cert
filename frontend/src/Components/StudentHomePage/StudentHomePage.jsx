@@ -26,6 +26,21 @@ export const StudentHomePage = () => {
       .catch((err) => console.log(err));
   }, []);
   //jwt
+  
+  const handleSignout = async () => {
+    try {
+      // Make a request to the server to invalidate the session
+      await axios.post("http://localhost:3002/signout");
+
+      // Clear user data and navigate to the login/signup page
+      setUserData(null);
+      navigate("/loginsignup");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+
   return (
     <div className="studenthomepage">
       <nav className="navHomepage">
@@ -59,8 +74,9 @@ export const StudentHomePage = () => {
               {/* <a href="./profilepage"> My Profile</a>{" "} */}
             </li>
             <li>
-              <Link to="/">Signout</Link>
-              {/* <a href="./"> Signout</a>{" "} */}
+            <Link to="/" onClick={handleSignout}>
+                Signout
+              </Link>
             </li>
           </ul>
         </div>

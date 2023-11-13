@@ -48,6 +48,11 @@ app.get('/studenthomepage', verifyUser, (req, res) => {
 app.get('/teacherhomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
+
+app.post('/signout', (req, res) => {
+    res.clearCookie('token').json({ message: 'Signout successful' });
+});
+
 //jwt
 
 
