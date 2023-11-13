@@ -18,40 +18,9 @@ export const TeacherAddCourse = () => {
   const [pdfTitle, setPdfTitle] = useState('');
   const [pdfFile, setPdfFile] = useState('');
   const [weeklyData, setWeeklyData] = useState([]);
-  const [fileUploaded, setFileUploaded] = useState(false);
-  const [addFileButtonEnabled, setAddFileButtonEnabled] = useState(false);
 
   
   console.log("data ID from view course: " + id);
-
-  const handleAddFile = () => {
-    // Check if the pdfFile is not empty
-    if (!pdfFile) {
-      // Alert the user or perform some action to inform them
-      alert('Please submit a file before adding.');
-      return;
-    }
-  
-    // Check if the week already exists in the weeklyData array
-    const existingWeekIndex = weeklyData.findIndex(entry => entry.weekNumber === week);
-  
-    if (existingWeekIndex !== -1) {
-      // Week already exists, update the existing entry
-      const updatedWeeklyData = [...weeklyData];
-      updatedWeeklyData[existingWeekIndex] = {
-        weekNumber: week,
-        file: pdfFile,
-        PDFdescription: pdfTitle,
-      };
-      setWeeklyData(updatedWeeklyData);
-    } else {
-      // Week doesn't exist, add a new entry to the weeklyData array
-      setWeeklyData(prevData => [...prevData, { weekNumber: week, file: pdfFile, PDFdescription: pdfTitle }]);
-    }
-  
-    // Disable the "Add File" button after adding a file
-    setAddFileButtonEnabled(false);
-  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,16 +31,13 @@ export const TeacherAddCourse = () => {
       file: pdfFile,
       PDFdescription: pdfTitle,
     };
-
-    for (const weeklyEntry of weeklyData) {
-      const weekly = await axios.post("http://localhost:3002/AddFiles", weeklyEntry, {
+      
+    const weekly = await axios.post("http://localhost:3002/AddFiles", WeeklyData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(weekly);
-    }
 
-    setFileUploaded(true);
-    setAddFileButtonEnabled(true);
+
   }
 
 
@@ -137,9 +103,6 @@ export const TeacherAddCourse = () => {
             />
           </div>
         </div>
-        {weeklyData.map((entry, index) => (
-          <WeeklyTile key={index} weekNumber={entry.weekNumber} pdfTitle={entry.PDFdescription} pdfFile={entry.file} />
-        ))}
         <div className="addcourse-row">
           <div className="addcourse-col">
             <div className="Forms">
@@ -167,13 +130,6 @@ export const TeacherAddCourse = () => {
                 />
               </div>
             </div>
-            <button
-              type="button"
-              onClick={handleAddFile}
-              disabled={!addFileButtonEnabled}
-            >
-              Add File
-            </button>
             <button type="submit" onClick={handleSubmit}>
               Upload File
             </button>
@@ -189,10 +145,3 @@ export const TeacherAddCourse = () => {
   );
 };
 
-const WeeklyTile = ({ weekNumber, pdfTitle, pdfFile }) => (
-  <div className="weekly-tile">
-    <p>Week {weekNumber}</p>
-    <p>Title: {pdfTitle}</p>
-    {/* Add more details or styling as needed */}
-  </div>
-);
