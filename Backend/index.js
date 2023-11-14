@@ -248,7 +248,7 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
         console.log(req.file);
 
         const { weekNumber, PDFdescription} = data;
-        const fileName = req.file.originalname;
+        const fileName = req.file.filename;
 
         console.log("week " + weekNumber);
         console.log("week " + PDFdescription);

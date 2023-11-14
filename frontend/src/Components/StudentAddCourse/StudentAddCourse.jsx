@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import React, { useEffect,useState } from 'react';
 import axios from 'axios'
 import './StudentAddCourse.css';
@@ -10,7 +10,7 @@ export const StudentAddCourse = () =>
     const [courses, getCourses] = useState([]);
 
     useEffect( ()=>{
-        axios.get('https://cour-cert-trial.vercel.app/getStudentcourses')
+        axios.get('http://localhost:3002/getStudentcourses')
         .then(courses => getCourses(courses.data))
         .catch( err => console.log(err))
     },[])

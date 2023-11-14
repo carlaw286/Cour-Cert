@@ -10,7 +10,7 @@ export const TeacherViewCourse = () => {
     const userId = userData._id
     
     useEffect(() => {
-        axios.get('https://cour-cert-trial.vercel.app/getTeachercourses', {
+        axios.get('http://localhost:3002/getTeachercourses', {
             params: {
                 id: userId
             }

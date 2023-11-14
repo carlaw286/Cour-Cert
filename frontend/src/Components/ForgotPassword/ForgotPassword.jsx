@@ -20,7 +20,7 @@ export function ForgotPassword() {
     axios.defaults.withCredentials = true;
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('https://cour-cert-trial.vercel.app/forgotpassword', {email})
+        axios.post('http://localhost:3002/forgotpassword', {email})
         .then(res => {
             if(res.data.Status === "Success") {
                 setSuccessMessage('Password reset link sent successfully.');

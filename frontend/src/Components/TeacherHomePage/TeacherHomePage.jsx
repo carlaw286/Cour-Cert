@@ -52,7 +52,7 @@ export const TeacherHomePage = () =>
         const { _id } = userData
 
         //backend website for database storing
-        const response = await axios.post('https://cour-cert-trial.vercel.app/teacher_AddCourse', {
+        const response = await axios.post('http://localhost:3002/teacher_AddCourse', {
           course_title,
           course_description,
           user_id: _id
@@ -89,7 +89,7 @@ export const TeacherHomePage = () =>
   //jwt
     axios.defaults.withCredentials = true;
     useEffect(()=> {
-      axios.get('https://cour-cert-trial.vercel.app/teacherhomepage')
+      axios.get('http://localhost:3002/teacherhomepage')
       .then(result => {console.log(result)
           if(result.data !== "Success")
           {
@@ -102,7 +102,7 @@ export const TeacherHomePage = () =>
   const handleSignout = async () => {
     try {
       // Make a request to the server to invalidate the session
-      await axios.post("https://cour-cert-trial.vercel.app/signout");
+      await axios.post("http://localhost:3002/signout");
 
       // Clear user data and navigate to the login/signup page
       setUserData(null);

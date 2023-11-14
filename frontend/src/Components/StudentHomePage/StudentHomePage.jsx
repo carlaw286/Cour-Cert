@@ -17,7 +17,7 @@ export const StudentHomePage = () => {
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios
-      .get("https://cour-cert-trial.vercel.app/studenthomepage")
+      .get("http://localhost:3002/studenthomepage")
       .then((result) => {
         console.log(result);
         if (result.data !== "Success") {
@@ -29,7 +29,7 @@ export const StudentHomePage = () => {
 
   const handleSearch = () => {
     axios
-      .get(`https://cour-cert-trial.vercel.app/searchcourse?query=${searchQuery}`)
+      .get(`http://localhost:3002/searchcourse?query=${searchQuery}`)
       .then((result) => {
         console.log(result);
         setSearchResults(result.data);
@@ -41,7 +41,7 @@ export const StudentHomePage = () => {
   const handleSignout = async () => {
     try {
       // Make a request to the server to invalidate the session
-      await axios.post("https://cour-cert-trial.vercel.app/signout");
+      await axios.post("http://localhost:3002/signout");
 
       // Clear user data and navigate to the login/signup page
       setUserData(null);

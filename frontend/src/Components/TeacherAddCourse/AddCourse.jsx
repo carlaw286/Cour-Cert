@@ -33,7 +33,7 @@ export const TeacherAddCourse = () => {
     };
 
     try {
-      const  weeklytopic= await axios.post("https://cour-cert-trial.vercel.app/AddFiles", WeeklyData, {
+      const  weeklytopic= await axios.post("http://localhost:3002/AddFiles", WeeklyData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(weeklytopic);
@@ -55,7 +55,7 @@ export const TeacherAddCourse = () => {
     };
 
     console.log(courseTitle, courseDescription,id);
-    const data = await axios.put("https://cour-cert-trial.vercel.app/updateCourse", courseData);
+    const data = await axios.put("http://localhost:3002/updateCourse", courseData);
     console.log(data);
   };
 

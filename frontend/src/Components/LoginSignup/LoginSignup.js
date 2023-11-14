@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginSignup.css';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../LandingPage/components/Navbar';
 
 import user_icon from '../Assets/person.png';
@@ -38,7 +38,7 @@ export const LoginSignup = () => {
     e.preventDefault()
     if (userType === "student") {
       
-      axios.post('https://cour-cert-trial.vercel.app/loginsignupstudent', { email, password })
+      axios.post('http://localhost:3002/loginsignupstudent', { email, password })
         .then(result => {
           console.log(result)
           if (result.data.status === "Success") {
@@ -77,7 +77,7 @@ export const LoginSignup = () => {
         password
       }
 
-      axios.get('https://cour-cert-trial.vercel.app/loginsignupteacher', { params })
+      axios.get('http://localhost:3002/loginsignupteacher', { params })
         .then(result => {
           if (result.data.status === "Success") {
             console.log(result.data);

@@ -1,6 +1,6 @@
 import React from 'react';
 import './CourseViewPage.css'
-
+import { Link} from 'react-router-dom';
 
 export const CourseViewPage = () => 
 {

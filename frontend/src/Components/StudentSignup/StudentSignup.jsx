@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './StudentSignup.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
@@ -30,7 +30,7 @@ export function StudentSignup()
 
     try {
       //backend website for database storing
-      const response = await axios.post('https://cour-cert-trial.vercel.app/studentsignup', {
+      const response = await axios.post('http://localhost:3002/studentsignup', {
         firstName,
         lastName,
         email,
