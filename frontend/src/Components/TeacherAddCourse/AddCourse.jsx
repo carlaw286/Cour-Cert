@@ -21,6 +21,7 @@ export const TeacherAddCourse = () => {
 
   console.log("data ID from view course: " + id);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -48,6 +49,7 @@ export const TeacherAddCourse = () => {
 
     const courseData = {
       id,
+      course_title: courseTitle,
       course_title: courseTitle,
       course_description: courseDescription,
     };
@@ -130,7 +132,12 @@ export const TeacherAddCourse = () => {
             </button>
             {uploadSuccess && <p style={{ color: 'green' }}>Upload successful!</p>}
           </div>
-        </div>  
+        </div>
+        {uploadSuccess && (
+          <div className="success-message">
+            File upload successful!
+          </div>
+        )}
         <div className="butts">
           <button type="submit" onClick={handleSaveChanges}>
             Save Changes
