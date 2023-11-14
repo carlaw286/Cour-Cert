@@ -160,7 +160,7 @@ export function StudentSignup()
           </div>
           <div className='hrefs'>
             <p>
-              Already have an account? <a href='/loginsignup'>Login</a>
+              Already have an account? <Link to='/loginsignup'>Login</Link>
             </p>
           </div>
         </form>

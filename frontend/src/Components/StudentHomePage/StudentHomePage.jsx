@@ -44,23 +44,23 @@ export const StudentHomePage = () => {
           <ul>
             <li>
               <Link to="/studentviewcourse">My Course</Link>
-              {/* <a href="./studentviewcourse"> My Course</a>{" "} */}
+              {/* <Link to="./studentviewcourse"> My Course</Link>{" "} */}
             </li>
             <li>
               <Link to="/">Certifications</Link>
-              {/* <a href="#"> Certifications</a>{" "} */}
+              {/* <Link to="#"> Certifications</Link>{" "} */}
             </li>
             <li>
               <Link to="/">Support</Link>
-              {/* <a href="#"> Support</a>{" "} */}
+              {/* <Link to="#"> Support</Link>{" "} */}
             </li>
             <li>
               <Link to="/profilepage">My Profile</Link>
-              {/* <a href="./profilepage"> My Profile</a>{" "} */}
+              {/* <Link to="./profilepage"> My Profile</Link>{" "} */}
             </li>
             <li>
               <Link to="/">Signout</Link>
-              {/* <a href="./"> Signout</a>{" "} */}
+              {/* <Link to="./"> Signout</Link>{" "} */}
             </li>
           </ul>
         </div>

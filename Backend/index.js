@@ -17,12 +17,12 @@ require('dotenv/config')
 
 const app = express()
 app.use(express.json())
-app.use(cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    app.use(cors({
+        origin: ["http://localhost:3000", "https://cour-cert.vercel.app"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
 
-}))
+    }))
 app.use(cookieParser())
 
 
@@ -236,17 +236,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post('/AddFiles', upload.single("file"), async (req,res) => {
-    const data = req.body;
-    const {id} = data
-    console.log(data);
-    console.log(req.file);
-
-    const { weekNumber, PDFdescription} = data;
-    const fileName = req.file.originalname;
-
-    console.log("week " + weekNumber);
-    console.log("week " + PDFdescription);
     try {
+        const data = req.body;
+        const {id} = data
+        console.log(data);
+        console.log(req.file);
+
+        const { weekNumber, PDFdescription} = data;
+        const fileName = req.file.originalname;
+
+        console.log("week " + weekNumber);
+        console.log("week " + PDFdescription);
         const existingCourse = await teacher_AddCourseModel.findById(id);
 
         
