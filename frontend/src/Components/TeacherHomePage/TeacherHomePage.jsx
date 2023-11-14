@@ -89,7 +89,7 @@ export const TeacherHomePage = () =>
   //jwt
     axios.defaults.withCredentials = true;
     useEffect(()=> {
-      axios.get('http://localhost:3002/teacherhomepage')
+      axios.get('https://cour-cert-trial.vercel.app/teacherhomepage')
       .then(result => {console.log(result)
           if(result.data !== "Success")
           {
