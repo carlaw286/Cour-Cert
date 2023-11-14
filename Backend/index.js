@@ -18,7 +18,7 @@ require('dotenv/config')
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://cour-cert.vercel.app/"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 
@@ -253,7 +253,6 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
     console.log("week " + PDFdescription);
     try {
         const existingCourse = await teacher_AddCourseModel.findById(id);
-
 
         
         if (!existingCourse) {
