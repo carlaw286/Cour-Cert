@@ -38,7 +38,7 @@ export const LoginSignup = () => {
     e.preventDefault()
     if (userType === "student") {
       
-      axios.post('http://localhost:3002/loginsignupstudent', { email, password })
+      axios.post('/loginsignupstudent', { email, password })
         .then(result => {
           console.log(result)
           if (result.data.status === "Success") {
@@ -77,7 +77,7 @@ export const LoginSignup = () => {
         password
       }
 
-      axios.get('http://localhost:3002/loginsignupteacher', { params })
+      axios.get('/loginsignupteacher', { params })
         .then(result => {
           if (result.data.status === "Success") {
             console.log(result.data);
