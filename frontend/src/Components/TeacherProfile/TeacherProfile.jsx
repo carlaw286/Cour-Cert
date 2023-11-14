@@ -60,7 +60,11 @@ export const TeacherProfile = () =>
     // Replace 'user@example.com' with the actual email you want to query
     axios
       .get(
+<<<<<<< Updated upstream
         `http://localhost:3002/studentprofile?userId=carlo.amadeo286@gmail.com`
+=======
+       `https://cour-cert-trial.vercel.app/teacherprofile?userId=${_id}`
+>>>>>>> Stashed changes
       )
       .then((result) => setTeacherUser(result.data))
       .catch((err) => console.log(err));
@@ -71,7 +75,7 @@ export const TeacherProfile = () =>
 
     // Send updated data to the server
     axios
-      .put(`http://localhost:3002/updateteacherprofile?userId=${_id}`, formData)
+      .put(`https://cour-cert-trial.vercel.app/updateteacherprofile?userId=${_id}`, formData)
       .then((response) => {
         // Assuming your server sends back the updated user data
         setUserData(response.data);

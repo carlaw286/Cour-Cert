@@ -10,7 +10,7 @@ export const StudentAddCourse = () =>
     const [courses, getCourses] = useState([]);
 
     useEffect( ()=>{
-        axios.get('http://localhost:3002/getStudentcourses')
+        axios.get('https://cour-cert-trial.vercel.app/getStudentcourses')
         .then(courses => getCourses(courses.data))
         .catch( err => console.log(err))
     },[])

@@ -32,7 +32,7 @@ export function ResetPassword() {
             return;
           }
           else{
-            axios.post(`http://localhost:3002/resetpassword/${id}/${token}`, {password})
+            axios.post(`https://cour-cert-trial.vercel.app/resetpassword/${id}/${token}`, {password})
             .then(res => {
             if(res.data.Status === "Success") {
                 setSuccessMessage('Sign up successful! Redirecting to login...');
