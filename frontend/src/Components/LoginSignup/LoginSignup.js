@@ -42,10 +42,12 @@ export const LoginSignup = () => {
         .then(result => {
           console.log(result)
           if (result.data.status === "Success") {
-            
+
             console.log(result.data.userStudent)
             setUserData(result.data.userStudent)
-            
+            // localStorage.setItem('token', token);
+            // console.log('Token:', token)
+            localStorage.setItem('userData', JSON.stringify(result.data.userStudent));
             setTimeout(() => {
               navigate('/studenthomepage');
 
@@ -83,6 +85,7 @@ export const LoginSignup = () => {
             console.log(result.data);
 
             setUserData(result.data.userTeacher)
+            localStorage.setItem('userData', JSON.stringify(result.data.userTeacher));
 
             setTimeout(() => {
               navigate('/teacherhomepage');

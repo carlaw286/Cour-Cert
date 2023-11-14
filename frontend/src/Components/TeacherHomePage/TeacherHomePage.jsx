@@ -100,6 +100,7 @@ export const TeacherHomePage = () =>
     }, [])
   //jwt
   const handleSignout = async () => {
+    localStorage.removeItem('token');
     try {
       // Make a request to the server to invalidate the session
       await axios.post("http://localhost:3002/signout");

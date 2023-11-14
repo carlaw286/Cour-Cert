@@ -6,6 +6,7 @@ import { useUserDataAtom } from "../../hooks/user_data_atom";
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
+  
   // State to track whether the form is in edit mode
   const [editMode, setEditMode] = useState(false);
   // State to store form data
@@ -54,20 +55,39 @@ export const ProfilePage = () => {
   };
 
   const [studentUser, setStudentUser] = useState({});
-
+  
+    //jwt
+    axios.defaults.withCredentials = true;
+   
   useEffect(() => {
-    
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
     console.log('miagi sa profile sa student')
+    // const storedToken = localStorage.getItem('token');
+    
+    // console.log('Stored Token:', storedToken);
+    // if (storedToken) {
+    //   // Include the token in the request headers
+    //   axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+      
+    
     
     // Replace 'user@example.com' with the actual email you want to query
     axios
       .get(
         `http://localhost:3002/studentprofile?userId=${_id}`
       )
-      .then((result) => setStudentUser(result.data))
+      .then((result) => {setStudentUser(result.data)
+      console.log(result);})
+      
       .catch((err) => console.log(err));
+  // }
   }, []);
-
+  
+  
+  
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
@@ -77,6 +97,7 @@ export const ProfilePage = () => {
       .then((response) => {
         // Assuming your server sends back the updated user data
         setUserData(response.data);
+        localStorage.setItem('userData', JSON.stringify(response.data));
         // Disable edit mode after successful update
         setEditMode(false);
         setSuccessMessage("Profile details updated successfully"); // Set success message

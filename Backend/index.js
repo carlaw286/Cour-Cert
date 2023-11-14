@@ -335,6 +335,9 @@ app.get('/studentprofile', (req, res) => {
       .then(studentUser => res.json(studentUser))
       .catch(err => res.json(err));
   });
+  app.get('/studentprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
 //for teaacher profile
   app.get('/teacherprofile', (req, res) => {
     const { userId } = req.query; // Use req.query to get query parameters
@@ -343,6 +346,9 @@ app.get('/studentprofile', (req, res) => {
       .catch(err => res.json(err));
   });
   
+  app.get('/teacherprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
   //for student update profile details
   app.put('/updatestudentprofile', verifyUser, async (req, res) => {
     const data = req.body;
