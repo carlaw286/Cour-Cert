@@ -30,7 +30,7 @@ export function TeacherSignup()
 
     try {
       //backend website for database storing
-      const response = await axios.post('https://cour-cert-trial.vercel.app/teachersignup', {
+      const response = await axios.post('http://localhost:3002/teachersignup', {
         firstName,
         lastName,
         email,
