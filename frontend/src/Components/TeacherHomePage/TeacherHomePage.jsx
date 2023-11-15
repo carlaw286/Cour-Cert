@@ -86,19 +86,19 @@ export const TeacherHomePage = () =>
     setOpen(false);
   };
   const navigate = useNavigate();
-  //jwt
-    // axios.defaults.withCredentials = true;
-    // useEffect(()=> {
-    //   axios.get('https://cour-cert-trial.vercel.app/teacherhomepage')
-    //   .then(result => {console.log(result)
-    //       if(result.data !== "Success")
-    //       {
-    //           navigate('/loginsignup')
-    //       }
-    //   })
-    //   .catch(err=> console.log(err))
-    // }, [])
-  //jwt
+  jwt
+    axios.defaults.withCredentials = true;
+    useEffect(()=> {
+      axios.get('http://localhost:3002/teacherhomepage')
+      .then(result => {console.log(result)
+          if(result.data !== "Success")
+          {
+              navigate('/loginsignup')
+          }
+      })
+      .catch(err=> console.log(err))
+    }, [])
+  jwt
   const handleSignout = async () => {
     localStorage.removeItem('token');
     try {
