@@ -79,7 +79,7 @@ export const LoginSignup = () => {
         password
       }
 
-      axios.get('https://cour-cert-trial.vercel.app/loginsignupteacher', { params })
+      axios.get('http://localhost:3002/loginsignupteacher', { params })
         .then(result => {
           if (result.data.status === "Success") {
             console.log(result.data);
