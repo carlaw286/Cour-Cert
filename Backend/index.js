@@ -5,6 +5,7 @@ const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
+const student_AddCourseModel = require ('./models/student_Addcourse')
 const teacher_AddTopicModel = require('./models/teacher_Addtopic')
 const user_AdminModel = require('./models/user_admin')
 //jwt
@@ -228,6 +229,32 @@ app.post('/teacher_AddCourse', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+
+//add student course
+app.post('/student_AddCourse', async (req, res) => {
+    const {user_id,
+          object_id } = req.body;
+    
+    try {
+        const existingCourseID = await student_AddCourseModel.findOne({ object_id: object_id });
+        
+        if (existingCourseID) {
+            res.json("Course already exists");
+        } else {
+            const newCourse = await student_AddCourseModel.create({
+                user_id,
+                object_id,
+            });
+            res.json(newCourse);    
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
