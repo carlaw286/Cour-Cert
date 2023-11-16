@@ -151,6 +151,7 @@ app.post('/studentsignup', async (req, res) => {
     }
 });
 
+
 //teacher signup credentials are added into the database
 app.post('/teachersignup', async (req, res) => {
     try {
@@ -277,6 +278,7 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 // Update teacher course's topic and description
 app.put('/updateCourse', async (req, res) => {
@@ -533,12 +535,12 @@ app.post("/Admin",async (req, res) => {
 });
 
 mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('DB Connected!');
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+.then(() => {
+    console.log('DB Connected!');
+})
+.catch((err) => {
+    console.log(err);
+})
 
 app.listen(3002, () => {
     console.log("server is running")

@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom'
 import './TeacherViewCourse.css';
 import axios from 'axios'
 import { useUserDataAtom } from '../../hooks/user_data_atom';
+import ReactPaginate from 'react-paginate';
 
 export const TeacherViewCourse = () => {
     const [courses, getCourses] = useState([])
     const [userData, setUserData] = useUserDataAtom();
     const userId = userData._id
-    
+    const [currentPage, setCurrentPage] = useState(0);
+    const coursesPerPage = 6;
+
+
     useEffect(() => {
         axios.get('http://localhost:3002/getTeachercourses', {
             params: {
@@ -20,7 +24,13 @@ export const TeacherViewCourse = () => {
         })
         .catch(err => console.log(err));
     }, []);
-    
+
+    function handlePageClick(selectedPage) {
+        setCurrentPage(selectedPage.selected);
+    }
+
+    const offset = currentPage * coursesPerPage;
+    const currentCourses = courses.slice(offset, offset + coursesPerPage);
 
     console.log("data from view course:" + userId)
     
@@ -47,21 +57,29 @@ export const TeacherViewCourse = () => {
                     </ul>
                 </div>
             </nav>
-
             <div className='detail'>
                 <div>
                     List of courses
                 </div>
-                {courses.map(course => {
+                {currentCourses.map(course => {
                     console.log(course)
                     return (
-                        <div className='title1'>
+                        <div className='title1' key={course._id}>
                             <Link to={`/teacheraddcourse?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
                                 {course.course_title}
                             </Link>
                         </div>
                     )
                 })}
+                <ReactPaginate
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={Math.ceil(courses.length / coursesPerPage)}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+                />
             </div>
             </div>        
     )
