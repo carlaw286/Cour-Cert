@@ -14,12 +14,13 @@ export const TeacherAddCourse = () => {
   const [courseDescription, setCourseDescription] = useState(initialDescription);
   const id = queryParams.get('id');
   const [userData, setUserData] = useUserDataAtom();
-  const [week, setWeek] = useState('')
+  const [week, setWeek] = useState('');
   const [pdfTitle, setPdfTitle] = useState('');
   const [pdfFile, setPdfFile] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
   console.log("data ID from view course: " + id);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,19 +31,18 @@ export const TeacherAddCourse = () => {
       file: pdfFile,
       PDFdescription: pdfTitle,
     };
-    console.log("Add topic data" + WeeklyData);
+
     try {
-      // Attempt to make the POST request
-      const TopicData = await axios.post("http://localhost:3002/AddFiles", WeeklyData, {
+      const  weeklytopic= await axios.post("http://localhost:3002/AddFiles", WeeklyData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
-      // If the request is successful, set the success message
+      console.log(weeklytopic);
       setUploadSuccess(true);
     } catch (error) {
       console.error("Error uploading file:", error);
+      // Handle error if needed
     }
-  };
+  }
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
@@ -50,11 +50,11 @@ export const TeacherAddCourse = () => {
     const courseData = {
       id,
       course_title: courseTitle,
+      course_title: courseTitle,
       course_description: courseDescription,
     };
 
-    console.log(courseTitle, courseDescription, week, pdfTitle, pdfFile, id);
-    // Handle your axios request with the updated courseData
+    console.log(courseTitle, courseDescription,id);
     const data = await axios.put("http://localhost:3002/updateCourse", courseData);
     console.log(data);
   };
@@ -62,7 +62,7 @@ export const TeacherAddCourse = () => {
   return (
     <div className="addcoursecontainer">
       <nav className='first-nav'>
-        <div class="first-nav-logo">
+        <div className="first-nav-logo">
           <img src="Logo1.1.png" alt="Cour-Cert"></img>
         </div>
         <div className='first-nav-title'>
@@ -73,7 +73,7 @@ export const TeacherAddCourse = () => {
         </div>
       </nav>
       <nav className='second-nav'>
-        <div class="second-nav-links">
+        <div className="second-nav-links">
           <ul>
             <li><Link to="/teacherviewcourse"> View Course</Link > </li>
             <li><Link to="/teacherprofile"> Account Profile</Link > </li>
@@ -130,6 +130,7 @@ export const TeacherAddCourse = () => {
             <button type="submit" onClick={handleSubmit}>
               Upload File
             </button>
+            {uploadSuccess && <p style={{ color: 'green' }}>Upload successful!</p>}
           </div>
         </div>
         {uploadSuccess && (

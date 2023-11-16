@@ -19,7 +19,7 @@ require('dotenv/config')
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://cour-cert.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 
@@ -281,7 +281,6 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
     try {
         const existingCourse = await teacher_AddCourseModel.findById(id);
 
-
         
         if (!existingCourse) {
             return res.status(404).json("Course not found");
@@ -362,6 +361,9 @@ app.get('/studentprofile', (req, res) => {
       .then(studentUser => res.json(studentUser))
       .catch(err => res.json(err));
   });
+  app.get('/studentprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
 //for teaacher profile
   app.get('/teacherprofile', (req, res) => {
     const { userId } = req.query; // Use req.query to get query parameters
@@ -370,6 +372,9 @@ app.get('/studentprofile', (req, res) => {
       .catch(err => res.json(err));
   });
   
+  app.get('/teacherprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
   //for student update profile details
   app.put('/updatestudentprofile', verifyUser, async (req, res) => {
     const data = req.body;

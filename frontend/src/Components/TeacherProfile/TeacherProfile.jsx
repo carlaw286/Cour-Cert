@@ -55,12 +55,18 @@ export const TeacherProfile = () =>
     };
 
     const [teacherUser, setTeacherUser] = useState({});
+  
+    axios.defaults.withCredentials = true;
 
   useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
     // Replace 'user@example.com' with the actual email you want to query
     axios
       .get(
-        `http://localhost:3002/studentprofile?userId=carlo.amadeo286@gmail.com`
+       `http://localhost:3002/teacherprofile?userId=${_id}`
       )
       .then((result) => setTeacherUser(result.data))
       .catch((err) => console.log(err));
@@ -75,6 +81,7 @@ export const TeacherProfile = () =>
       .then((response) => {
         // Assuming your server sends back the updated user data
         setUserData(response.data);
+        localStorage.setItem('userData', JSON.stringify(response.data));
         // Disable edit mode after successful update
         setEditMode(false);
         setSuccessMessage("Profile details updated successfully"); // Set success message
@@ -187,7 +194,7 @@ export const TeacherProfile = () =>
               <div className="but1">
                 <button
                   type="button"
-                  onClick={() => navigate("/studenthomepage")}
+                  onClick={() => navigate("/teacherhomepage")}
                 >
                   {" "}
                   Back
