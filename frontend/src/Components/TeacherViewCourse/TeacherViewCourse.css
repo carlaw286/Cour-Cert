@@ -42,3 +42,9 @@
     text-decoration: none;
     color: black;
  }
+
+ .Paginate{
+    display: flex;
+    gap: 10px;
+ }
+

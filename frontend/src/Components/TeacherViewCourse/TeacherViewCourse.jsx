@@ -72,6 +72,7 @@ export const TeacherViewCourse = () => {
                     )
                 })}
                 <ReactPaginate
+                className='Paginate'
                 breakLabel="..."
                 nextLabel="next >"
                 onPageChange={handlePageClick}

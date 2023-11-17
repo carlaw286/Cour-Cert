@@ -201,6 +201,17 @@ app.get('/getStudentcourses', (req, res) => {
         .catch(err => res.json(err))
 })
 
+app.get('/getEnrolledcourses', (req, res) => {
+    const {id} = req.query;
+    console.log("student id: " + id);
+    if (!id) {
+        return res.status(400).json({ error: 'Missing user_id in the request body' });
+      }
+    student_AddCourseModel.find({user_id : id})
+    .then(courses => res.json(courses))
+    .catch(err => res.json(err))
+})
+
 app.get('/getTeachercourses', (req, res) => {
     const { id } = req.query;
     
@@ -243,7 +254,7 @@ app.post('/teacher_AddCourse', async (req, res) => {
 //add student course
 app.post('/student_AddCourse', async (req, res) => {
     const {userId,
-          courseId } = req.body;
+          courseId, course_title, course_description } = req.body;
           console.log("title: "+ courseId);
     
     try {
@@ -258,6 +269,8 @@ app.post('/student_AddCourse', async (req, res) => {
             const newCourse = await student_AddCourseModel.create({
                 user_id : userId,
                 course_id: courseId,
+                course_title : course_title,
+                course_description : course_description,
             });
             res.json(newCourse);    
         }

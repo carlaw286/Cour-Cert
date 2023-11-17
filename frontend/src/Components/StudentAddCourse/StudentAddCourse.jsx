@@ -39,7 +39,7 @@ export const StudentAddCourse = () =>
 
     console.log("data: " + userData.id);
 
-    const handleSubmit = async (courseId) => {
+    const handleSubmit = async (courseId, course_title, course_description) => {
 
         try {
           console.log("title:"+ courseId);
@@ -48,6 +48,8 @@ export const StudentAddCourse = () =>
           const response = await axios.post('http://localhost:3002/student_AddCourse', {
             userId,
             courseId,
+            course_title,
+            course_description
           });
       
           // Check if the response contains an error message
@@ -124,7 +126,7 @@ export const StudentAddCourse = () =>
                         <p>{course.course_description}</p>
                     </div>
                     <div className='enrollcourse'>
-                        <Button type='submit' onClick={() => handleSubmit(course._id)}>
+                        <Button type='submit' onClick={() => handleSubmit(course._id, course.course_title, course.course_description)}>
                             Enroll Course
                         </Button>
                     </div>

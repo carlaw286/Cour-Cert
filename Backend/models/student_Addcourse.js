@@ -4,6 +4,8 @@ const student_Addcourse= new mongoose.Schema({
   //user: {type:Schema.Types.ObjectId, ref: 'user_teachers'},
   user_id: String,
   course_id: String,
+  course_title: String, 
+  course_description: String,
   
 })
 
