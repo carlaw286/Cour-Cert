@@ -1,11 +1,33 @@
 import React, { Component, useEffect, useState } from 'react';
 import './StudentViewCourse.css'
+import axios from "axios";
+import { useUserDataAtom } from "../../hooks/user_data_atom";
+import { useNavigate } from "react-router-dom";
 
 export const StudentViewCourse = () => {
     const [count, setCount] = useState(0);
     const [checked, setChecked] = useState(0);
-    const [percentage, setPercentage] = useState(0);
-  
+    const [percentage, setPercentage] = useState(0)
+    const [userData, setUserData] = useUserDataAtom();
+    const navigate = useNavigate();
+
+    //jwt
+  axios.defaults.withCredentials = true;
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/studentviewcourse")
+      .then((result) => {
+        console.log(result);
+        
+      console.log("Token: " +result.data);
+        if (result.data !== "Success") {
+          navigate("/loginsignup");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+//
+
     useEffect(() => {
       countBoxes();
       countChecked();

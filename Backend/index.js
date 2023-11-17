@@ -45,7 +45,15 @@ const verifyUser = (req, res, next) => {
 app.get('/studenthomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
-
+app.get('/studentprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+app.get('/studentviewcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+// app.get('/getStudentcourses', verifyUser, (req, res) => {
+//     return res.json("Success")
+//   });
 app.get('/teacherhomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
@@ -188,7 +196,8 @@ app.post('/teachersignup', async (req, res) => {
 
 app.get('/getStudentcourses', (req, res) => {
     teacher_AddCourseModel.find()
-        .then(courses => res.json(courses))
+        .then(courses => res.json(courses)
+        )
         .catch(err => res.json(err))
 })
 
@@ -365,9 +374,7 @@ app.get('/studentprofile', (req, res) => {
       .then(studentUser => res.json(studentUser))
       .catch(err => res.json(err));
   });
-  app.get('/studentprofile', verifyUser, (req, res) => {
-    return res.json("Success")
-  });
+ 
 //for teaacher profile
   app.get('/teacherprofile', (req, res) => {
     const { userId } = req.query; // Use req.query to get query parameters
