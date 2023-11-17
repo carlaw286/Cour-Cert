@@ -4,6 +4,7 @@ import { useUserDataAtom } from '../../hooks/user_data_atom';
 import Button from "@mui/material/Button";
 import axios from 'axios'
 import './StudentAddCourse.css';
+import {  useLocation } from 'react-router-dom';
 
 
 export const StudentAddCourse = () => 
@@ -11,18 +12,36 @@ export const StudentAddCourse = () =>
     const [userData, setUserData] = useUserDataAtom();
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const userId = userData._id
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const id = queryParams.get('id');
 
-    console.log("data: " + userData._id);
+    console.log("data ID from view course: " + userId);
 
-    const handleSubmit = async (e) => {
+    useEffect(() => {
+        axios.get('http://localhost:3002/getStudentcourses', {
+            params: {
+                id: userId
+            }
+        })
+        .then(response => {
+            getCourses(response.data);
+        })
+        .catch(err => console.log(err));
+    }, []);
+
+    console.log("data: " + userData.id);
+
+    const handleSubmit = async (courseId) => {
 
         try {
-          const { _id } = userData
+          console.log("title:"+ courseId);
 
           //backend website for database storing
           const response = await axios.post('http://localhost:3002/student_AddCourse', {
-            user_id: _id,
-            object_id: _id,
+            userId,
+            courseId,
           });
       
           // Check if the response contains an error message
@@ -48,11 +67,7 @@ export const StudentAddCourse = () =>
     const [search, setSearch] = useState('');
     const [courses, getCourses] = useState([]);
 
-    useEffect( ()=>{
-        axios.get('http://localhost:3002/getStudentcourses')
-        .then(courses => getCourses(courses.data))
-        .catch( err => console.log(err))
-    },[])
+ 
     
     const navigate = useNavigate();
     return(
@@ -89,25 +104,26 @@ export const StudentAddCourse = () =>
         ALL COURSES AVAILABLE
     </div>
     <div className='details1'> 
-    {successMessage && <div className='success-message'>{successMessage}</div>}
-          {errorMessage && <div className='error-message'>{errorMessage}</div>}
+         {successMessage && <div className='success-message'>{successMessage}</div>}
+         {errorMessage && <div className='error-message'>{errorMessage}</div>}
         {courses.map(course => {
-            return (<div className='course-box'>
+            return (
+                <div className='course-box' key={course._id}>
                 <div className='titles1'>
                     <a href='courseviewpage'>
                         {course.course_title}
-                    </a>  
+                    </a>
                 </div>
                 <div className='Courses'>
                     <div className='description1'>
                         <p>{course.course_description}</p>
                     </div>
                     <div className='enrollcourse'>
-                        <Button type='submit' onClick={handleSubmit}>
+                        <Button type='submit' onClick={() => handleSubmit(course._id)}>
                             Enroll Course
                         </Button>
                     </div>
-                </div>                    
+                </div>
             </div>
         )})
         }

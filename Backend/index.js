@@ -233,18 +233,22 @@ app.post('/teacher_AddCourse', async (req, res) => {
 
 //add student course
 app.post('/student_AddCourse', async (req, res) => {
-    const {user_id,
-          object_id } = req.body;
+    const {userId,
+          courseId } = req.body;
+          console.log("title: "+ courseId);
     
     try {
-        const existingCourseID = await student_AddCourseModel.findOne({ object_id: object_id });
+        const existingCourseID = await student_AddCourseModel.findOne({ 
+            course_id : courseId,
+            user_id: userId,
+        });
         
         if (existingCourseID) {
             res.json("Course already exists");
         } else {
             const newCourse = await student_AddCourseModel.create({
-                user_id,
-                object_id,
+                user_id : userId,
+                course_id: courseId,
             });
             res.json(newCourse);    
         }

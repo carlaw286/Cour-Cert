@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const student_Addcourse= new mongoose.Schema({
   //user: {type:Schema.Types.ObjectId, ref: 'user_teachers'},
   user_id: String,
-  object_id: String,
+  course_id: String,
   
 })
 

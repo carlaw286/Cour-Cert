@@ -11,7 +11,7 @@ export const StudentHomePage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  console.log(userData);
+  console.log("UserData" +userData._id);
 
   //jwt
   axios.defaults.withCredentials = true;
