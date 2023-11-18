@@ -36,8 +36,6 @@ export const StudentViewCourse = () => {
     console.log("user ID:" + userId);
 
     useEffect(() => {
-      countBoxes();
-      countChecked();
         axios.get('http://localhost:3002/getEnrolledcourses', {
             params: {
                 id: userId
@@ -75,21 +73,10 @@ export const StudentViewCourse = () => {
                 <div>
                     List of courses
                 </div>
-                {currentCourses.map(course => {
-                    console.log(course)
-                    return (
-                        <div className='title1' key={course._id}>
-                            <Link to={`/studentaddcourse?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
-                                {course.course_title}
-                            </Link>
-                        </div>
-                    )
-                })}
                 <ReactPaginate
                 className='paginate'
                 breakLabel="..."
                 nextLabel="next >"
-                onPageChange={handlePageClick}
                 pageRangeDisplayed={5}
                 pageCount={Math.ceil(courses.length / coursesPerPage)}
                 previousLabel="< previous"
