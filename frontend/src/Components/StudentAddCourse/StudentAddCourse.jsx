@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import axios from 'axios'
 import './StudentAddCourse.css';
 import {  useLocation } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 
 
 export const StudentAddCourse = () => 
@@ -17,7 +18,10 @@ export const StudentAddCourse = () =>
     const userId = userData._id
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
+    const [currentPage, setCurrentPage] = useState(0);
     const id = queryParams.get('id');
+
+    const coursesPerPage = 6;
 
     console.log("data ID from view course: " + userId);
 
@@ -75,8 +79,12 @@ export const StudentAddCourse = () =>
     const [search, setSearch] = useState('');
     const [courses, getCourses] = useState([]);
 
- 
-    
+    function handlePageClick(selectedPage) {
+        setCurrentPage(selectedPage.selected);
+    }
+    const offset = currentPage * coursesPerPage;
+    const currentCourses = courses.slice(offset, offset + coursesPerPage);
+
     return(
         <div className='addcoursecontainer1'>
         <nav className='first-nav1'>
@@ -113,7 +121,7 @@ export const StudentAddCourse = () =>
     <div className='details1'> 
          {successMessage && <div className='success-message'>{successMessage}</div>}
          {errorMessage && <div className='error-message'>{errorMessage}</div>}
-        {courses.map(course => {
+        {currentCourses.map(course => {
             return (
                 <div className='course-box' key={course._id}>
                 <div className='titles1'>
@@ -134,8 +142,20 @@ export const StudentAddCourse = () =>
             </div>
         )})
         }
-    </div>
-    <div className='space'>
+       <div className='paging'>
+                <ReactPaginate
+                className='Paginate'
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={Math.ceil(courses.length / coursesPerPage)}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+                />
+                </div>
+         <div className='spaces'>
+               </div>
     </div>
     </div>
     )

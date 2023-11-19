@@ -45,45 +45,70 @@
 
  .pagination-container {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    
+    justify-content: center;  
   }
-  
-  /* Pagination list */
-  .Paginate {
-    display: flex;
-    list-style: none;
+
+  /* .Paginate {
+    border: 1px solid black;
     font-family: Arial, sans-serif;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333;
-    justify-content: center;
     gap: 10px;
     font-size: 1.8rem;
+    list-style: none;
+    height: 31.5px;
+    width: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  } */
+
+  .spaces{
+    border: 1px solid white;
+    height: 3.5vh;
+  }
+
+  /* Global Paginate*/
+  .Paginate {
+    font-family: Arial, sans-serif;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 1.8rem;
+    width: 25.9rem;
+    margin-left: 30%;
+  }
+  
+ 
+
+  .Paginate a {
+    color: #333;
+    padding: 10px;
+    margin: 0 5px;
+    text-decoration: none;
     cursor: pointer;
   }
   
-
-
-  /* Pagination item */
-  .paginate li {
-    margin: 0 3px;
+  .Paginate .break-me {
+    cursor: default;
   }
   
-  /* Pagination link */
-  .paginate a {
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+  .Paginate .disabled a {
+    color: #999;
+    pointer-events: none;
+    cursor: not-allowed;
   }
   
-  /* Active pagination link */
-  .paginate a.active {
+  .Paginate .selected a {
     background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
+    color: #fff;
+    border-radius: 5px;
   }
+ 
+  
+  
+
+  

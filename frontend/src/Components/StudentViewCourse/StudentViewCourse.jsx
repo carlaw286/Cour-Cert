@@ -46,8 +46,11 @@ export const StudentViewCourse = () => {
         })
         .catch(err => console.log(err));
     }, []);
+
+    const offset = currentPage * coursesPerPage;
+    const currentCourses = courses.slice(offset, offset + coursesPerPage);
   
-  
+    return(
         <div className='addcoursecontainer'>
             <nav className='first-nav'>
                 <div class="first-nav-logo">
@@ -73,6 +76,17 @@ export const StudentViewCourse = () => {
                 <div>
                     List of courses
                 </div>
+                {currentCourses.map(course => {
+                    console.log(course)
+                    return (
+                        <div className='title1' key={course._id}>
+                            <Link to={`/studentaddcourse?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
+                                {course.course_title}
+                            </Link>
+                        </div>
+                    )
+                })}
+                <div>
                 <ReactPaginate
                 className='paginate'
                 breakLabel="..."
@@ -82,8 +96,11 @@ export const StudentViewCourse = () => {
                 previousLabel="< previous"
                 renderOnZeroPageCount={null}
                 />
+                </div>
+               
             </div>
-            </div>        
+            </div>  
+            );      
 }
 
 

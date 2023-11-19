@@ -90,6 +90,7 @@ export const TeacherViewCourse = () => {
                         </div>
                     )
                 })}
+                <div className='paging'>
                 <ReactPaginate
                 className='Paginate'
                 breakLabel="..."
@@ -100,6 +101,10 @@ export const TeacherViewCourse = () => {
                 previousLabel="< previous"
                 renderOnZeroPageCount={null}
                 />
+                </div>
+               
+               <div className='spaces'>
+               </div>
             </div>
             </div>        
     )
