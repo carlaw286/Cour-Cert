@@ -9,6 +9,8 @@ import {  useLocation } from 'react-router-dom';
 
 export const StudentAddCourse = () => 
 {
+    
+    const navigate = useNavigate();
     const [userData, setUserData] = useUserDataAtom();
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -19,6 +21,9 @@ export const StudentAddCourse = () =>
 
     console.log("data ID from view course: " + userId);
 
+    //jwt
+    // axios.defaults.withCredentials = true;
+    
     useEffect(() => {
         axios.get('http://localhost:3002/getStudentcourses', {
             params: {
@@ -26,6 +31,7 @@ export const StudentAddCourse = () =>
             }
         })
         .then(response => {
+            console.log("Token: " +response.data);
             getCourses(response.data);
         })
         .catch(err => console.log(err));
@@ -33,7 +39,7 @@ export const StudentAddCourse = () =>
 
     console.log("data: " + userData.id);
 
-    const handleSubmit = async (courseId) => {
+    const handleSubmit = async (courseId, course_title, course_description) => {
 
         try {
           console.log("title:"+ courseId);
@@ -42,6 +48,8 @@ export const StudentAddCourse = () =>
           const response = await axios.post('http://localhost:3002/student_AddCourse', {
             userId,
             courseId,
+            course_title,
+            course_description
           });
       
           // Check if the response contains an error message
@@ -69,7 +77,6 @@ export const StudentAddCourse = () =>
 
  
     
-    const navigate = useNavigate();
     return(
         <div className='addcoursecontainer1'>
         <nav className='first-nav1'>
@@ -119,7 +126,7 @@ export const StudentAddCourse = () =>
                         <p>{course.course_description}</p>
                     </div>
                     <div className='enrollcourse'>
-                        <Button type='submit' onClick={() => handleSubmit(course._id)}>
+                        <Button type='submit' onClick={() => handleSubmit(course._id, course.course_title, course.course_description)}>
                             Enroll Course
                         </Button>
                     </div>

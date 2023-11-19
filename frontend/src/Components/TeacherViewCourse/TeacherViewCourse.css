@@ -42,3 +42,48 @@
     text-decoration: none;
     color: black;
  }
+
+ .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
+  }
+  
+  /* Pagination list */
+  .Paginate {
+    display: flex;
+    list-style: none;
+    font-family: Arial, sans-serif;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+  
+
+
+  /* Pagination item */
+  .paginate li {
+    margin: 0 3px;
+  }
+  
+  /* Pagination link */
+  .paginate a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Active pagination link */
+  .paginate a.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+  }

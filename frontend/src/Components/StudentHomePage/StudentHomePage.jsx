@@ -11,7 +11,7 @@ export const StudentHomePage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  console.log("UserData" +userData._id);
+  console.log("UserData: " +userData._id);
 
   //jwt
   axios.defaults.withCredentials = true;
@@ -20,6 +20,8 @@ export const StudentHomePage = () => {
       .get("http://localhost:3002/studenthomepage")
       .then((result) => {
         console.log(result);
+        
+      console.log("Token: " +result.data);
         if (result.data !== "Success") {
           navigate("/loginsignup");
         }
@@ -91,10 +93,6 @@ export const StudentHomePage = () => {
             <li>
               <Link to="/">Certifications</Link>
               {/* <a href="#"> Certifications</a>{" "} */}
-            </li>
-            <li>
-              <Link to="/">Support</Link>
-              {/* <a href="#"> Support</a>{" "} */}
             </li>
             <li>
               <Link to="/profilepage">My Profile</Link>

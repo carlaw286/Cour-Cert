@@ -45,10 +45,31 @@ const verifyUser = (req, res, next) => {
 app.get('/studenthomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
-
+app.get('/studentprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+app.get('/studentviewcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+// app.get('/getStudentcourses', verifyUser, (req, res) => {
+//     return res.json("Success")
+//   });
 app.get('/teacherhomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
+app.get('/teacherprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+app.get('/teacherviewcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+// app.get('/getTeachercourses', verifyUser, (req, res) => {
+//     return res.json("Success")
+//   });
+
+  app.get('/teacheraddcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
 
 app.post('/signout', (req, res) => {
     res.clearCookie('token').json({ message: 'Signout successful' });
@@ -188,8 +209,20 @@ app.post('/teachersignup', async (req, res) => {
 
 app.get('/getStudentcourses', (req, res) => {
     teacher_AddCourseModel.find()
-        .then(courses => res.json(courses))
+        .then(courses => res.json(courses)
+        )
         .catch(err => res.json(err))
+})
+
+app.get('/getEnrolledcourses', (req, res) => {
+    const {id} = req.query;
+    console.log("student id: " + id);
+    if (!id) {
+        return res.status(400).json({ error: 'Missing user_id in the request body' });
+      }
+    student_AddCourseModel.find({user_id : id})
+    .then(courses => res.json(courses))
+    .catch(err => res.json(err))
 })
 
 app.get('/getTeachercourses', (req, res) => {
@@ -234,7 +267,7 @@ app.post('/teacher_AddCourse', async (req, res) => {
 //add student course
 app.post('/student_AddCourse', async (req, res) => {
     const {userId,
-          courseId } = req.body;
+          courseId, course_title, course_description } = req.body;
           console.log("title: "+ courseId);
     
     try {
@@ -249,6 +282,8 @@ app.post('/student_AddCourse', async (req, res) => {
             const newCourse = await student_AddCourseModel.create({
                 user_id : userId,
                 course_id: courseId,
+                course_title : course_title,
+                course_description : course_description,
             });
             res.json(newCourse);    
         }
@@ -365,9 +400,7 @@ app.get('/studentprofile', (req, res) => {
       .then(studentUser => res.json(studentUser))
       .catch(err => res.json(err));
   });
-  app.get('/studentprofile', verifyUser, (req, res) => {
-    return res.json("Success")
-  });
+ 
 //for teaacher profile
   app.get('/teacherprofile', (req, res) => {
     const { userId } = req.query; // Use req.query to get query parameters
@@ -376,9 +409,6 @@ app.get('/studentprofile', (req, res) => {
       .catch(err => res.json(err));
   });
   
-  app.get('/teacherprofile', verifyUser, (req, res) => {
-    return res.json("Success")
-  });
   //for student update profile details
   app.put('/updatestudentprofile', verifyUser, async (req, res) => {
     const data = req.body;

@@ -6,7 +6,6 @@ import { useUserDataAtom } from "../../hooks/user_data_atom";
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
-  
   // State to track whether the form is in edit mode
   const [editMode, setEditMode] = useState(false);
   // State to store form data
@@ -22,7 +21,6 @@ export const ProfilePage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [userData, setUserData] = useUserDataAtom();
   
-  console.log(userData);
   const {
     birthDate = "",
     email = "",
@@ -58,32 +56,28 @@ export const ProfilePage = () => {
   
     //jwt
     axios.defaults.withCredentials = true;
+    
    
   useEffect(() => {
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
-    console.log('miagi sa profile sa student')
-    // const storedToken = localStorage.getItem('token');
     
-    // console.log('Stored Token:', storedToken);
-    // if (storedToken) {
-    //   // Include the token in the request headers
-    //   axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
-      
-    
-    
-    // Replace 'user@example.com' with the actual email you want to query
+    console.log(userData);
     axios
       .get(
         `http://localhost:3002/studentprofile?userId=${_id}`
       )
       .then((result) => {setStudentUser(result.data)
-      console.log(result);})
+      console.log(result);
+      console.log("Result: " +result.data);
+      if (result.data !== "Success") {
+        navigate("/loginsignup");
+      }
+    })
       
       .catch((err) => console.log(err));
-  // }
   }, []);
   
   
