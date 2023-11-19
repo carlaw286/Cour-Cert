@@ -16,32 +16,44 @@ export const TeacherViewCourse = () => {
 
   //jwt
   axios.defaults.withCredentials = true;
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/teacherviewcourse")
-      .then((result) => {
-        console.log(result);
+//   useEffect(() => {
+//     axios
+//       .get("http://localhost:3002/teacherviewcourse")
+//       .then((result) => {
+//         console.log(result);
         
-      console.log("Token: " +result.data);
-        if (result.data !== "Success") {
-          navigate("/loginsignup");
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+//       console.log("Token: " +result.data);
+//         if (result.data !== "Success") {
+//           navigate("/loginsignup");
+//         }
+//       })
+//       .catch((err) => console.log(err));
+//   }, []);
 //
-    useEffect(() => {
-        axios.get('http://localhost:3002/getTeachercourses', {
-            params: {
-                id: userId
-            }
-        })
-        .then(response => {
-            getCourses(response.data);
-            console.log("Token2: " +response.data);
-        })
-        .catch(err => console.log(err));
-    }, []);
+useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData((prevUserData) => {
+        const newUserData = JSON.parse(storedUserData);
+        // Assuming that newUserData has the same structure as your existing user data
+        return { ...prevUserData, ...newUserData };
+      });
+    }
+  
+    const userId = userData._id;
+  
+    axios.get('http://localhost:3002/getTeachercourses', {
+      params: {
+        id: userId
+      }
+    })
+    .then(response => {
+      getCourses(response.data);
+      console.log("Token2: " + response.data);
+    })
+    .catch(err => console.log(err));
+  }, [setUserData, userData._id]);
+  
 
     function handlePageClick(selectedPage) {
         setCurrentPage(selectedPage.selected);

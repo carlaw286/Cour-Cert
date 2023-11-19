@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './StudentViewCourse.css';
 import axios from 'axios'
 import { useUserDataAtom } from '../../hooks/user_data_atom';
@@ -11,31 +11,26 @@ export const StudentViewCourse = () => {
     const [percentage, setPercentage] = useState(0)
     const [courses, getCourses] = useState([])
     const [userData, setUserData] = useUserDataAtom();
-    const navigate = useNavigate();
 
-    //jwt
-  axios.defaults.withCredentials = true;
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/studentviewcourse")
-      .then((result) => {
-        console.log(result);
-        
-      console.log("Token: " +result.data);
-        if (result.data !== "Success") {
-          navigate("/loginsignup");
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
-//
     const userId = userData._id
     const [currentPage, setCurrentPage] = useState(0);
     const coursesPerPage = 6;
 
     console.log("user ID:" + userId);
+    axios.defaults.withCredentials = true;
 
     useEffect(() => {
+
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+          setUserData((prevUserData) => {
+            const newUserData = JSON.parse(storedUserData);
+            // Assuming that newUserData has the same structure as your existing user data
+            return { ...prevUserData, ...newUserData };
+          });
+        }
+        const userId = userData._id;
+
         axios.get('http://localhost:3002/getEnrolledcourses', {
             params: {
                 id: userId
@@ -43,10 +38,10 @@ export const StudentViewCourse = () => {
         })
         .then(response => {
             getCourses(response.data);
+            console.log("Token2: " + response.data);
         })
         .catch(err => console.log(err));
-    }, []);
-
+    }, [setUserData, userData._id]);
     const offset = currentPage * coursesPerPage;
     const currentCourses = courses.slice(offset, offset + coursesPerPage);
   

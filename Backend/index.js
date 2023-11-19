@@ -60,13 +60,7 @@ app.get('/teacherhomepage', verifyUser, (req, res) => {
 app.get('/teacherprofile', verifyUser, (req, res) => {
     return res.json("Success")
   });
-app.get('/teacherviewcourse', verifyUser, (req, res) => {
-    return res.json("Success")
-  });
-// app.get('/getTeachercourses', verifyUser, (req, res) => {
-//     return res.json("Success")
-//   });
-
+  
   app.get('/teacheraddcourse', verifyUser, (req, res) => {
     return res.json("Success")
   });

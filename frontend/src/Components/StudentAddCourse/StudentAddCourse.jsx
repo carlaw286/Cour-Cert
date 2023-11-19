@@ -26,22 +26,29 @@ export const StudentAddCourse = () =>
     console.log("data ID from view course: " + userId);
 
     //jwt
-    // axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     
     useEffect(() => {
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+          setUserData((prevUserData) => {
+            const newUserData = JSON.parse(storedUserData);
+            // Assuming that newUserData has the same structure as your existing user data
+            return { ...prevUserData, ...newUserData };
+          });
+        }
+        const userId = userData._id;
         axios.get('http://localhost:3002/getStudentcourses', {
             params: {
                 id: userId
             }
         })
         .then(response => {
-            console.log("Token: " +response.data);
             getCourses(response.data);
+            console.log("Token2: " + response.data);
         })
         .catch(err => console.log(err));
-    }, []);
-
-    console.log("data: " + userData.id);
+    }, [setUserData, userData._id]);
 
     const handleSubmit = async (courseId, course_title, course_description) => {
 
