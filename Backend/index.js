@@ -57,6 +57,19 @@ app.get('/studentviewcourse', verifyUser, (req, res) => {
 app.get('/teacherhomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
+app.get('/teacherprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+app.get('/teacherviewcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+// app.get('/getTeachercourses', verifyUser, (req, res) => {
+//     return res.json("Success")
+//   });
+
+  app.get('/teacheraddcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
 
 app.post('/signout', (req, res) => {
     res.clearCookie('token').json({ message: 'Signout successful' });
@@ -396,9 +409,6 @@ app.get('/studentprofile', (req, res) => {
       .catch(err => res.json(err));
   });
   
-  app.get('/teacherprofile', verifyUser, (req, res) => {
-    return res.json("Success")
-  });
   //for student update profile details
   app.put('/updatestudentprofile', verifyUser, async (req, res) => {
     const data = req.body;

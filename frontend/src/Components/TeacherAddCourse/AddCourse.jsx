@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import './AddCourse.css';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useUserDataAtom } from '../../hooks/user_data_atom';
@@ -18,9 +18,25 @@ export const TeacherAddCourse = () => {
   const [pdfTitle, setPdfTitle] = useState('');
   const [pdfFile, setPdfFile] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState(false);
-
+  const navigate = useNavigate();
   console.log("data ID from view course: " + id);
 
+    //jwt
+    axios.defaults.withCredentials = true;
+    useEffect(() => {
+      axios
+        .get("http://localhost:3002/teacheraddcourse")
+        .then((result) => {
+          console.log(result);
+          
+        console.log("Token: " +result.data);
+          if (result.data !== "Success") {
+            navigate("/loginsignup");
+          }
+        })
+        .catch((err) => console.log(err));
+    }, []);
+  //
 
   const handleSubmit = async (e) => {
     e.preventDefault();

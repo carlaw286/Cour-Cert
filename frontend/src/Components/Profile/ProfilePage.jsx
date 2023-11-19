@@ -21,7 +21,6 @@ export const ProfilePage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [userData, setUserData] = useUserDataAtom();
   
-  console.log(userData);
   const {
     birthDate = "",
     email = "",
@@ -64,7 +63,8 @@ export const ProfilePage = () => {
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
-    console.log('miagi sa profile sa student')
+    
+    console.log(userData);
     axios
       .get(
         `http://localhost:3002/studentprofile?userId=${_id}`

@@ -22,7 +22,7 @@ export const TeacherProfile = () =>
   const [successMessage, setSuccessMessage] = useState('');
   const [userData, setUserData] = useUserDataAtom();
   
-  console.log(userData);
+  
   const {
     birthDate = "",
     email = "",
@@ -63,6 +63,7 @@ export const TeacherProfile = () =>
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
+    console.log(userData);
     // Replace 'user@example.com' with the actual email you want to query
     axios
       .get(

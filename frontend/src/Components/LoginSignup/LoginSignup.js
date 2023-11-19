@@ -18,8 +18,6 @@ export const LoginSignup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [userData, setUserData] = useUserDataAtom();
-  
-  console.log('userData:', userData)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -36,11 +34,14 @@ export const LoginSignup = () => {
   axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault()
+    
     if (userType === "student") {
       
+    console.log('userData:', userData)
       axios.post('http://localhost:3002/loginsignupstudent', { email, password })
         .then(result => {
           console.log(result)
+          
           if (result.data.status === "Success") {
 
             console.log(result.data.userStudent)
@@ -78,7 +79,8 @@ export const LoginSignup = () => {
         email,
         password
       }
-
+      
+    console.log('userData:', userData)
       axios.get('http://localhost:3002/loginsignupteacher', { params })
         .then(result => {
           if (result.data.status === "Success") {
