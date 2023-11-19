@@ -92,6 +92,24 @@ export const StudentAddCourse = () =>
     const offset = currentPage * coursesPerPage;
     const currentCourses = courses.slice(offset, offset + coursesPerPage);
 
+
+    /* Expanding Text*/
+
+    const ExpandableText = ({ children, descriptionLength }) => {
+    const fullText = children;
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleText = () => {setIsExpanded(!isExpanded);};      
+
+    return (
+        <p className='text'>
+          {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
+          <span onClick={toggleText} className='toggle-button'>
+            {isExpanded ? 'Show less' : 'Show more'}
+          </span>
+        </p>
+      );
+    };
+
     return(
         <div className='addcoursecontainer1'>
         <nav className='first-nav1'>
@@ -138,7 +156,11 @@ export const StudentAddCourse = () =>
                 </div>
                 <div className='Courses'>
                     <div className='description1'>
-                        <p>{course.course_description}</p>
+                        <p>
+                        <ExpandableText descriptionLength={100}>
+                            {course.course_description}
+                            </ExpandableText>
+                        </p>
                     </div>
                     <div className='enrollcourse'>
                         <Button type='submit' onClick={() => handleSubmit(course._id, course.course_title, course.course_description)}>

@@ -42,6 +42,12 @@ export const StudentViewCourse = () => {
         })
         .catch(err => console.log(err));
     }, [setUserData, userData._id]);
+
+    function handlePageClick(selectedPage) {
+      setCurrentPage(selectedPage.selected);
+  }
+
+
     const offset = currentPage * coursesPerPage;
     const currentCourses = courses.slice(offset, offset + coursesPerPage);
   
@@ -81,11 +87,12 @@ export const StudentViewCourse = () => {
                         </div>
                     )
                 })}
-                <div>
+                <div className='paging'>
                 <ReactPaginate
-                className='paginate'
+                className='Paginate'
                 breakLabel="..."
                 nextLabel="next >"
+                onPageChange={handlePageClick}
                 pageRangeDisplayed={5}
                 pageCount={Math.ceil(courses.length / coursesPerPage)}
                 previousLabel="< previous"
