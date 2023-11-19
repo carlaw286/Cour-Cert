@@ -81,7 +81,7 @@ export const StudentViewCourse = () => {
                     console.log(course)
                     return (
                         <div className='title1' key={course._id}>
-                            <Link to={`/studentaddcourse?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
+                            <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
                                 {course.course_title}
                             </Link>
                         </div>

@@ -27,6 +27,21 @@ export const CourseViewPage = () =>
          </ul>
        </div>
     </nav>
+
+        <div className='containerss'>
+            <div className='coursetitle'></div>
+            <div className='coursedescriptions'></div>
+            <div className=' cotainerss'>
+                <div className=' weeknumbers'>
+
+                </div>
+                <div className='weeklyfiles'>
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
     )
 }
