@@ -29,14 +29,18 @@ export const CourseViewPage = () =>
     </nav>
 
         <div className='containerss'>
-            <div className='coursetitle'></div>
-            <div className='coursedescriptions'></div>
+            <div className='coursetitle'> Title</div>
+            <div className='coursedescriptions'>
+                <p>
+                    Description
+                </p>
+            </div>
             <div className=' cotainerss'>
                 <div className=' weeknumbers'>
-
+                    Weekly Number
                 </div>
                 <div className='weeklyfiles'>
-
+                    File name
                 </div>
             </div>
         </div>
