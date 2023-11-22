@@ -67,7 +67,8 @@ export const StudentViewCourse = () => {
             <nav className='second-nav'>
                 <div class="second-nav-links">
                     <ul>
-                        <li><Link to="/studentviewcourse"> View Course</Link> </li>
+                        <li><Link to="/allcourselist"> Available Courses</Link> </li>
+                        <li><Link to="/studentviewcourse"> View My Course</Link> </li>
                         <li><Link to="/studentprofile"> Account Profile</Link> </li>
                         <li><Link to="/studenthomepage"> Back</Link> </li>
                     </ul>
@@ -80,11 +81,21 @@ export const StudentViewCourse = () => {
                 {currentCourses.map(course => {
                     console.log(course)
                     return (
-                        <div className='title1' key={course._id}>
-                            <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
+                        <div className='course-box'>
+                            <div className='title1' key={course._id}>
+                                <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
                                 {course.course_title}
-                            </Link>
+                                </Link>
+                            </div>
+                            <div className='Courses'>
+                                <div className='description1'>
+                                    <p>
+                                        {course.course_description}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
+                        
                     )
                 })}
                 <div className='paging'>

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import React, { useEffect,useState } from 'react';
 import { useUserDataAtom } from '../../hooks/user_data_atom';
 import Button from "@mui/material/Button";
@@ -73,7 +74,7 @@ export const StudentAddCourse = () =>
             setErrorMessage(''); // Clear any existing error message            
             // Redirect to view course after a delay
              setTimeout(() => {
-              navigate('/studentviewcourse'); //change to student view course
+              navigate ('/studentviewcourse')
             }, 2000); // Adjust the delay as needed
           }
         } catch (error) {
@@ -135,6 +136,7 @@ export const StudentAddCourse = () =>
     </div>
     <div class ="second-nav-links2">
         <ul>
+          <li><a href = "/studentviewcourse"> My Course</a> </li>
           <li><a href = "/studenthomepage"> Back</a> </li>
          </ul>
        </div>
@@ -157,7 +159,7 @@ export const StudentAddCourse = () =>
                 <div className='Courses'>
                     <div className='description1'>
                         <p>
-                        <ExpandableText descriptionLength={100}>
+                        <ExpandableText descriptionLength={250}>
                             {course.course_description}
                             </ExpandableText>
                         </p>
