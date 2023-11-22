@@ -119,8 +119,8 @@ export const LoginSignup = () => {
     <div className='containers'>
       <Navbar />
       <div className='container1' id="login">
-        <div className="header">
-          <div className="text">{action}</div>
+        <div className="headerad">
+          <div className="textLogin">{action}</div>
           <div className="underline"></div>
         </div>
         <form onSubmit={handleSubmit}>

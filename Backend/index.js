@@ -569,6 +569,29 @@ app.post('/resetpassword/:id/:token', (req, res) => {
         }
     });
 });
+app.post('/profileresetpassword/:id', (req, res) => {
+    const { id } = req.params;
+    const { password } = req.body;
+
+    bcrypt.hash(password, 10)
+        .then(hash => {
+            // Check both student and teacher models
+            Promise.all([
+                user_StudentModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+                user_TeacherModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+            ])
+                .then(([studentUpdate, teacherUpdate]) => {
+                    // Check if either a student or a teacher with the given ID exists
+                    if (studentUpdate || teacherUpdate) {
+                        return res.send({ Status: "Success" });
+                    } else {
+                        return res.send({ Status: "User doesn't exist." });
+                    }
+                })
+                .catch(err => res.status(500).send({ Status: err.message }));
+        })
+        .catch(err => res.status(500).send({ Status: err.message }));
+});
 
 app.get("/Admin", cors(),(req,res)=>{
 

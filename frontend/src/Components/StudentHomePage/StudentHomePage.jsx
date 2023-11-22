@@ -95,7 +95,7 @@ export const StudentHomePage = () => {
               {/* <a href="#"> Certifications</a>{" "} */}
             </li>
             <li>
-              <Link to="/profilepage">My Profile</Link>
+              <Link to="/profilepage/">My Profile</Link>
               {/* <a href="./profilepage"> My Profile</a>{" "} */}
             </li>
             <li>

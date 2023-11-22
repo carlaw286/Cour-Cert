@@ -4,22 +4,26 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUserDataAtom } from "../../hooks/user_data_atom";
 
+
 export const ProfilePage = () => {
   const navigate = useNavigate();
   // State to track whether the form is in edit mode
   const [editMode, setEditMode] = useState(false);
   // State to store form data
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: "",
+  // });
 
   const [showDropdown, setShowDropdown] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [userData, setUserData] = useUserDataAtom();
+  const [password, setPassword] = useState()
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   
   const {
     birthDate = "",
@@ -32,7 +36,8 @@ export const ProfilePage = () => {
   // Function to handle input changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({
+    // setFormData((prevData) => ({
+      setUserData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
@@ -41,7 +46,8 @@ export const ProfilePage = () => {
   const toggleEditMode = () => {
     if (editMode) {
       // If currently in edit mode, reset form data to initial state on cancel
-      setFormData({
+      // setFormData({
+        setUserData({
         firstName: "",
         lastName: "",
         email: "",
@@ -82,12 +88,13 @@ export const ProfilePage = () => {
   
   
   
-  const handleFormSubmit = (e) => {
+  console.log("weeeeID: "+_id)
+const handleFormSubmit = (e) => {
     e.preventDefault();
-
+    
     // Send updated data to the server
     axios
-      .put(`http://localhost:3002/updatestudentprofile?userId=${_id}`, formData)
+      .put(`http://localhost:3002/updatestudentprofile?userId=${_id}`, userData) // formdata
       .then((response) => {
         // Assuming your server sends back the updated user data
         setUserData(response.data);
@@ -96,11 +103,32 @@ export const ProfilePage = () => {
         setEditMode(false);
         setSuccessMessage("Profile details updated successfully"); // Set success message
         setTimeout(() => setSuccessMessage(""), 3000);
+        console.log(userData);
       })
       .catch((error) => {
         console.error("Error updating profile:", error);
-      });
+      })
+
   };
+  const updatePassword = (e) => {
+    e.preventDefault()
+        
+        if (password !== confirmPassword) {
+            setErrorMessage('Passwords do not match.');
+            return;
+          }
+          else{
+            axios.post(`http://localhost:3002/profileresetpassword/${_id}`, {password})
+            .then(res => {
+            if(res.data.Status === "Success") {
+                setSuccessMessage('Password changed successfully! Redirecting to login...');
+                setErrorMessage('');
+                setTimeout(() => {
+                    navigate('/loginsignup');
+                  }, 2000);
+            } 
+        }).catch(err => console.log(err))
+    }}
 
   return (
     <div className="profilepage">
@@ -132,7 +160,7 @@ export const ProfilePage = () => {
                 type="name"
                 id="firstName"
                 placeholder="Enter first name"
-                value={editMode ? formData.firstName : firstName}
+                value={editMode ? userData.firstName : firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -142,7 +170,7 @@ export const ProfilePage = () => {
                 type="name"
                 id="lastName"
                 placeholder="Enter last name"
-                value={editMode ? formData.lastName : lastName}
+                value={editMode ? userData.lastName : lastName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -157,13 +185,14 @@ export const ProfilePage = () => {
             type="email"
             id="email"
             placeholder="Enter email"
-            value={editMode ? formData.email : email}
+            value={editMode ? userData.email : email}
             onChange={handleInputChange}
             disabled={!editMode}
               >
                 {/* // Disable input if not in edit mode */}
               </input>
             </div>
+          
             <div>
               <button
                 className="dropdown-toggle"
@@ -172,8 +201,8 @@ export const ProfilePage = () => {
               >
                 {showDropdown ? "Hide" : "Change Password"}
               </button>
-
               {showDropdown && (
+                
                 <div>
                   <div className="col-5">
                     <p>Password</p>
@@ -184,19 +213,23 @@ export const ProfilePage = () => {
                       type="password"
                       id="password"
                       placeholder="Enter password"
-                      value={formData.password}
-                      onChange={handleInputChange}
+                      required onChange={(e) => setPassword(e.target.value)} 
                       disabled={!editMode}
                     />
                     <input
                       type="password"
                       id="confirmPassword"
                       placeholder="Enter confirm password"
-                      value={formData.confirmPassword}
-                      onChange={handleInputChange}
+                      required onChange={(e) => setConfirmPassword(e.target.value)}
                       disabled={!editMode}
                     />
                   </div>
+                  <div className="butRes">
+                  <button type="button" onClick={updatePassword} disabled={!editMode}>
+            {" "}
+            Update Password
+          </button>
+              </div>
                 </div>
               )}
             </div>
@@ -225,9 +258,15 @@ export const ProfilePage = () => {
               <div className="success-message" style={{ color: "green" }}>
              {successMessage}
               </div>
+              <div className="error-message" style={{ color: "red" }}>
+             {errorMessage}
+              </div>
             </div>
           </div>
         </div>
+        
+
+        
       </form>
     </div>
   );

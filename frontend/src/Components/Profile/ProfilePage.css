@@ -140,7 +140,22 @@ h1{
     margin-top: 22vh;
     place-content: center;
 }
+.butRes button{
+    width: 13vh;
+    height: 4.2vh;
+    color: white;
+    background: rgb(108, 117, 125);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1.2rem;
+}
 
+.butRes button:hover{
+    color: white;
+    background: rgb(90, 98, 104);
+}
 .but1 button{
     width: 13vh;
     height: 4.2vh;
@@ -202,6 +217,23 @@ h1{
     margin-top: 20px;
     margin-left: 40px;
   }
+.butRes button{
+    color: white;
+    background: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 190px;
+    padding: 5px 15px;
+    margin-bottom: 10px; /* Space between button and dropdown */
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.butRes button:hover{
+    color: white;
+    background: #3498db;
+}
 /* .col-7{
     margin-top: 22vh;
     place-content: center;
