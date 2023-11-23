@@ -9,6 +9,7 @@ const teacher_Addcourse = new mongoose.Schema({
     type: String,
   },
   user_id: String,
+  student_id : String,
 })
 
 

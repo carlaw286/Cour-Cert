@@ -10,19 +10,22 @@ export const TeacherProfile = () =>
   // State to track whether the form is in edit mode
   const [editMode, setEditMode] = useState(false);
   // State to store form data
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   password: '',
+  //   confirmPassword: '',
+  // });
 
   const [showDropdown, setShowDropdown] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [userData, setUserData] = useUserDataAtom();
+  const [password, setPassword] = useState()
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   
-  console.log(userData);
+  
   const {
     birthDate = "",
     email = "",
@@ -34,7 +37,7 @@ export const TeacherProfile = () =>
     // Function to handle input changes
     const handleInputChange = (e) => {
       const { id, value } = e.target;
-      setFormData((prevData) => ({
+      setUserData((prevData) => ({
         ...prevData,
         [id]: value,
       }));
@@ -43,7 +46,7 @@ export const TeacherProfile = () =>
     const toggleEditMode = () => {
       if (editMode) {
         // If currently in edit mode, reset form data to initial state on cancel
-        setFormData({
+        setUserData({
           firstName: '',
           lastName: '',
           email: '',
@@ -55,12 +58,19 @@ export const TeacherProfile = () =>
     };
 
     const [teacherUser, setTeacherUser] = useState({});
+  
+    axios.defaults.withCredentials = true;
 
   useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+    console.log(userData);
     // Replace 'user@example.com' with the actual email you want to query
     axios
       .get(
-        `http://localhost:3002/studentprofile?userId=carlo.amadeo286@gmail.com`
+       `http://localhost:3002/teacherprofile?userId=${_id}`
       )
       .then((result) => setTeacherUser(result.data))
       .catch((err) => console.log(err));
@@ -71,10 +81,11 @@ export const TeacherProfile = () =>
 
     // Send updated data to the server
     axios
-      .put(`http://localhost:3002/updateteacherprofile?userId=${_id}`, formData)
+      .put(`http://localhost:3002/updateteacherprofile?userId=${_id}`, userData)
       .then((response) => {
         // Assuming your server sends back the updated user data
         setUserData(response.data);
+        localStorage.setItem('userData', JSON.stringify(response.data));
         // Disable edit mode after successful update
         setEditMode(false);
         setSuccessMessage("Profile details updated successfully"); // Set success message
@@ -84,6 +95,26 @@ export const TeacherProfile = () =>
         console.error("Error updating profile:", error);
       });
   };
+
+  const updatePassword = (e) => {
+    e.preventDefault()
+        
+        if (password !== confirmPassword) {
+            setErrorMessage('Passwords do not match.');
+            return;
+          }
+          else{
+            axios.post(`http://localhost:3002/profileresetpassword/${_id}`, {password})
+            .then(res => {
+            if(res.data.Status === "Success") {
+                setSuccessMessage('Password changed successfully! Redirecting to login...');
+                setErrorMessage('');
+                setTimeout(() => {
+                    navigate('/loginsignup');
+                  }, 2000);
+            } 
+        }).catch(err => console.log(err))
+    }}
   return (
     <div className="profilepage">
       <form onSubmit={handleFormSubmit}>
@@ -114,7 +145,7 @@ export const TeacherProfile = () =>
                 type="name"
                 id="firstName"
                 placeholder="Enter first name"
-                value={editMode ? formData.firstName : firstName}
+                value={editMode ? userData.firstName : firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -124,7 +155,7 @@ export const TeacherProfile = () =>
                 type="name"
                 id="lastName"
                 placeholder="Enter last name"
-                value={editMode ? formData.lastName : lastName}
+                value={editMode ? userData.lastName : lastName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -139,7 +170,7 @@ export const TeacherProfile = () =>
             type="email"
             id="email"
             placeholder="Enter email"
-            value={editMode ? formData.email : email}
+            value={editMode ? userData.email : email}
             onChange={handleInputChange}
             disabled={!editMode}
               >
@@ -166,20 +197,24 @@ export const TeacherProfile = () =>
                       type="password"
                       id="password"
                       placeholder="Enter password"
-                      value={formData.password}
-                      onChange={handleInputChange}
+                      required onChange={(e) => setPassword(e.target.value)} 
                       disabled={!editMode}
                     />
                     <input
                       type="password"
                       id="confirmPassword"
                       placeholder="Enter confirm password"
-                      value={formData.confirmPassword}
-                      onChange={handleInputChange}
+                      required onChange={(e) => setConfirmPassword(e.target.value)}
                       disabled={!editMode}
                     />
                   </div>
-                </div>
+                  <div className="butRes">
+                  <button type="button" onClick={updatePassword} disabled={!editMode}>
+            {" "}
+            Update Password
+          </button>
+              </div>
+              </div>
               )}
             </div>
 
@@ -187,7 +222,7 @@ export const TeacherProfile = () =>
               <div className="but1">
                 <button
                   type="button"
-                  onClick={() => navigate("/studenthomepage")}
+                  onClick={() => navigate("/teacherhomepage")}
                 >
                   {" "}
                   Back
@@ -203,13 +238,18 @@ export const TeacherProfile = () =>
             {" "}
             Update
           </button>
-          <div className="success-message" style={{ color: "green" }}>
+              </div>
+              <div className="success-message" style={{ color: "green" }}>
              {successMessage}
               </div>
+              <div className="error-message" style={{ color: "red" }}>
+             {errorMessage}
               </div>
             </div>
           </div>
         </div>
+
+
       </form>
     </div>
   );

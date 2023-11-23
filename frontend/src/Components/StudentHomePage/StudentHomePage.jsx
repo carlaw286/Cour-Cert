@@ -11,7 +11,7 @@ export const StudentHomePage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  console.log(userData);
+  console.log("UserData: " +userData._id);
 
   //jwt
   axios.defaults.withCredentials = true;
@@ -20,6 +20,8 @@ export const StudentHomePage = () => {
       .get("http://localhost:3002/studenthomepage")
       .then((result) => {
         console.log(result);
+        
+      console.log("Token: " +result.data);
         if (result.data !== "Success") {
           navigate("/loginsignup");
         }
@@ -39,6 +41,7 @@ export const StudentHomePage = () => {
   //jwt
   
   const handleSignout = async () => {
+    localStorage.removeItem('token');
     try {
       // Make a request to the server to invalidate the session
       await axios.post("http://localhost:3002/signout");
@@ -90,11 +93,8 @@ export const StudentHomePage = () => {
               <Link to="/">Certifications</Link>
             </li>
             <li>
-              <Link to="/">Support</Link>
-            
-            </li>
-            <li>
-              <Link to="/profilepage">My Profile</Link>
+              <Link to="/profilepage/">My Profile</Link>
+              {/* <a href="./profilepage"> My Profile</a>{" "} */}
             </li>
             <li>
             <Link to="/" onClick={handleSignout}>

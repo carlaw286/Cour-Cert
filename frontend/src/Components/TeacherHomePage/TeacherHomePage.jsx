@@ -86,7 +86,7 @@ export const TeacherHomePage = () =>
     setOpen(false);
   };
   const navigate = useNavigate();
-  //jwt
+  
     axios.defaults.withCredentials = true;
     useEffect(()=> {
       axios.get('http://localhost:3002/teacherhomepage')
@@ -98,8 +98,9 @@ export const TeacherHomePage = () =>
       })
       .catch(err=> console.log(err))
     }, [])
-  //jwt
+ 
   const handleSignout = async () => {
+    localStorage.removeItem('token');
     try {
       // Make a request to the server to invalidate the session
       await axios.post("http://localhost:3002/signout");
