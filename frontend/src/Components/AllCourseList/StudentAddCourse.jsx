@@ -152,9 +152,9 @@ export const StudentAddCourse = () =>
             return (
                 <div className='course-box' key={course._id}>
                 <div className='titles1'>
-                    <a href='courseviewpage'>
+                    <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
                         {course.course_title}
-                    </a>
+                    </Link>
                 </div>
                 <div className='Courses'>
                     <div className='description1'>

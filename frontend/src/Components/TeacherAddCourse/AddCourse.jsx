@@ -40,16 +40,22 @@ export const TeacherAddCourse = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    if (!pdfFile) {
+      // If pdfFile is empty, show an error message
+      alert("Please upload a file");
+      return;
+    }
+  
     const WeeklyData = {
       id,
       weekNumber: week,
       file: pdfFile,
       PDFdescription: pdfTitle,
     };
-
+  
     try {
-      const  weeklytopic= await axios.post("http://localhost:3002/AddFiles", WeeklyData, {
+      const weeklytopic = await axios.post("http://localhost:3002/AddFiles", WeeklyData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(weeklytopic);
@@ -58,7 +64,8 @@ export const TeacherAddCourse = () => {
       console.error("Error uploading file:", error);
       // Handle error if needed
     }
-  }
+  };
+  
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();

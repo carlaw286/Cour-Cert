@@ -25,6 +25,7 @@ app.use(cors({
 
     }))
 app.use(cookieParser())
+app.use("/uploaded-files", express.static("uploaded-files"));
 
 
 
@@ -263,7 +264,7 @@ app.post('/teacher_AddCourse', async (req, res) => {
 app.post('/student_AddCourse', async (req, res) => {
     const {userId,
           courseId, course_title, course_description } = req.body;
-          console.log("title: "+ courseId);
+          console.log("wdwsds: "+ courseId);
     
     try {
         const existingCourseID = await student_AddCourseModel.findOne({ 
@@ -272,7 +273,7 @@ app.post('/student_AddCourse', async (req, res) => {
         });
         
         if (existingCourseID) {
-            res.json("Course already exists");
+            res.json(error);
         } else {
             const newCourse = await student_AddCourseModel.create({
                 user_id : userId,
@@ -280,6 +281,7 @@ app.post('/student_AddCourse', async (req, res) => {
                 course_title : course_title,
                 course_description : course_description,
             });
+            console.log("Sucess!!");
             res.json(newCourse);    
         }
     } catch (err) {
@@ -308,6 +310,7 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
         console.log(data);
         console.log(req.file);
 
+
         const { weekNumber, PDFdescription} = data;
         const fileName = req.file.filename;
 
@@ -319,6 +322,7 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
         if (!existingCourse) {
             return res.status(404).json("Course not found");
         }
+        
         const Addtopic = await teacher_AddTopicModel.create({
             weekNumber : weekNumber,
             PDFdescription : PDFdescription,
@@ -339,13 +343,28 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
     }
 });
 
+app.get("/getWeeklyTopics", (req,res) =>{
+    try {
+        const { id } = req.query;
+        console.log("id: " + id);
+        if (!id) {
+            return res.status(400).json({ error: 'Missing user_id in the request body' });
+          }
+        teacher_AddTopicModel.find({ course_id : id})
+        .then(weeklytopics => res.json(weeklytopics),
+        console.log("success!!"))
+        .catch(err => res.json(err));
+    }
+    catch (error){
+        res.status(500).json({error : err.message});
+    }
+});
 
 // Update teacher course's topic and description
 app.put('/updateCourse', async (req, res) => {
     const data = req.body;
     const {id} = data
     console.log(data);
-
 
     const { course_title, course_description} = data;
     console.log("Course id: " + id);
@@ -360,7 +379,6 @@ app.put('/updateCourse', async (req, res) => {
         if (!existingCourse) {
             return res.status(404).json("Course not found");
         }
-
         console.log('A');
 
         const updatedCourse = {

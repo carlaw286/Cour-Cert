@@ -30,29 +30,29 @@ export const TeacherViewCourse = () => {
 //       .catch((err) => console.log(err));
 //   }, []);
 //
-useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      setUserData((prevUserData) => {
-        const newUserData = JSON.parse(storedUserData);
-        // Assuming that newUserData has the same structure as your existing user data
-        return { ...prevUserData, ...newUserData };
-      });
-    }
-  
-    const userId = userData._id;
-  
-    axios.get('http://localhost:3002/getTeachercourses', {
-      params: {
-        id: userId
-      }
-    })
-    .then(response => {
-      getCourses(response.data);
-      console.log("Token2: " + response.data);
-    })
-    .catch(err => console.log(err));
-  }, [setUserData, userData._id]);
+    useEffect(() => {
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+        setUserData((prevUserData) => {
+            const newUserData = JSON.parse(storedUserData);
+            // Assuming that newUserData has the same structure as your existing user data
+            return { ...prevUserData, ...newUserData };
+        });
+        }
+    
+        const userId = userData._id;
+    
+        axios.get('http://localhost:3002/getTeachercourses', {
+        params: {
+            id: userId
+        }
+        })
+        .then(response => {
+        getCourses(response.data);
+        console.log("Token2: " + response.data);
+        })
+        .catch(err => console.log(err));
+    }, [setUserData, userData._id]);
   
 
     function handlePageClick(selectedPage) {
@@ -61,10 +61,6 @@ useEffect(() => {
 
     const offset = currentPage * coursesPerPage;
     const currentCourses = courses.slice(offset, offset + coursesPerPage);
-
-    console.log("data from view course:" + userId)
-    
-    
 
     return (
         <div className='addcoursecontainer'>

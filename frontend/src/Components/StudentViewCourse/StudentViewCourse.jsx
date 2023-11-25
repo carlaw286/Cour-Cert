@@ -11,7 +11,6 @@ export const StudentViewCourse = () => {
     const [percentage, setPercentage] = useState(0)
     const [courses, getCourses] = useState([])
     const [userData, setUserData] = useUserDataAtom();
-
     const userId = userData._id
     const [currentPage, setCurrentPage] = useState(0);
     const coursesPerPage = 6;
@@ -79,11 +78,10 @@ export const StudentViewCourse = () => {
                     List of courses
                 </div>
                 {currentCourses.map(course => {
-                    console.log(course)
                     return (
                         <div className='course-box'>
                             <div className='title1' key={course._id}>
-                                <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
+                                <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
                                 {course.course_title}
                                 </Link>
                             </div>
