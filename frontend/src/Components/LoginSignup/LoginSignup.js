@@ -18,8 +18,6 @@ export const LoginSignup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [userData, setUserData] = useUserDataAtom();
-  
-  console.log('userData:', userData)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -36,16 +34,21 @@ export const LoginSignup = () => {
   axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault()
+    
     if (userType === "student") {
       
+    console.log('userData:', userData)
       axios.post('http://localhost:3002/loginsignupstudent', { email, password })
         .then(result => {
           console.log(result)
+          
           if (result.data.status === "Success") {
-            
+
             console.log(result.data.userStudent)
             setUserData(result.data.userStudent)
-            
+            // localStorage.setItem('token', token);
+            // console.log('Token:', token)
+            localStorage.setItem('userData', JSON.stringify(result.data.userStudent));
             setTimeout(() => {
               navigate('/studenthomepage');
 
@@ -76,13 +79,15 @@ export const LoginSignup = () => {
         email,
         password
       }
-
+      
+    console.log('userData:', userData)
       axios.get('http://localhost:3002/loginsignupteacher', { params })
         .then(result => {
           if (result.data.status === "Success") {
             console.log(result.data);
 
             setUserData(result.data.userTeacher)
+            localStorage.setItem('userData', JSON.stringify(result.data.userTeacher));
 
             setTimeout(() => {
               navigate('/teacherhomepage');
@@ -114,8 +119,8 @@ export const LoginSignup = () => {
     <div className='containers'>
       <Navbar />
       <div className='container1' id="login">
-        <div className="header">
-          <div className="text">{action}</div>
+        <div className="headerad">
+          <div className="textLogin">{action}</div>
           <div className="underline"></div>
         </div>
         <form onSubmit={handleSubmit}>
@@ -167,7 +172,7 @@ export const LoginSignup = () => {
           </div>
 
           {action === "Login" ? (
-            <div className="forgot-password"><span> Forgot Password?</span></div>
+            <div className="forgot-password"><a href='./forgotpassword'>Forgot Password</a><span>?</span></div>
           ) : null}
           <div className="create-account">
             <p>Don't have an account yet? Create account as <a href='./teachersignup'>Teacher</a> or <a href='./studentsignup'>Student</a>.</p>

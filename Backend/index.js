@@ -5,6 +5,7 @@ const cors = require("cors")
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
+const student_AddCourseModel = require ('./models/student_Addcourse')
 const teacher_AddTopicModel = require('./models/teacher_Addtopic')
 const user_AdminModel = require('./models/user_admin')
 //jwt
@@ -18,7 +19,7 @@ require('dotenv/config')
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://cour-cert.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 
@@ -44,10 +45,30 @@ const verifyUser = (req, res, next) => {
 app.get('/studenthomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
-
+app.get('/studentprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+app.get('/studentviewcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+// app.get('/getStudentcourses', verifyUser, (req, res) => {
+//     return res.json("Success")
+//   });
 app.get('/teacherhomepage', verifyUser, (req, res) => {
     return res.json("Success")
 })
+app.get('/teacherprofile', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+  
+  app.get('/teacheraddcourse', verifyUser, (req, res) => {
+    return res.json("Success")
+  });
+
+app.post('/signout', (req, res) => {
+    res.clearCookie('token').json({ message: 'Signout successful' });
+});
+
 //jwt
 
 
@@ -182,8 +203,20 @@ app.post('/teachersignup', async (req, res) => {
 
 app.get('/getStudentcourses', (req, res) => {
     teacher_AddCourseModel.find()
-        .then(courses => res.json(courses))
+        .then(courses => res.json(courses)
+        )
         .catch(err => res.json(err))
+})
+
+app.get('/getEnrolledcourses', (req, res) => {
+    const {id} = req.query;
+    console.log("student id: " + id);
+    if (!id) {
+        return res.status(400).json({ error: 'Missing user_id in the request body' });
+      }
+    student_AddCourseModel.find({user_id : id})
+    .then(courses => res.json(courses))
+    .catch(err => res.json(err))
 })
 
 app.get('/getTeachercourses', (req, res) => {
@@ -224,6 +257,38 @@ app.post('/teacher_AddCourse', async (req, res) => {
     }
 });
 
+
+//add student course
+app.post('/student_AddCourse', async (req, res) => {
+    const {userId,
+          courseId, course_title, course_description } = req.body;
+          console.log("title: "+ courseId);
+    
+    try {
+        const existingCourseID = await student_AddCourseModel.findOne({ 
+            course_id : courseId,
+            user_id: userId,
+        });
+        
+        if (existingCourseID) {
+            res.json("Course already exists");
+        } else {
+            const newCourse = await student_AddCourseModel.create({
+                user_id : userId,
+                course_id: courseId,
+                course_title : course_title,
+                course_description : course_description,
+            });
+            res.json(newCourse);    
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploaded-files'); // Define the upload directory
@@ -248,7 +313,6 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
     console.log("week " + PDFdescription);
     try {
         const existingCourse = await teacher_AddCourseModel.findById(id);
-
 
         
         if (!existingCourse) {
@@ -330,6 +394,7 @@ app.get('/studentprofile', (req, res) => {
       .then(studentUser => res.json(studentUser))
       .catch(err => res.json(err));
   });
+ 
 //for teaacher profile
   app.get('/teacherprofile', (req, res) => {
     const { userId } = req.query; // Use req.query to get query parameters
@@ -503,6 +568,29 @@ app.post('/resetpassword/:id/:token', (req, res) => {
                 .catch(err => res.send({ Status: err }));
         }
     });
+});
+app.post('/profileresetpassword/:id', (req, res) => {
+    const { id } = req.params;
+    const { password } = req.body;
+
+    bcrypt.hash(password, 10)
+        .then(hash => {
+            // Check both student and teacher models
+            Promise.all([
+                user_StudentModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+                user_TeacherModel.findByIdAndUpdate({ _id: id }, { password: hash }),
+            ])
+                .then(([studentUpdate, teacherUpdate]) => {
+                    // Check if either a student or a teacher with the given ID exists
+                    if (studentUpdate || teacherUpdate) {
+                        return res.send({ Status: "Success" });
+                    } else {
+                        return res.send({ Status: "User doesn't exist." });
+                    }
+                })
+                .catch(err => res.status(500).send({ Status: err.message }));
+        })
+        .catch(err => res.status(500).send({ Status: err.message }));
 });
 
 app.get("/Admin", cors(),(req,res)=>{

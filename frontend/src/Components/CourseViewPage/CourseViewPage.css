@@ -1,0 +1,44 @@
+.containerss{
+
+}
+
+.coursetitle{
+    height: 5vh;
+    width: 90vh;
+    text-indent: 0.5vh;
+    border: 1px solid black;
+    margin-top: 6vh;
+    margin-left: 25%;
+    padding: 11px;
+    font-size: 23px;
+}
+
+.coursedescriptions p{
+    padding: 10px;
+    width: 90vh;
+    height: 23vh;
+    margin-top: 6vh;
+    margin-left: 25%;
+    text-indent: 2vh;
+    border: 1px solid black;
+}
+
+.cotainerss{
+    border: 1px solid black;
+    margin-top: 6vh;
+    margin-left: 25%;
+    width: 90vh;
+    height: auto;
+}
+
+.containerss .weeknumbers{
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.containerss .weeklyfiles{
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+}

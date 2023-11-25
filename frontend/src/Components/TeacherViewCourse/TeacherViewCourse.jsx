@@ -1,28 +1,69 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './TeacherViewCourse.css';
 import axios from 'axios'
 import { useUserDataAtom } from '../../hooks/user_data_atom';
+import ReactPaginate from 'react-paginate';
 
 export const TeacherViewCourse = () => {
     const [courses, getCourses] = useState([])
     const [userData, setUserData] = useUserDataAtom();
     const userId = userData._id
-    
-    useEffect(() => {
-        axios.get('http://localhost:3002/getTeachercourses', {
-            params: {
-                id: userId
-            }
-        })
-        .then(response => {
-            getCourses(response.data);
-        })
-        .catch(err => console.log(err));
-    }, []);
-    
+    const [currentPage, setCurrentPage] = useState(0);
+    const navigate = useNavigate();
+
+    const coursesPerPage = 6;
+
+  //jwt
+  axios.defaults.withCredentials = true;
+//   useEffect(() => {
+//     axios
+//       .get("http://localhost:3002/teacherviewcourse")
+//       .then((result) => {
+//         console.log(result);
+        
+//       console.log("Token: " +result.data);
+//         if (result.data !== "Success") {
+//           navigate("/loginsignup");
+//         }
+//       })
+//       .catch((err) => console.log(err));
+//   }, []);
+//
+useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData((prevUserData) => {
+        const newUserData = JSON.parse(storedUserData);
+        // Assuming that newUserData has the same structure as your existing user data
+        return { ...prevUserData, ...newUserData };
+      });
+    }
+  
+    const userId = userData._id;
+  
+    axios.get('http://localhost:3002/getTeachercourses', {
+      params: {
+        id: userId
+      }
+    })
+    .then(response => {
+      getCourses(response.data);
+      console.log("Token2: " + response.data);
+    })
+    .catch(err => console.log(err));
+  }, [setUserData, userData._id]);
+  
+
+    function handlePageClick(selectedPage) {
+        setCurrentPage(selectedPage.selected);
+    }
+
+    const offset = currentPage * coursesPerPage;
+    const currentCourses = courses.slice(offset, offset + coursesPerPage);
 
     console.log("data from view course:" + userId)
+    
     
 
     return (
@@ -47,21 +88,35 @@ export const TeacherViewCourse = () => {
                     </ul>
                 </div>
             </nav>
-
             <div className='detail'>
                 <div>
                     List of courses
                 </div>
-                {courses.map(course => {
+                {currentCourses.map(course => {
                     console.log(course)
                     return (
-                        <div className='title1'>
+                        <div className='title1' key={course._id}>
                             <Link to={`/teacheraddcourse?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>
                                 {course.course_title}
                             </Link>
                         </div>
                     )
                 })}
+                <div className='paging'>
+                <ReactPaginate
+                className='Paginate'
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={Math.ceil(courses.length / coursesPerPage)}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+                />
+                </div>
+               
+               <div className='spaces'>
+               </div>
             </div>
             </div>        
     )

@@ -23,7 +23,7 @@ import{TeacherProfile} from './Components/TeacherProfile/TeacherProfile';
 import{TeacherAddCourse} from './Components/TeacherAddCourse/AddCourse';
 import{TeacherViewCourse} from './Components/TeacherViewCourse/TeacherViewCourse';
 import{StudentViewCourse} from './Components/StudentViewCourse/StudentViewCourse';
-import{StudentAddCourse} from './Components/StudentAddCourse/StudentAddCourse';
+import{StudentAddCourse} from './Components/AllCourseList/StudentAddCourse';
 import{CourseViewPage} from './Components/CourseViewPage/CourseViewPage';
 
 

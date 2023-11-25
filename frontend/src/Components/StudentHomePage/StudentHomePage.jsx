@@ -22,6 +22,8 @@ export const StudentHomePage = () => {
       .get("http://localhost:3002/studenthomepage")
       .then((result) => {
         console.log(result);
+        
+      console.log("Token: " +result.data);
         if (result.data !== "Success") {
           navigate("/loginsignup");
         }

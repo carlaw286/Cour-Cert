@@ -90,7 +90,7 @@ export const TeacherHomePage = () =>
     setOpen(false);
   };
   const navigate = useNavigate();
-  //jwt
+  
     axios.defaults.withCredentials = true;
     useEffect(()=> {
       axios.get('http://localhost:3002/teacherhomepage')
@@ -163,7 +163,11 @@ export const TeacherHomePage = () =>
             <ul>
               <li><Link to = "/teacherviewcourse"> View Course</Link> </li>
               <li><Link to = "/teacherprofile"> Account Profile</Link> </li>
-              <li><Link to = "/"> Signout</Link> </li>
+              <li>
+              <Link to="/" onClick={handleSignout}>
+                Signout
+              </Link>
+              </li>
              </ul>
            </div>
        </nav>
