@@ -23,8 +23,9 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 
-}))
+    }))
 app.use(cookieParser())
+app.use("/uploaded-files", express.static("uploaded-files"));
 
 
 
@@ -167,6 +168,7 @@ app.post('/studentsignup', async (req, res) => {
     }
 });
 
+
 //teacher signup credentials are added into the database
 app.post('/teachersignup', async (req, res) => {
     try {
@@ -262,7 +264,7 @@ app.post('/teacher_AddCourse', async (req, res) => {
 app.post('/student_AddCourse', async (req, res) => {
     const {userId,
           courseId, course_title, course_description } = req.body;
-          console.log("title: "+ courseId);
+          console.log("wdwsds: "+ courseId);
     
     try {
         const existingCourseID = await student_AddCourseModel.findOne({ 
@@ -271,7 +273,7 @@ app.post('/student_AddCourse', async (req, res) => {
         });
         
         if (existingCourseID) {
-            res.json("Course already exists");
+            res.json(error);
         } else {
             const newCourse = await student_AddCourseModel.create({
                 user_id : userId,
@@ -279,6 +281,7 @@ app.post('/student_AddCourse', async (req, res) => {
                 course_title : course_title,
                 course_description : course_description,
             });
+            console.log("Sucess!!");
             res.json(newCourse);    
         }
     } catch (err) {
@@ -301,23 +304,25 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post('/AddFiles', upload.single("file"), async (req,res) => {
-    const data = req.body;
-    const {id} = data
-    console.log(data);
-    console.log(req.file);
-
-    const { weekNumber, PDFdescription} = data;
-    const fileName = req.file.originalname;
-
-    console.log("week " + weekNumber);
-    console.log("week " + PDFdescription);
     try {
+        const data = req.body;
+        const {id} = data
+        console.log(data);
+        console.log(req.file);
+
+
+        const { weekNumber, PDFdescription} = data;
+        const fileName = req.file.filename;
+
+        console.log("week " + weekNumber);
+        console.log("week " + PDFdescription);
         const existingCourse = await teacher_AddCourseModel.findById(id);
 
         
         if (!existingCourse) {
             return res.status(404).json("Course not found");
         }
+        
         const Addtopic = await teacher_AddTopicModel.create({
             weekNumber : weekNumber,
             PDFdescription : PDFdescription,
@@ -338,12 +343,28 @@ app.post('/AddFiles', upload.single("file"), async (req,res) => {
     }
 });
 
+app.get("/getWeeklyTopics", (req,res) =>{
+    try {
+        const { id } = req.query;
+        console.log("id: " + id);
+        if (!id) {
+            return res.status(400).json({ error: 'Missing user_id in the request body' });
+          }
+        teacher_AddTopicModel.find({ course_id : id})
+        .then(weeklytopics => res.json(weeklytopics),
+        console.log("success!!"))
+        .catch(err => res.json(err));
+    }
+    catch (error){
+        res.status(500).json({error : err.message});
+    }
+});
+
 // Update teacher course's topic and description
 app.put('/updateCourse', async (req, res) => {
     const data = req.body;
     const {id} = data
     console.log(data);
-
 
     const { course_title, course_description} = data;
     console.log("Course id: " + id);
@@ -358,7 +379,6 @@ app.put('/updateCourse', async (req, res) => {
         if (!existingCourse) {
             return res.status(404).json("Course not found");
         }
-
         console.log('A');
 
         const updatedCourse = {
@@ -617,12 +637,12 @@ app.post("/Admin",async (req, res) => {
 });
 
 mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('DB Connected!');
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+.then(() => {
+    console.log('DB Connected!');
+})
+.catch((err) => {
+    console.log(err);
+})
 
 app.listen(3002, () => {
     console.log("server is running")

@@ -1,6 +1,7 @@
 import React from 'react';
 import './AdminHomePage.css';
 import Logo from '../Assets/Logo.png';
+import {Link} from 'react-router-dom';
 
 export const AdminHomePage = () => 
 {
@@ -20,18 +21,15 @@ export const AdminHomePage = () =>
         <nav className='second-nav'>
         <div class ="second-nav-links">
             <ul>
-              <li><a href = "/List">List</a> </li>
-              <li><a href = "./profile"> Account Profile</a> </li>
-              <li><a href = "/Admin"> Sign out</a> </li>
+              <li><Link to = "/List">List</Link> </li>
+              <li><Link to = "/profile"> Account Profile</Link> </li>
+              <li><Link to = "/Admin"> Sign out</Link> </li>
              </ul>
            </div>
         </nav>
-
         <div className='detail'> 
-            <div>
-                
+            <div>  
             </div>
-            
         </div>
     </div>
     )

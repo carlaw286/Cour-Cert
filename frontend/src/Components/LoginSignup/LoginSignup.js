@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginSignup.css';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Navbar from '../LandingPage/components/Navbar';
 
 import user_icon from '../Assets/person.png';
@@ -175,7 +175,7 @@ export const LoginSignup = () => {
             <div className="forgot-password"><a href='./forgotpassword'>Forgot Password</a><span>?</span></div>
           ) : null}
           <div className="create-account">
-            <p>Don't have an account yet? Create account as <a href='./teachersignup'>Teacher</a> or <a href='./studentsignup'>Student</a>.</p>
+            <p>Don't have an account yet? Create account as <Link to='./teachersignup'>Teacher</Link> or <Link to='./studentsignup'>Student</Link>.</p>
           </div>
 
         </form>
