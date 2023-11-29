@@ -11,7 +11,9 @@ export const StudentHomePage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  console.log("UserData: " +userData._id);
+  const [searchButtonClicked, setSearchButtonClicked] = useState(false);
+  const [initialRequestComplete, setInitialRequestComplete] = useState(false);
+  console.log(userData);
 
   //jwt
   axios.defaults.withCredentials = true;
@@ -26,7 +28,10 @@ export const StudentHomePage = () => {
           navigate("/loginsignup");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setInitialRequestComplete(true);
+      });
   }, []);
 
   const handleSearch = () => {
@@ -36,32 +41,24 @@ export const StudentHomePage = () => {
         console.log(result);
         setSearchResults(result.data);
       })
-      .catch((err) => console.log(err));
-  };
-  //jwt
-  
-  const handleSignout = async () => {
-    localStorage.removeItem('token');
-    try {
-      // Make a request to the server to invalidate the session
-      await axios.post("http://localhost:3002/signout");
-
-      // Clear user data and navigate to the login/signup page
-      setUserData(null);
-      navigate("/loginsignup");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setSearchButtonClicked(true);
+      })
   };
 
+  if (!initialRequestComplete) {
+    // Initial request still in progress
+    return null; // or loading indicator if needed
+  }
 
   return (
     <div className="studenthomepage">
       <nav className="navHomepage">
-        <div class="app-logo1">
+        <div className="app-logo1">
           <img src="logo.png" alt="Cour-Cert" height={160} width={100}></img>
         </div>
-        <div class="searchBar2">
+        <div className="searchBar2">
           <input
             type="search"
             id="search-input"
@@ -69,22 +66,29 @@ export const StudentHomePage = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           ></input>
-          <button id="search-button" onClick={handleSearch}
-          >Search</button>
+          <button id="search-button" onClick={handleSearch}>
+            Search
+          </button>
         </div>
-        {searchResults.length > 0 && (
-          <div className="search-results">
-            <h2>Search Results:</h2>
-            <ul>
-              {searchResults.map((course) => (
-                <li key={course.id}>
-                  <Link to={`/course/${course.id}`}>{course.course_title}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <div class="nav-link2">
+        {searchResults !== null && searchResults.length > 0 ? (
+  <div className="search-results">
+    <h2>Search Results:</h2>
+    <ul>
+      {searchResults.map((course) => (
+        <li key={course.id}>
+          <Link to={`/course/${course.id}`}>{course.course_title}</Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  searchButtonClicked && searchResults.length === 0 && (
+    <div className="no-results-found">
+      <p>No results found</p>
+    </div>
+  )
+)}
+        <div className="nav-link2">
           <ul>
             <li>
               <Link to="/studentviewcourse">My Course</Link>
@@ -93,22 +97,19 @@ export const StudentHomePage = () => {
               <Link to="/">Certifications</Link>
             </li>
             <li>
-              <Link to="/profilepage/">My Profile</Link>
-              {/* <a href="./profilepage"> My Profile</a>{" "} */}
+              <Link to="/">Support</Link>
             </li>
             <li>
-            <Link to="/" onClick={handleSignout}>
-                Signout
-              </Link>
+              <Link to="/profilepage">My Profile</Link>
+            </li>
+            <li>
+              <Link to="/">Signout</Link>
             </li>
           </ul>
         </div>
       </nav>
-      <div class="addcoursebutton">
-        <button
-          id="addbutton"
-          onClick={() => navigate("/allcourselist")}
-        ></button>
+      <div className="addcoursebutton">
+        <button id="addbutton" onClick={() => navigate("/allcourselist")}></button>
       </div>
     </div>
   );
