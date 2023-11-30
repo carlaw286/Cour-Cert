@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const ListOfTeachers = () => {
-  const [teachers, setTeachers] = useState();
+  const [teachers, setTeachers] = useState([]);
 
   async function fetchTeachers() {
     const response = await axios.get("http://localhost:3002/getStudentUsers");
