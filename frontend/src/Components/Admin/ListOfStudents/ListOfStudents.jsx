@@ -19,18 +19,30 @@ const ListOfStudents = () => {
     return () => {};
   }, []);
 
+  const deleteStudent = async (studentId) => {
+    try {
+    const response = await axios.delete(
+      `http://localhost:3002/deleteStudentUser/${studentId}`
+    );
+    fetchStudents();
+  } catch (error) {
+    console.error("Error deleting student:", error);
+  }
+  };
+  
+  
   return (
-    <div> 
+    <div>
       <h1>List of Students</h1>
       {students.map((student) => {
-        const { firstName, lastName, gender } = student;
-        return (
-          <>
+        const { _id, firstName, lastName, gender } = student;
+        return (      
+          <div key ={_id}>
             <h2>
               Name: {lastName}, {firstName}
             </h2>
-           
-          </>
+            <button onClick={() => deleteStudent(_id)}>Delete</button>
+            </div>
         );
       })}
     </div>
