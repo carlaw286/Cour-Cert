@@ -658,6 +658,22 @@ app.get('/getStudentUsers', (req, res) => {
       .catch(err => res.json(err));
 });
 
+app.delete('/deleteStudentUser/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        const deletedUser = await user_StudentModel.findByIdAndRemove(userId);
+
+        if (deletedUser) {
+            res.json({ status: 'Success', message: 'Student user deleted successfully' });
+        } else {
+            res.status(404).json({ status: 'Error', message: 'Student user not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ status: 'Error', error: error.message });
+    }
+});
+
 app.get('/getTeachersUsers', (req, res) => {
     user_TeacherModel
       .find()  // Remove the filter condition
