@@ -21,7 +21,8 @@ export const AdminHomePage = () =>
         <nav className='second-nav'>
         <div class ="second-nav-links">
             <ul>
-              <li><Link to = "/List">List</Link> </li>
+              <li><Link to = "/Admin/ListOfStudents">List of Students</Link> </li>
+              <li><Link to = "/Admin/ListOfTeachers">List of Teachers</Link> </li>
               <li><Link to = "/profile"> Account Profile</Link> </li>
               <li><Link to = "/Admin"> Sign out</Link> </li>
              </ul>

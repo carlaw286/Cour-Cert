@@ -647,3 +647,20 @@ mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology
 app.listen(3002, () => {
     console.log("server is running")
 })
+
+
+// ADMIN SIDE
+
+app.get('/getStudentUsers', (req, res) => {
+    user_StudentModel
+      .find()  // Remove the filter condition
+      .then(students => res.json(students))
+      .catch(err => res.json(err));
+});
+
+app.get('/getTeachersUsers', (req, res) => {
+    user_TeacherModel
+      .find()  // Remove the filter condition
+      .then(teachers => res.json(teachers))
+      .catch(err => res.json(err));
+});
