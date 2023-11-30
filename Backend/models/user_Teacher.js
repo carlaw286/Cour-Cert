@@ -9,7 +9,8 @@ const user_TeacherSchema = new mongoose.Schema({
     password: String,
     birthDate: String,
     gender: String,
-    credentialsLink: String
+    credentialsLink: String,
+    avatar: String,
 })
 
 

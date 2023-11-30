@@ -24,7 +24,58 @@ export const ProfilePage = () => {
   const [password, setPassword] = useState()
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [selectedImage, setSelectedImage] = useState();
+  const [userImage, setUserImage] = useState('');
   
+  
+
+  const handleImageChange = (event) => {
+    if (!editMode) {
+      console.log('Edit mode is not enabled. Cannot change image.');
+      return;
+    }
+    setSelectedImage(event.target.files[0]);
+  };
+
+  const handleImageUpload = async () => {
+    try {
+      if (!editMode) {
+        console.log('Edit mode is not enabled. Cannot upload image.');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('avatar', selectedImage); // Ensure 'avatar' matches the field name expected by the server
+
+      console.log(selectedImage);
+      console.log(_id);
+      const response = await axios.put(
+        `http://localhost:3002/studentAvatar?userId=${_id}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+  
+      // Handle response or update UI after successful image upload
+      console.log('Image uploaded:', response.data);
+    } catch (error) {
+      // Handle error cases
+      console.error('Error uploading image:', error);
+    }
+  };
+
+  const handleAvatarClick = () => {
+    const avatarInput = document.getElementById('avatarInput');
+    if (avatarInput) {
+      avatarInput.click();
+    } else {
+      console.error('Avatar input element not found.');
+    }
+  };
+  
+
   const {
     birthDate = "",
     email = "",
@@ -78,6 +129,8 @@ export const ProfilePage = () => {
       .then((result) => {setStudentUser(result.data)
       console.log(result);
       console.log("Result: " +result.data);
+      console.log("Data: " + userData.avatar);
+      setUserImage(userData.avatar)
       if (result.data !== "Success") {
         navigate("/loginsignup");
       }
@@ -89,7 +142,7 @@ export const ProfilePage = () => {
   
   
   console.log("weeeeID: "+_id)
-const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     
     // Send updated data to the server
@@ -135,8 +188,21 @@ const handleFormSubmit = (e) => {
       <form onSubmit={handleFormSubmit}>
         <div className="row-1">
           <div className="prof-container">
-            <div className="user-avatar">
-              <img src="./default_profile.webp"></img>
+            <div className="user-avatar" onClick={handleAvatarClick}>
+              <img src={'http://localhost:3002/uploaded-image/' + userImage || './default_profile.webp'} alt="User Avatar" />
+              {/* Conditionally render the upload button based on edit mode */}
+              {editMode && (
+                <>
+                  <input
+                    type="file"
+                    id="avatarInput"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={handleImageChange}
+                  />
+                  <button onClick={handleImageUpload}>Upload Image</button>
+                </>
+              )}
             </div>
             <div className="user-about">
               <h1> About </h1>
