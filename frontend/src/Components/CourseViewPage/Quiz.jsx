@@ -1,9 +1,6 @@
-// Questionnaire.js
+import React, { useState } from 'react';
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-export const Questionnaire = () => {
+const Quiz = () => {
   const [answers, setAnswers] = useState({});
 
   const handleChoiceChange = (questionId, choice) => {
@@ -43,27 +40,32 @@ export const Questionnaire = () => {
 
   return (
     <div className='courseQuiz'>
+        <div className='QuizTitle'>
+            <h2>Quiz</h2>
+        </div>
       {questions.map((question) => (
         <div key={question.id}>
           <p>{question.text}</p>
-          <div>
+          <ul className='choices-list'>
             {question.choices.map((choice, index) => (
-              <label key={index}>
-                <input
-                  type='radio'
-                  name={`question-${question.id}`}
-                  value={choice}
-                  checked={answers[question.id] === choice}
-                  onChange={() => handleChoiceChange(question.id, choice)}
-                />
-                {choice}
-              </label>
+              <li key={index}>
+                <label>
+                  <input
+                    type='radio'
+                    name={`question-${question.id}`}
+                    value={choice}
+                    checked={answers[question.id] === choice}
+                    onChange={() => handleChoiceChange(question.id, choice)}
+                  />
+                  {choice}
+                </label>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       ))}
     </div>
   );
 };
 
-export default Questionnaire;
+export default Quiz;
