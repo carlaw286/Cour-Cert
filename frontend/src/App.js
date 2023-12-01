@@ -27,6 +27,8 @@ import { StudentAddCourse } from "./Components/AllCourseList/StudentAddCourse";
 import { CourseViewPage } from "./Components/CourseViewPage/CourseViewPage";
 import ListOfStudents from "./Components/Admin/ListOfStudents/ListOfStudents";
 import ListOfTeachers from "./Components/Admin/ListOfTeachers/ListOfTeachers";
+import{Questionnaire} from './Components/Questionnaire/Questionnaire';
+
 
 function App() {
   return (
@@ -59,6 +61,7 @@ function App() {
           <Route path="/courseviewpage" element={<CourseViewPage />} />
           <Route path="/Admin/ListOfStudents" element={<ListOfStudents />} />
           <Route path="/Admin/ListOfTeachers" element={<ListOfTeachers />} />
+          <Route path = '/questionnaire' element = {<Questionnaire/>}/>
         </Routes>
       </Router>
     </>
