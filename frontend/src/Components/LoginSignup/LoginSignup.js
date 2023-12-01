@@ -175,7 +175,7 @@ export const LoginSignup = () => {
             <div className="forgot-password"><a href='./forgotpassword'>Forgot Password</a><span>?</span></div>
           ) : null}
           <div className="create-account">
-            <p>Don't have an account yet? Create account as <Link to='./teachersignup'>Teacher</Link> or <Link to='./studentsignup'>Student</Link>.</p>
+            <p>Don't have an account yet? Create account as <Link to='/teachersignup'>Teacher</Link> or <Link to='/studentsignup'>Student</Link>.</p>
           </div>
 
         </form>

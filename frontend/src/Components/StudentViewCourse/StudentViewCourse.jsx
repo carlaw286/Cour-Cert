@@ -68,7 +68,7 @@ export const StudentViewCourse = () => {
                     <ul>
                         <li><Link to="/allcourselist"> Available Courses</Link> </li>
                         <li><Link to="/studentviewcourse"> View My Course</Link> </li>
-                        <li><Link to="/studentprofile"> Account Profile</Link> </li>
+                        <li><Link to="/profilepage"> Account Profile</Link> </li>
                         <li><Link to="/studenthomepage"> Back</Link> </li>
                     </ul>
                 </div>

@@ -25,6 +25,7 @@ export const TeacherHomePage = () =>
   const [titleValid, setTitleValid] = useState(true); // Track the validity of the title input
   const [descriptionValid, setDescriptionValid] = useState(true);// Track the validity of the description input
   const [userData, setUserData] = useUserDataAtom();
+  const navigate = useNavigate();
 
   // AUTHENTICATION
 
@@ -32,6 +33,10 @@ export const TeacherHomePage = () =>
   
   
   const [search, setSearch] = useState('');
+
+  const handleSignout = () => {
+    navigate('/login');
+  };
 
   const handleSubmit = async (e) => {
       e.preventDefault();
@@ -89,8 +94,6 @@ export const TeacherHomePage = () =>
   const handleClose = () => {
     setOpen(false);
   };
-  const navigate = useNavigate();
-  
     axios.defaults.withCredentials = true;
     useEffect(()=> {
       axios.get('http://localhost:3002/teacherhomepage')
