@@ -1,18 +1,13 @@
-.containerss{
-
-}
-
 .coursetitle{
-    height: 5vh;
+    height: 1vh;
     width: 90vh;
     text-indent: 0.5vh;
-    border: 1px solid black;
     margin-top: 6vh;
-    margin-left: 25%;
+    margin-left: 22.5%;
     padding: 11px;
-    font-size: 23px;
+    font-size: 30px;
 }
-
+/* box1 */
 .coursedescriptions p{
     padding: 10px;
     width: 90vh;
@@ -20,13 +15,15 @@
     margin-top: 6vh;
     margin-left: 25%;
     text-indent: 2vh;
+    margin-bottom: 3vh;
     border: 1px solid black;
 }
-
+/* box2 */
 .cotainerss{
     border: 1px solid black;
-    margin-top: 6vh;
+    margin-top: 3vh;
     margin-left: 25%;
+    margin-bottom: 3vh;
     width: 90vh;
     height: auto;
 }
@@ -46,14 +43,14 @@
 
 /* //quiz */
 
-
+/* box3 */
 .courseQuiz {
     display: flex;
     flex-direction: column;
     padding: 20px;
     width: 90vh;
     min-height: 50vh; /* Use min-height instead of height */
-    margin-top: 6vh auto; /* Adjust margin-top as needed */
+    margin-top: 3vh auto; /* Adjust margin-top as needed */
     margin-left: 25%;
     text-indent: 2vh;
     border: 1px solid black;
@@ -90,7 +87,7 @@
   }
   
   .QuizTitle {
-    text-align: center;
+    text-align: left;
     margin-bottom: 30px;
   }
   
@@ -107,3 +104,20 @@
     background-color: #333; /* Line color */
     margin-top: 10px; /* Adjust as needed for spacing between QuizTitle and underline */
   }
+
+  /* Add these styles to your existing CSS */
+
+.Quiz_submit-button {
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding for better readability */
+  font-size: 1em; /* Adjust font size */
+  border: none; /* Remove button border */
+  border-radius: 5px; /* Add some border radius for a rounded look */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.Quiz_submit-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
