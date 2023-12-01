@@ -115,7 +115,6 @@ export const ProfilePage = () => {
       setUserData(JSON.parse(storedUserData));
     }
 
-    console.log(userData);
     axios
       .get(`http://localhost:3002/studentprofile?userId=${_id}`)
       .then((result) => {
