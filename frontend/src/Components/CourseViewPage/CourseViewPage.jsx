@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './CourseViewPage.css'
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Quiz from './Quiz';
 
 export const CourseViewPage = () => {
     const location = useLocation();
@@ -51,7 +52,7 @@ export const CourseViewPage = () => {
                 <div className="second-nav-links2">
                     <ul>
                         <li><Link to="/allcourselist"> View Course</Link> </li>
-                        <li><Link to="/allcourselist"> Back</Link> </li>
+                        <li><Link to="/studentviewcourse"> Back</Link> </li>
                     </ul>
                 </div>
             </nav>
@@ -86,7 +87,7 @@ export const CourseViewPage = () => {
                         groupedFiles.sort((a, b) => parseInt(a.weekNumber) - parseInt(b.weekNumber));
 
                         return groupedFiles.map((weekData, index) => (
-                            <div className='containerss' key={index}>
+                            <div className='cotainerss' key={index}>
                                 <div className='weeknumbers'>
                                     Week: {weekData.weekNumber}
                                 </div>
@@ -99,6 +100,11 @@ export const CourseViewPage = () => {
                         ));
                     })()
                 }
+                <div>
+                    <p>
+                    <Quiz />
+                    </p>
+                </div>
             </div>
         </div>
     );

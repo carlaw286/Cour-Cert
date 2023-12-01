@@ -18,9 +18,14 @@ export const TeacherHomePage = () =>
   const [course_description, setCourseDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchButtonClicked, setSearchButtonClicked] = useState(false);
+  const [initialRequestComplete, setInitialRequestComplete] = useState(false);
   const [titleValid, setTitleValid] = useState(true); // Track the validity of the title input
   const [descriptionValid, setDescriptionValid] = useState(true);// Track the validity of the description input
   const [userData, setUserData] = useUserDataAtom();
+  const navigate = useNavigate();
 
   // AUTHENTICATION
 
@@ -28,6 +33,10 @@ export const TeacherHomePage = () =>
   
   
   const [search, setSearch] = useState('');
+
+  const handleSignout = () => {
+    navigate('/login');
+  };
 
   const handleSubmit = async (e) => {
       e.preventDefault();
@@ -85,8 +94,6 @@ export const TeacherHomePage = () =>
   const handleClose = () => {
     setOpen(false);
   };
-  const navigate = useNavigate();
-  
     axios.defaults.withCredentials = true;
     useEffect(()=> {
       axios.get('http://localhost:3002/teacherhomepage')
@@ -97,21 +104,29 @@ export const TeacherHomePage = () =>
           }
       })
       .catch(err=> console.log(err))
-    }, [])
- 
-  const handleSignout = async () => {
-    localStorage.removeItem('token');
-    try {
-      // Make a request to the server to invalidate the session
-      await axios.post("http://localhost:3002/signout");
-
-      // Clear user data and navigate to the login/signup page
-      setUserData(null);
-      navigate("/loginsignup");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
+      .finally(() => {
+        setInitialRequestComplete(true);
+      });
+  }, []);
+  
+  const handleSearch = () => {
+    axios
+      .get(`http://localhost:3002/searchcourse?query=${searchQuery}`)
+      .then((result) => {
+        console.log(result);
+        setSearchResults(result.data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setSearchButtonClicked(true);
+      })
   };
+
+  if (!initialRequestComplete) {
+    // Initial request still in progress
+    return null; // or loading indicator if needed
+  }
+
     return(
       <div className='teacherhomepage'>
        <nav className='navHomepage'>
@@ -119,9 +134,34 @@ export const TeacherHomePage = () =>
             <img src = "logo.png" alt= "Cour-Cert" height={160} width={100}></img>
           </div>
           <div class = "searchBar1">
-            <input type = "text" id="search-input" placeholder="Search here" onChange={event=>{setSearch(event.target.value)}}></input>
-            <button id="search-button">Search</button>
-          </div>
+            <input type = "text" 
+            id="search-input" 
+            placeholder="Search here" 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            ></input>
+           <button id="search-button" onClick={handleSearch}>
+            Search
+          </button>
+        </div>
+        {searchResults !== null && searchResults.length > 0 ? (
+  <div className="search-results">
+    <h2>Search Results:</h2>
+    <ul>
+      {searchResults.map((course) => (
+        <li key={course.id}>
+          <Link to={`/course/${course.id}`}>{course.course_title}</Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  searchButtonClicked && searchResults.length === 0 && (
+    <div className="no-results-found">
+      <p>No results found</p>
+    </div>
+  )
+)}
           <div class ="nav-links1">
             <ul>
               <li><Link to = "/teacherviewcourse"> View Course</Link> </li>

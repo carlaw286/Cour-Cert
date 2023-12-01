@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require('mongoose')
 const multer = require('multer');
 const cors = require("cors")
+const path = require('path')
 const user_StudentModel = require('./models/user_Student')
 const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
@@ -26,6 +27,7 @@ app.use(cors({
     }))
 app.use(cookieParser())
 app.use("/uploaded-files", express.static("uploaded-files"));
+app.use("/uploaded-image", express.static("uploaded-image"));
 
 
 
@@ -374,12 +376,10 @@ app.put('/updateCourse', async (req, res) => {
     try {
         const existingCourse = await teacher_AddCourseModel.findById(id);
 
-        console.log('111');
 
         if (!existingCourse) {
             return res.status(404).json("Course not found");
         }
-        console.log('A');
 
         const updatedCourse = {
             course_title : course_title, 
@@ -393,8 +393,6 @@ app.put('/updateCourse', async (req, res) => {
             updatedCourse,
             { new: true }
         );
-
-        console.log('D');
 
         if (updatedCourseResult) {
             res.json(updatedCourseResult);
@@ -422,6 +420,81 @@ app.get('/studentprofile', (req, res) => {
       .then(teacherUser => res.json(teacherUser))
       .catch(err => res.json(err));
   });
+
+  //storage for profile pictures
+  const storages = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './uploaded-image'); // Define the upload directory
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+    },
+  });
+  
+  const uploads = multer({ storage: storages }); 
+  
+  app.put("/studentAvatar", uploads.single('avatar'), async (req, res) => {
+    const { userId } = req.query;
+    console.log(req.file); 
+    console.log(userId);
+    
+    try {
+        const user = await user_StudentModel.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        const avatarProfile = {
+            avatar: req.file.filename
+        };
+        
+        const updatedProfile = await user_StudentModel.findByIdAndUpdate(
+            userId,
+            avatarProfile,
+            { new: true }
+        );
+
+        if (updatedProfile) {
+            res.json(updatedProfile);
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        }
+    });
+
+    app.put("/teacherAvatar", uploads.single('avatar'), async (req, res) => {
+        const { userId } = req.query;
+        console.log(req.file); 
+        console.log(userId);
+        
+        try {
+            const user = await user_TeacherModel.findById(userId);
+    
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            const avatarProfile = {
+                avatar: req.file.filename
+            };
+            
+            const updatedProfile = await user_TeacherModel.findByIdAndUpdate(
+                userId,
+                avatarProfile,
+                { new: true }
+            );
+    
+            if (updatedProfile) {
+                res.json(updatedProfile);
+            } else {
+                res.status(404).json({ error: 'User not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+            }
+        });
+
   
   //for student update profile details
   app.put('/updatestudentprofile', verifyUser, async (req, res) => {
@@ -647,3 +720,36 @@ mongoose.connect(process.env.DB_URI, { useNewURLParser: true, useUnifiedTopology
 app.listen(3002, () => {
     console.log("server is running")
 })
+
+
+// ADMIN SIDE
+
+app.get('/getStudentUsers', (req, res) => {
+    user_StudentModel
+      .find()  // Remove the filter condition
+      .then(students => res.json(students))
+      .catch(err => res.json(err));
+});
+
+app.delete('/deleteStudentUser/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        const deletedUser = await user_StudentModel.findByIdAndRemove(userId);
+
+        if (deletedUser) {
+            res.json({ status: 'Success', message: 'Student user deleted successfully' });
+        } else {
+            res.status(404).json({ status: 'Error', message: 'Student user not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ status: 'Error', error: error.message });
+    }
+});
+
+app.get('/getTeachersUsers', (req, res) => {
+    user_TeacherModel
+      .find()  // Remove the filter condition
+      .then(teachers => res.json(teachers))
+      .catch(err => res.json(err));
+});

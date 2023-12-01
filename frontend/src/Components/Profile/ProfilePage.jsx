@@ -4,27 +4,74 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useUserDataAtom } from "../../hooks/user_data_atom";
 
-
 export const ProfilePage = () => {
   const navigate = useNavigate();
   // State to track whether the form is in edit mode
   const [editMode, setEditMode] = useState(false);
   // State to store form data
-  // const [formData, setFormData] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  // });
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const [showDropdown, setShowDropdown] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [showDropdown, setShowDropdown] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [userData, setUserData] = useUserDataAtom();
-  const [password, setPassword] = useState()
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [selectedImage, setSelectedImage] = useState();
+  const [userImage, setUserImage] = useState("");
+
+  const handleImageChange = (event) => {
+    if (!editMode) {
+      console.log("Edit mode is not enabled. Cannot change image.");
+      return;
+    }
+    setSelectedImage(event.target.files[0]);
+  };
+
+  const handleImageUpload = async () => {
+    try {
+      if (!editMode) {
+        console.log("Edit mode is not enabled. Cannot upload image.");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("avatar", selectedImage); // Ensure 'avatar' matches the field name expected by the server
+
+      console.log(selectedImage);
+      console.log(_id);
+      const response = await axios.put(
+        `http://localhost:3002/studentAvatar?userId=${_id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Handle response or update UI after successful image upload
+      console.log("Image uploaded:", response.data);
+    } catch (error) {
+      // Handle error cases
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleAvatarClick = () => {
+    const avatarInput = document.getElementById("avatarInput");
+    if (avatarInput) {
+      avatarInput.click();
+    } else {
+      console.error("Avatar input element not found.");
+    }
+  };
+
   const {
     birthDate = "",
     email = "",
@@ -36,8 +83,7 @@ export const ProfilePage = () => {
   // Function to handle input changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    // setFormData((prevData) => ({
-      setUserData((prevData) => ({
+    setFormData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
@@ -47,7 +93,7 @@ export const ProfilePage = () => {
     if (editMode) {
       // If currently in edit mode, reset form data to initial state on cancel
       // setFormData({
-        setUserData({
+      setFormData({
         firstName: "",
         lastName: "",
         email: "",
@@ -59,46 +105,42 @@ export const ProfilePage = () => {
   };
 
   const [studentUser, setStudentUser] = useState({});
-  
-    //jwt
-    axios.defaults.withCredentials = true;
-    
-   
+
+  //jwt
+  axios.defaults.withCredentials = true;
+
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
+    const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
-    
-    console.log(userData);
+
     axios
-      .get(
-        `http://localhost:3002/studentprofile?userId=${_id}`
-      )
-      .then((result) => {setStudentUser(result.data)
-      console.log(result);
-      console.log("Result: " +result.data);
-      if (result.data !== "Success") {
-        navigate("/loginsignup");
-      }
-    })
-      
+      .get(`http://localhost:3002/studentprofile?userId=${_id}`)
+      .then((result) => {
+        setStudentUser(result.data);
+        console.log(result);
+        console.log("Result: " + result.data);
+        console.log("Data: " + userData.avatar);
+        setUserImage(userData.avatar);
+        if (result.data !== "Success") {
+          navigate("/loginsignup");
+        }
+      })
+
       .catch((err) => console.log(err));
   }, []);
-  
-  
-  
-  console.log("weeeeID: "+_id)
-const handleFormSubmit = (e) => {
+
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-    
+
     // Send updated data to the server
     axios
-      .put(`http://localhost:3002/updatestudentprofile?userId=${_id}`, userData) // formdata
+      .put(`http://localhost:3002/updatestudentprofile?userId=${_id}`, formData)
       .then((response) => {
         // Assuming your server sends back the updated user data
         setUserData(response.data);
-        localStorage.setItem('userData', JSON.stringify(response.data));
+        localStorage.setItem("userData", JSON.stringify(response.data));
         // Disable edit mode after successful update
         setEditMode(false);
         setSuccessMessage("Profile details updated successfully"); // Set success message
@@ -107,36 +149,58 @@ const handleFormSubmit = (e) => {
       })
       .catch((error) => {
         console.error("Error updating profile:", error);
-      })
-
+      });
   };
   const updatePassword = (e) => {
-    e.preventDefault()
-        
-        if (password !== confirmPassword) {
-            setErrorMessage('Passwords do not match.');
-            return;
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match.");
+      return;
+    } else {
+      axios
+        .post(`http://localhost:3002/profileresetpassword/${_id}`, { password })
+        .then((res) => {
+          if (res.data.Status === "Success") {
+            setSuccessMessage(
+              "Password changed successfully! Redirecting to login..."
+            );
+            setErrorMessage("");
+            setTimeout(() => {
+              navigate("/loginsignup");
+            }, 2000);
           }
-          else{
-            axios.post(`http://localhost:3002/profileresetpassword/${_id}`, {password})
-            .then(res => {
-            if(res.data.Status === "Success") {
-                setSuccessMessage('Password changed successfully! Redirecting to login...');
-                setErrorMessage('');
-                setTimeout(() => {
-                    navigate('/loginsignup');
-                  }, 2000);
-            } 
-        }).catch(err => console.log(err))
-    }}
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <div className="profilepage">
       <form onSubmit={handleFormSubmit}>
         <div className="row-1">
           <div className="prof-container">
-            <div className="user-avatar">
-              <img src="./default_profile.webp"></img>
+            <div className="user-avatar" onClick={handleAvatarClick}>
+              <img
+                src={
+                  "http://localhost:3002/uploaded-image/" + userImage ||
+                  "./default_profile.webp"
+                }
+                alt="User Avatar"
+              />
+              {/* Conditionally render the upload button based on edit mode */}
+              {editMode && (
+                <>
+                  <input
+                    type="file"
+                    id="avatarInput"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageChange}
+                  />
+                  <button onClick={handleImageUpload}>Upload Image</button>
+                </>
+              )}
             </div>
             <div className="user-about">
               <h1> About </h1>
@@ -160,7 +224,7 @@ const handleFormSubmit = (e) => {
                 type="name"
                 id="firstName"
                 placeholder="Enter first name"
-                value={editMode ? userData.firstName : firstName}
+                value={editMode ? formData.firstName : firstName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -170,7 +234,7 @@ const handleFormSubmit = (e) => {
                 type="name"
                 id="lastName"
                 placeholder="Enter last name"
-                value={editMode ? userData.lastName : lastName}
+                value={editMode ? formData.lastName : lastName}
                 onChange={handleInputChange}
                 disabled={!editMode}
               >
@@ -178,31 +242,30 @@ const handleFormSubmit = (e) => {
               </input>
             </div>
             <div className="col-3">
-          <p>Email</p>
-        </div>
-        <div className="col-4">
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter email"
-            value={editMode ? userData.email : email}
-            onChange={handleInputChange}
-            disabled={!editMode}
+              <p>Email</p>
+            </div>
+            <div className="col-4">
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter email"
+                value={editMode ? formData.email : email}
+                onChange={handleInputChange}
+                disabled={!editMode}
               >
                 {/* // Disable input if not in edit mode */}
               </input>
             </div>
-          
+
             <div>
               <button
                 className="dropdown-toggle"
-                type = "button"
+                type="button"
                 onClick={() => setShowDropdown(!showDropdown)}
               >
                 {showDropdown ? "Hide" : "Change Password"}
               </button>
               {showDropdown && (
-                
                 <div>
                   <div className="col-5">
                     <p>Password</p>
@@ -213,23 +276,29 @@ const handleFormSubmit = (e) => {
                       type="password"
                       id="password"
                       placeholder="Enter password"
-                      required onChange={(e) => setPassword(e.target.value)} 
+                      required
+                      onChange={(e) => setPassword(e.target.value)}
                       disabled={!editMode}
                     />
                     <input
                       type="password"
                       id="confirmPassword"
                       placeholder="Enter confirm password"
-                      required onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       disabled={!editMode}
                     />
                   </div>
                   <div className="butRes">
-                  <button type="button" onClick={updatePassword} disabled={!editMode}>
-            {" "}
-            Update Password
-          </button>
-              </div>
+                    <button
+                      type="button"
+                      onClick={updatePassword}
+                      disabled={!editMode}
+                    >
+                      {" "}
+                      Update Password
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -250,23 +319,20 @@ const handleFormSubmit = (e) => {
                 </button>
               </div>
               <div className="but3">
-          <button type="submit" id="update" disabled={!editMode}>
-            {" "}
-            Update
-          </button>
+                {editMode ? <button type="submit" id="update" disabled={!editMode}>
+                  {" "}
+                  Update
+                </button> : null}
               </div>
               <div className="success-message" style={{ color: "green" }}>
-             {successMessage}
+                {successMessage}
               </div>
               <div className="error-message" style={{ color: "red" }}>
-             {errorMessage}
+                {errorMessage}
               </div>
             </div>
           </div>
         </div>
-        
-
-        
       </form>
     </div>
   );
