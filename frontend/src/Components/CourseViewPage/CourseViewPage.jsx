@@ -110,7 +110,7 @@ export const CourseViewPage = () => {
             })()}
         <div>
           <p>
-            <Quiz />
+            <Quiz id = {id} />
           </p>
         </div>
       </div>

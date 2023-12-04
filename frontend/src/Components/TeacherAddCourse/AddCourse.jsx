@@ -32,6 +32,11 @@ export const TeacherAddCourse = () => {
     setQuestions(updatedQuestions);
   };
 
+  const handleChoiceChange = (questionIndex, choiceIndex, value) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[questionIndex].choices[choiceIndex] = value;
+    setQuestions(updatedQuestions);
+  };
 // AddCourse.jsx
 const handleAddQuiz = async () => {
   try {
@@ -181,19 +186,43 @@ const handleAddQuiz = async () => {
             {uploadSuccess && <p style={{ color: 'green' }}>Upload successful!</p>}
 
             {/* Render quiz questions here */}
-          {questions.map((question, index) => (
-            <div key={index}>
+        {questions.map((question, questionIndex) => (
+          <div key={questionIndex}>
+            <input
+              type="text"
+              placeholder={`Question ${questionIndex + 1}`}
+              value={question.questionText}
+              onChange={(e) =>
+                handleQuestionChange(questionIndex, 'questionText', e.target.value)
+              }
+            />
+
+            {/* Add inputs for choices */}
+            {question.choices.map((choice, choiceIndex) => (
               <input
+                key={choiceIndex}
                 type="text"
-                placeholder={`Question ${index + 1}`}
-                value={question.questionText}
-                onChange={(e) => handleQuestionChange(index, 'questionText', e.target.value)}
+                placeholder={`Choice ${choiceIndex + 1}`}
+                value={choice}
+                onChange={(e) =>
+                  handleChoiceChange(questionIndex, choiceIndex, e.target.value)
+                }
               />
-              {/* Add inputs for choices and correct answer here */}
-            </div>
-          ))}
-          
-          {/* Button to add more questions */}
+            ))}
+
+            {/* Input for correct answer */}
+            <input
+              type="text"
+              placeholder="Correct Answer"
+              value={question.correctAnswer}
+              onChange={(e) =>
+                handleQuestionChange(questionIndex, 'correctAnswer', e.target.value)
+              }
+            />
+          </div>
+        ))}
+
+        {/* Button to add more questions */}
           <button type="button" onClick={addQuestion}>
             Add Question
           </button>
