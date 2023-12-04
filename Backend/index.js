@@ -8,6 +8,7 @@ const user_TeacherModel = require('./models/user_Teacher')
 const teacher_AddCourseModel = require ('./models/teacher_Addcourse')
 const student_AddCourseModel = require ('./models/student_Addcourse')
 const teacher_AddTopicModel = require('./models/teacher_Addtopic')
+const teacher_AddQuizModel = require('./models/teacher_AddQuiz')
 const user_AdminModel = require('./models/user_admin')
 //jwt
 const bcrypt = require('bcrypt')
@@ -261,7 +262,32 @@ app.post('/teacher_AddCourse', async (req, res) => {
     }
 });
 
+app.post('/quiz/add/:courseID', async (req, res) => {
+    const { courseID } = req.params;
+    const { questions } = req.body;
+  
+    try {
+      // Do something with courseID and questions, e.g., save it to the database
+      const newQuiz = new teacher_AddQuizModel({ courseID, questions });
+      const savedQuiz = await newQuiz.save();
+  
+      res.json(savedQuiz);
+    } catch (error) {
+      console.error('Error adding quiz:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+// New endpoint for fetching quizzes
+app.get('/quiz', async (req, res) => {
+  try {
 
+    // Fetch all quizzes from the database
+    const quizzes = await teacher_AddQuizModel.find();
+    res.json(quizzes);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 //add student course
 app.post('/student_AddCourse', async (req, res) => {
     const {userId,

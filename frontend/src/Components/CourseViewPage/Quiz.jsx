@@ -1,110 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Quiz = () => {
-  const [answers, setAnswers] = useState({});
-  const [showCongrats, setShowCongrats] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [quizzes, setQuizzes] = useState([]);
+  const currentCourseID = '656d4a1fe79b118f6250f3d7';
 
-  const handleChoiceChange = (questionId, choice) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: choice,
-    }));
-  };
-
-  const checkAnswers = () => {
-    const correctAnswers = {
-      1: 'Paris',
-      2: 'Mars',
-      3: 'Blue Whale',
-      4: 'William Shakespeare',
-      5: 'JavaScript',
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        const response = await axios.get('http://localhost:3002/quiz');
+        setQuizzes(response.data);
+      } catch (error) {
+        console.error('Error fetching quizzes:', error);
+      }
     };
 
-    for (const [key, value] of Object.entries(correctAnswers)) {
-      if (answers[key] !== value) {
-        return false;
-      }
-    }
+    fetchQuizzes();
+  }, []);
 
-    return true;
-  };
-
-  const handleSubmit = () => {
-    const allCorrect = checkAnswers();
-    setShowCongrats(allCorrect);
-    setSubmitted(true);
-  };
-
-  const handleRetakeQuiz = () => {
-    setAnswers({});
-    setShowCongrats(false);
-    setSubmitted(false);
-  };
-
-  const questions = [
-    {
-      id: 1,
-      text: 'What is the capital of France?',
-      choices: ['Paris', 'Berlin', 'Madrid', 'Rome'],
-    },
-    {
-      id: 2,
-      text: 'Which planet is known as the Red Planet?',
-      choices: ['Mars', 'Venus', 'Jupiter', 'Saturn'],
-    },
-    {
-      id: 3,
-      text: 'What is the largest mammal in the world?',
-      choices: ['Blue Whale', 'Elephant', 'Giraffe', 'Hippopotamus'],
-    },
-    {
-      id: 4,
-      text: 'Who wrote "Romeo and Juliet"?',
-      choices: ['William Shakespeare', 'Jane Austen', 'Charles Dickens', 'Mark Twain'],
-    },
-    {
-      id: 5,
-      text: 'Which programming language is this quiz written in?',
-      choices: ['JavaScript', 'Python', 'Java', 'C++'],
-    },
-  ];
+  // Move filtering inside useEffect to ensure it happens after data fetching
+  const filteredQuizzes = quizzes.filter((quiz) => quiz.courseID === currentCourseID);
 
   return (
-    <div className='courseQuiz'>
-      <div className='QuizTitle'>
-        <h2>Quiz</h2>
-      </div>
-      {questions.map((question) => (
-        <div key={question.id}>
-          <p>{question.text}</p>
-          <ul className='choices-list'>
-            {question.choices.map((choice, index) => (
-              <li key={index}>
-                <label>
-                  <input
-                    type='radio'
-                    name={`question-${question.id}`}
-                    value={choice}
-                    checked={answers[question.id] === choice}
-                    onChange={() => handleChoiceChange(question.id, choice)}
-                  />
-                  {choice}
-                </label>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-      <button className="Quiz_submit-button" onClick={handleSubmit} disabled={submitted}>
-        Submit
-      </button>
-      {showCongrats && <p>Congratulations! All answers are correct!</p>}
-      {submitted && !showCongrats && (
-        <button className="Quiz_retake-button" onClick={handleRetakeQuiz}>
-          Retake Quiz
-        </button>
-      )}
+    <div>
+      <h1>Quizzes</h1>
+      <ul>
+        {filteredQuizzes.map((quiz) => (
+          <li key={quiz._id}>
+            <h2>{quiz.courseID}</h2>
+            
+            {console.log("CourseID: " + quiz.courseID)}
+            <ul>
+              {quiz.questions.map((question) => (
+                <li key={question._id}>
+                  <p>{question.questionText}</p>
+                  <ul>
+                    {question.choices.map((choice, index) => (
+                      <li key={index}>{choice}</li>
+                    ))}
+                  </ul>
+                  <p>Correct Answer: {question.correctAnswer}</p>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

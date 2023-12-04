@@ -19,6 +19,31 @@ export const TeacherAddCourse = () => {
   const [pdfFile, setPdfFile] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const navigate = useNavigate();
+
+  const [questions, setQuestions] = useState([{ questionText: '', choices: ['', '', ''], correctAnswer: '' }]);
+
+  const addQuestion = () => {
+    setQuestions([...questions, { questionText: '', choices: ['', '', ''], correctAnswer: '' }]);
+  };
+
+  const handleQuestionChange = (index, key, value) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index][key] = value;
+    setQuestions(updatedQuestions);
+  };
+
+// AddCourse.jsx
+const handleAddQuiz = async () => {
+  try {
+    console.log({ courseID: id, questions });
+    const response = await axios.post(`http://localhost:3002/quiz/add/${id}`, { courseID: id, questions });
+    console.log('Quiz added:', response.data);
+  } catch (error) {
+    console.error('Error adding quiz:', error);
+  }
+};
+
+  
   console.log("data ID from view course: " + id);
 
     //jwt
@@ -154,6 +179,29 @@ export const TeacherAddCourse = () => {
               Upload File
             </button>
             {uploadSuccess && <p style={{ color: 'green' }}>Upload successful!</p>}
+
+            {/* Render quiz questions here */}
+          {questions.map((question, index) => (
+            <div key={index}>
+              <input
+                type="text"
+                placeholder={`Question ${index + 1}`}
+                value={question.questionText}
+                onChange={(e) => handleQuestionChange(index, 'questionText', e.target.value)}
+              />
+              {/* Add inputs for choices and correct answer here */}
+            </div>
+          ))}
+          
+          {/* Button to add more questions */}
+          <button type="button" onClick={addQuestion}>
+            Add Question
+          </button>
+          
+          {/* Button to submit the quiz */}
+          <button type="button" onClick={handleAddQuiz}>
+            Add Quiz
+          </button>
           </div>
         </div>
         {uploadSuccess && (
@@ -166,6 +214,7 @@ export const TeacherAddCourse = () => {
             Save Changes
           </button>
         </div>
+        
       </form>
     </div>
   );
