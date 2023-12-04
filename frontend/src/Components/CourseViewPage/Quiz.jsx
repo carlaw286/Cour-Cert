@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const Quiz = () => {
   const [quizzes, setQuizzes] = useState([]);
-  const currentCourseID = '656d4a1fe79b118f6250f3d7';
+  const currentCourseID = '656d4a1fe79b118f6250f3d7'/*display courseid here*/;
 
   useEffect(() => {
     const fetchQuizzes = async () => {
