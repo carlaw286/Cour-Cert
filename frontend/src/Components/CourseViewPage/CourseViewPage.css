@@ -121,3 +121,23 @@
 .Quiz_submit-button:hover {
   background-color: #45a049; /* Darker green on hover */
 }
+
+
+
+
+
+/* pdf */
+
+.weeklyfiles {
+  cursor: pointer; /* Add pointer cursor to indicate it's clickable */
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+.weeklyfiles:hover {
+  background-color: #e0e0e0; /* Change background color on hover */
+}
