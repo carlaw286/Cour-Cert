@@ -12,20 +12,40 @@ export const CourseViewPage = () => {
   const courseDescription = queryParams.get('description');
   const id = queryParams.get('id');
   const [allFiles, setAllFiles] = useState();
-
+  const [isPdfVisible, setIsPdfVisible] = useState(false);
+  
   const showPdf = (file) => {
     const pdfContainer = document.getElementById('pdfContainer');
-    const iframe = document.createElement('iframe');
-    iframe.src = `http://localhost:3002/uploaded-files/${file}`;
-    iframe.height = '50%'; // Match the height with your CSS value
-    iframe.title = 'PDF Viewer';
   
-    // Set marginLeft value
-    iframe.style.marginLeft = '25%'; // Replace 'your-desired-margin-left-value' with the desired value
-    iframe.style.marginRight = '25%';
-    pdfContainer.innerHTML = '';
-    pdfContainer.appendChild(iframe);
+    if (isPdfVisible) {
+      pdfContainer.innerHTML = '';
+    } else {
+      const iframe = document.createElement('iframe');
+      iframe.src = `http://localhost:3002/uploaded-files/${file}`;
+      iframe.height = '100%';
+      iframe.width = '50%';
+      iframe.title = 'PDF Viewer';
+      iframe.style.position = 'absolute'; // Change position to absolute
+      iframe.style.top = '0';
+      iframe.style.left = '50%';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.marginRight = '-25%';
+  
+      // Additional styling for a cleaner look
+      iframe.style.border = 'none';
+      iframe.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+      iframe.style.transition = 'margin-right 0.3s ease-in-out';
+  
+      pdfContainer.innerHTML = '';
+      pdfContainer.appendChild(iframe);
+    }
+  
+    setIsPdfVisible(!isPdfVisible);
   };
+  
+  
+  
 
   useEffect(() => {
     const getPDF = async () => {
@@ -45,7 +65,7 @@ export const CourseViewPage = () => {
   }, [id]);
 
   return (
-    <div className='addcoursecontainer1'>
+    <div className='courseView_container'>
       <nav className='first-nav1'>
                 <div className="first-nav-logo1">
                     <Link to='/studenthomepage'>
@@ -67,6 +87,7 @@ export const CourseViewPage = () => {
                     </ul>
                 </div>
             </nav>
+            <div className='courseview_navbarnotincluded'>  
       <div className='containerss'>
         <div className='coursetitle'>{courseTitle}</div>
         <div className='coursedescriptions'>
@@ -95,7 +116,7 @@ export const CourseViewPage = () => {
 
               return groupedFiles.map((weekData, index) => (
                 <div className='cotainerss' key={index}>
-                  <div className='weeknumbers'>Week: {weekData.weekNumber}</div>
+                  <div className='weeknumbers'>Topic: {weekData.weekNumber}</div>
                   {weekData.files.map((fileData, fileIndex) => (
                     <div
                       className='weeklyfiles'
@@ -112,6 +133,7 @@ export const CourseViewPage = () => {
           <p>
             <Quiz id = {id} />
           </p>
+        </div>
         </div>
       </div>
     </div>
