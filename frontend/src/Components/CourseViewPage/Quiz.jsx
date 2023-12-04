@@ -39,16 +39,32 @@ const Quiz = ({id}) => {
    setSubmitted(true);
    // You can now compare userAnswers with correct answers for scoring, etc.
  };
+ const calculateScore = () => {
+  let score = 0;
+  filteredQuizzes.forEach((quiz) => {
+    quiz.questions.forEach((question) => {
+      const userAnswer = userAnswers[question._id];
+      if (userAnswer === question.correctAnswer) {
+        score += 1;
+      }
+    });
+  });
+  return score;
+};
 
+ const handleRetake = () => {
+  setSubmitted(false);
+  setUserAnswers({});
+};
  return (
   <div className="courseQuiz">
-    <div className='QuizTitle'>
-        <h2>Quiz</h2>
-      </div>
+    <div className="QuizTitle">
+      <h2>Quiz</h2>
+    </div>
     <ul>
       {filteredQuizzes.map((quiz) => (
         <li key={quiz._id}>
-          {/* ... (your existing code) */}
+
           <ul className="choices-list">
             {quiz.questions.map((question) => (
               <li key={question._id}>
@@ -68,13 +84,17 @@ const Quiz = ({id}) => {
                     </li>
                   ))}
                 </ul>
-                {submitted && <p>Correct Answer: {question.correctAnswer}</p>}
               </li>
             ))}
           </ul>
         </li>
       ))}
     </ul>
+    {submitted && (
+      <p>
+        Your Score: {calculateScore()} / {filteredQuizzes.reduce((total, quiz) => total + quiz.questions.length, 0)}
+      </p>
+    )}
     <button
       className="Quiz_submit-button"
       type="button"
@@ -82,6 +102,14 @@ const Quiz = ({id}) => {
       disabled={submitted}
     >
       Submit Quiz
+    </button>
+    <button
+      className="Quiz_retake-button"
+      type="button"
+      onClick={handleRetake}
+      disabled={!submitted}
+    >
+      Retake Quiz
     </button>
   </div>
 );
