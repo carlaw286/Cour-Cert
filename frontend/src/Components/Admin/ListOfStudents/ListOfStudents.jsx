@@ -30,8 +30,9 @@ const ListOfStudents = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>List of Students</h1>
+      <div className="students-list">
       {students.map((student) => {
         const { _id, firstName, lastName } = student;
         return (
@@ -45,6 +46,7 @@ const ListOfStudents = () => {
           </div>
         );
       })}
+    </div>
     </div>
   );
 };

@@ -19,33 +19,35 @@ const ListOfTeachers = () => {
   }, []);
   const deleteTeacher = async (teacherId) => {
     try {
-    const response = await axios.delete(
-      `http://localhost:3002/deleteTeacherUser/${teacherId}`
-    );
-    fetchTeachers();
-  } catch (error) {
-    console.error("Error deleting teacher:", error);
-  }
+      const response = await axios.delete(
+        `http://localhost:3002/deleteTeacherUser/${teacherId}`
+      );
+      fetchTeachers();
+    } catch (error) {
+      console.error("Error deleting teacher:", error);
+    }
   };
-  
-    return (
-      <div>
-        <h1>List of Teachers</h1>
+
+  return (
+    <div className="container">
+      <h1>List of Teachers</h1>
+      <div className="teachers-list">
         {teachers.map((teacher) => {
           const { _id, firstName, lastName } = teacher;
           return (
-            <div key ={_id} className="teacher">
+            <div key={_id} className="teacher">
               <div className="teacher-content">
-              <h2>
-                Name: {lastName}, {firstName}
-              </h2>
-              <button onClick={() => deleteTeacher(_id)}>Delete</button>
-            </div>
+                <h2>
+                  Name: {lastName}, {firstName}
+                </h2>
+                <button onClick={() => deleteTeacher(_id)}>Delete</button>
+              </div>
             </div>
           );
         })}
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default ListOfTeachers;
