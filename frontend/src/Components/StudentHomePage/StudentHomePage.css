@@ -164,7 +164,6 @@ nav .navStudentHomepage{
   width: 500px;
   height: 20vh;
   border-radius: 10px;
-  /* margin: 20px 10px; */
   margin-bottom: 40px;
   transition: all 0.9s ease;
   background-color: white;
@@ -184,6 +183,20 @@ nav .navStudentHomepage{
   font-size: 23px;
   color: black;
 }
+
+.app-cards-title a:link {
+  text-decoration: none;
+  color: black;
+}
+.app-cards-title a:visited {
+  text-decoration: none;
+  color: black;
+} 
+.app-cards-title a:active {
+  text-decoration: none;
+  color: black;
+}
+
 .app-cards-description h5{
   margin: 10px;
   text-indent: 20px;
@@ -248,3 +261,5 @@ nav .navStudentHomepage{
   color: black;
   margin-top: 75px;
 }
+
+
