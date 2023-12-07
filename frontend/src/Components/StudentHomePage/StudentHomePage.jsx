@@ -80,6 +80,20 @@ export const StudentHomePage = () => {
     return null; // or loading indicator if needed
   }
 
+  //expanding text
+  const ExpandableText = ({ children, descriptionLength }) => {
+    const fullText = children;
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleText = () => {setIsExpanded(!isExpanded);};      
+
+    return (
+        <p className='text'>
+          {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
+        </p>
+      );
+    };
+
+
   return (
     <div className="studenthomepage">
       <nav className="navHomepage">
@@ -139,10 +153,18 @@ export const StudentHomePage = () => {
       <div className="app-cards-card" key={course._id}>
         <li>
           <div className="app-cards-title">
-            <h6>{course.course_title}</h6>
+            <h6>
+            <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
+              {course.course_title}
+            </Link>
+              </h6>
           </div>
           <div className="app-cards-description">
-            <h5>{course.course_description}</h5>
+            <h5>
+              <ExpandableText descriptionLength={250}>
+              {course.course_description}
+              </ExpandableText>
+            </h5>
           </div>
         </li>
       </div>
@@ -176,26 +198,12 @@ export const StudentHomePage = () => {
             <p> Add Course</p>
           </div>
         </div>
-        
       </li>
     </div>
     )}
    
   </ul>
 )}
-
-
-
-
-
-
-
-
-
-      {/* <div className="addcoursebutton">
-        <button id="addbutton" onClick={() => navigate("/allcourselist")}></button>
-      </div> */}
-
     </div>
   );
 };
