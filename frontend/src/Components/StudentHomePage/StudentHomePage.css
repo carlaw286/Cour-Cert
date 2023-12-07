@@ -108,36 +108,6 @@ nav .navStudentHomepage{
   margin-top: 10vh; /* Adjust the top margin for spacing */
 }
 
-.addcoursebutton {
-  border-radius: 10px;
-  background-color: white;
-  height: 20vh;
-  width: 40vh;
-  margin-top: 200px;
-  margin-left: 100px;
-
-}
-
-.addcoursebutton button{
-  margin-left: 13vh;
-  margin-top: 2.5vh;
-  border-radius: 50%;
-  height: 15vh;
-  width: 15vh;
-  background-image: url(addlogo.png);
-  background-size: 15vh, 15vh;
-  background-repeat: no-repeat;
-  border-radius: 50%;
-  cursor: pointer;
-  }
-
-.addcoursebutton button:hover {
-  border-radius: 50%;
-  background-image: url(addlogo2.png);
-  background-size: 15vh 15vh;
-  background-repeat: no-repeat;
-}
-
 .search-results {
   margin-top: 180px;
   color: #fff;
@@ -182,29 +152,99 @@ nav .navStudentHomepage{
 }
 
 .app-cards {
+  margin-top: 20vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
-  align-items: stretch;
+  align-items: none;
   list-style-type: none;
   justify-items: center;
 }
 
 .app-cards-card {
   width: 500px;
-  height: 150px;
-  border: 1px solid black;
+  height: 20vh;
   border-radius: 10px;
-  margin: 10px;
-  margin-bottom: 50px;
+  /* margin: 20px 10px; */
+  margin-bottom: 40px;
   transition: all 0.9s ease;
+  background-color: white;
 }
 
 
-.app-cards-title h1{
+.app-cards-title{
   margin: 10px;
+}
+
+.app-cards-title h6{
+  background-color: rgb(224, 223, 223);
+  height: 5vh;
+  text-align: center;
+  padding-top: 10px;
   cursor: pointer;
+  font-size: 23px;
+  color: black;
 }
-.app-cards-description h3{
+.app-cards-description h5{
   margin: 10px;
+  text-indent: 20px;
+  font-size: 18px;
+  color:rgb(54, 53, 53);
+}
+
+
+.app-cards-seemore p{
+  text-align: center;
+  text-indent: 20px;
+  color:rgb(54, 53, 53);
+  font-size: 50px;
+  font-weight: 400;
+  color: black;
+  margin-top: 67px;
+  margin-left: 50px;
+}
+
+.app-cards-seemoreimage img{
+  height: 15vh;
+  width: 15vh;
+  margin-left: 38%;
+  margin-top: 25px;
+}
+
+.app-cards-seemoreimage img:hover{
+  transform: scale(1.12);
+}
+
+.app-cards-flex{
+  display: flex;
+}
+
+.app-cards-card button{
+  margin-left: 10vh;
+  margin-top: 2.5vh;
+  border-radius: 50%;
+  height: 15vh;
+  width: 15vh;
+  background-image: url(addlogo.png);
+  background-size: 15vh, 15vh;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  cursor: pointer;
+  }
+
+.app-cards-cards button:hover {
+  transform: scale(1.12);
+}
+
+.app-cards-buttons{
+  font-size: 50px;
+}
+
+.app-cards-addcourse p{
+  text-align: center;
+  text-indent: 20px;
+  color:rgb(54, 53, 53);
+  font-size: 40px;
+  font-weight: 400;
+  color: black;
+  margin-top: 75px;
 }

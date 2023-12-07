@@ -17,6 +17,7 @@ export const StudentHomePage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   console.log(userData);
 
+
   //jwt
   axios.defaults.withCredentials = true;
   useEffect(() => {
@@ -54,11 +55,9 @@ export const StudentHomePage = () => {
   const offset = currentPage * coursesPerPage;
   const currentCourses = courses.slice(offset, offset + coursesPerPage);
   const hiddenCourses = courses.slice(coursesPerPage);
-
-
-
-  if (coursesPerPage == 6)
-  {}
+  const addcourbut = courses.slice(coursesPerPage)
+  
+ 
   
   useEffect(() => { 
     const userId = userData._id;
@@ -134,51 +133,68 @@ export const StudentHomePage = () => {
           </ul>
         </div>
       </nav>
-      <div className="addcoursebutton">
-        <button id="addbutton" onClick={() => navigate("/allcourselist")}></button>
-      </div>
-
-      {
-        courses.length > 0 &&(
-          <ul className="app-cards">
-            {
-              currentCourses.map(course =>{
-                return(
-                  <div className="app-cards-card">
-                    <li key={course._id}>
-                <div className="app-cards-title">
-                  <h1>{course.course_title}</h1>
-                </div>
-                <div className="app-cards-description">
-                  <h3>{course.course_description}</h3>
-                </div>
-              </li>
-                </div>
-                )
-              })
-            }
-               {hiddenCourses.length > 0 && (
-          <div className="app-cards-card">
-            <li>
-              <div className="app-cards-title">
-                <h1>See More</h1>
-              </div>
-              <div className="app-cards-description">
-                <h3>
-                  {/* Add the link or handle redirection logic here */}
-                  <a href="/your-link">Click to see more</a>
-                </h3>
-              </div>
-            </li>
+{courses.length >= 0 && (
+  <ul className="app-cards">
+    {currentCourses.map((course) => (
+      <div className="app-cards-card" key={course._id}>
+        <li>
+          <div className="app-cards-title">
+            <h6>{course.course_title}</h6>
           </div>
-        )}
+          <div className="app-cards-description">
+            <h5>{course.course_description}</h5>
+          </div>
+        </li>
+      </div>
+    ))}
+
+    {hiddenCourses.length > 0 && (
+      <div className="app-cards-card">
+        <li>
+          <div className="app-cards-flex">
+            <div className="app-cards-seemoreimage">
+              <img src="seemore.png" onClick={() => navigate("/studentviewcourse")}></img>
+            </div>
+            <div className="app-cards-seemore">
+              <p> See More</p>
+            </div>
+          </div>
+          
+        </li>
+      </div>
+    )}
+
+    {addcourbut.length === 0 && addcourbut.length <=5 &&(
+       <div className="app-cards-card" key="button-card">
+      <li>
+        <div className="app-cards-flex">
+          <div className="app-cards-buttons">
+          <button onClick={() => navigate("/allcourselist")}> 
+          </button>
+          </div>
+          <div className="app-cards-addcourse">
+            <p> Add Course</p>
+          </div>
+        </div>
+        
+      </li>
+    </div>
+    )}
+   
+  </ul>
+)}
 
 
-          </ul>
-        )
-      }
 
 
+
+
+
+
+
+      {/* <div className="addcoursebutton">
+        <button id="addbutton" onClick={() => navigate("/allcourselist")}></button>
+      </div> */}
 
     </div>
   );
