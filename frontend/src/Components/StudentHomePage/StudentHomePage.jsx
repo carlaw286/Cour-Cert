@@ -13,6 +13,8 @@ export const StudentHomePage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
   const [initialRequestComplete, setInitialRequestComplete] = useState(false);
+  const [courses, getCourses] = useState([])
+  const [currentPage, setCurrentPage] = useState(0);
   console.log(userData);
 
   //jwt
@@ -46,6 +48,33 @@ export const StudentHomePage = () => {
         setSearchButtonClicked(true);
       })
   };
+
+
+  const coursesPerPage = 5;
+  const offset = currentPage * coursesPerPage;
+  const currentCourses = courses.slice(offset, offset + coursesPerPage);
+  const hiddenCourses = courses.slice(coursesPerPage);
+
+
+
+  if (coursesPerPage == 6)
+  {}
+  
+  useEffect(() => { 
+    const userId = userData._id;
+
+    axios.get('http://localhost:3002/getEnrolledcourses', {
+        params: {
+            id: userId
+        }
+    })
+    .then(response => {
+        getCourses(response.data);
+        console.log("Token2: " + response.data);
+    })
+    .catch(err => console.log(err));
+}, [setUserData, userData._id]);
+
 
   if (!initialRequestComplete) {
     // Initial request still in progress
@@ -108,6 +137,49 @@ export const StudentHomePage = () => {
       <div className="addcoursebutton">
         <button id="addbutton" onClick={() => navigate("/allcourselist")}></button>
       </div>
+
+      {
+        courses.length > 0 &&(
+          <ul className="app-cards">
+            {
+              currentCourses.map(course =>{
+                return(
+                  <div className="app-cards-card">
+                    <li key={course._id}>
+                <div className="app-cards-title">
+                  <h1>{course.course_title}</h1>
+                </div>
+                <div className="app-cards-description">
+                  <h3>{course.course_description}</h3>
+                </div>
+              </li>
+                </div>
+                )
+              })
+            }
+               {hiddenCourses.length > 0 && (
+          <div className="app-cards-card">
+            <li>
+              <div className="app-cards-title">
+                <h1>See More</h1>
+              </div>
+              <div className="app-cards-description">
+                <h3>
+                  {/* Add the link or handle redirection logic here */}
+                  <a href="/your-link">Click to see more</a>
+                </h3>
+              </div>
+            </li>
+          </div>
+        )}
+
+
+          </ul>
+        )
+      }
+
+
+
     </div>
   );
 };

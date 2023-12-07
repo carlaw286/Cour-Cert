@@ -51,7 +51,6 @@ nav .navStudentHomepage{
   margin: 0 10px;
 }
 
-
 #search-input1{
   flex: 1;
   padding: 10px;
@@ -180,4 +179,32 @@ nav .navStudentHomepage{
 
 .no-results-found p {
   font-size: 12px;
+}
+
+.app-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  align-items: stretch;
+  list-style-type: none;
+  justify-items: center;
+}
+
+.app-cards-card {
+  width: 500px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+  margin-bottom: 50px;
+  transition: all 0.9s ease;
+}
+
+
+.app-cards-title h1{
+  margin: 10px;
+  cursor: pointer;
+}
+.app-cards-description h3{
+  margin: 10px;
 }
