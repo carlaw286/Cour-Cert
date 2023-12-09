@@ -61,19 +61,16 @@ svg {
   font-size: 2rem !important;
   font-weight: 500;
   line-height: 1;
+  color: var(--white);
 }
 
 .byline {
   position: absolute;
-  right: 2.5rem;
+  right: 50%; /* Center the text horizontally */
+  transform: translateX(50%); /* Center the text horizontally */
+  font-size: 50px;
+  text-align: center; 
 }
-
-.date {
-  position: absolute;
-  bottom: 2.5rem;
-  font-size: 0.75rem;
-}
-
-.bold {
-  font-weight: 500;
+.byline span {
+  font-weight: bold;
 }
