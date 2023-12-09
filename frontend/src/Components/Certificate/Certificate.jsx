@@ -18,9 +18,9 @@ export function Certificate({ name, course, date,instructor }) {
 }
 
 Certificate.defaultProps = {
-  name: 'James Lee',
+  name: 'Ma. Leahlyn Fernandez',
   course: 'Data Structures and Algorithms',
-  date: 'March 15 2021',
+  date: 'November 24, 2023',
   instructor: 'Engr. James Yohan Curises'
 }
 
