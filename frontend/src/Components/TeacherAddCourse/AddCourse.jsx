@@ -136,8 +136,11 @@ const handleAddQuiz = async () => {
       </nav>
       <form encType="multipart/form-data">
         <div className="details">
+        <div className="addcourse-label_dets">
+        <p>Course Title:</p>  
+        </div>
           <div className="title">
-            <input
+          <Textarea
               type="text"
               id="title"
               placeholder="Your Title"
@@ -145,6 +148,9 @@ const handleAddQuiz = async () => {
               onChange={(e) => setCourseTitle(e.target.value)}
             />
           </div>
+          <div className="addcourse-label_dets">
+        <p>Course Description:</p>  
+        </div>
           <div className="description">
             <Textarea
               placeholder="Course Description"
@@ -153,6 +159,9 @@ const handleAddQuiz = async () => {
             />
           </div>
         </div>
+        <div className="addcourse-label">
+        <p>Add Topic:</p>  
+        </div>
         <div className="addcourse-row">
           <div className="addcourse-col">
             <div className="Forms">
@@ -160,7 +169,7 @@ const handleAddQuiz = async () => {
                 className="form-input1"
                 type="text"
                 id="topicnumber"
-                placeholder="Week #"
+                placeholder="Topic"
                 value={week}
                 onChange={(e) => setWeek(e.target.value)}
               />
@@ -172,22 +181,42 @@ const handleAddQuiz = async () => {
                 onChange={(e) => setPdfTitle(e.target.value)}
               />
               <div className="inputfile">
-                <input
-                  type="file"
-                  name="pdfFile"
-                  accept=".pdf"
-                  onChange={(e) => setPdfFile(e.target.files[0])}
-                />
-              </div>
+  <label>
+    Choose a file
+    <input
+      type="file"
+      name="pdfFile"
+      accept=".pdf"
+      onChange={(e) => setPdfFile(e.target.files[0])}
+    />
+  </label>
+  <span className="filename">{pdfFile && pdfFile.name}</span>
+</div>
             </div>
-            <button type="submit" onClick={handleSubmit}>
-              Upload File
-            </button>
-            {uploadSuccess && <p style={{ color: 'green' }}>Upload successful!</p>}
+            
+<button className="ACupload-button" type="submit" onClick={handleSubmit}>
+  Upload File
+</button>
 
-            {/* Render quiz questions here */}
+            {uploadSuccess}
+            
+          
+        
+        {uploadSuccess && (
+          <div className="ACsuccess-message">
+            File upload successful!
+          </div>
+        )}
+        </div></div>
+        <div className="addcourse-label">
+        <p>Create Quiz:</p>  
+        </div>
+        <div className="createQuizMargin">
+        <div className="createQuizContainer">
+
+              {/* Render quiz questions here */}
         {questions.map((question, questionIndex) => (
-          <div key={questionIndex}>
+          <div key={questionIndex} className="quiz-container">
             <input
               type="text"
               placeholder={`Question ${questionIndex + 1}`}
@@ -221,7 +250,7 @@ const handleAddQuiz = async () => {
             />
           </div>
         ))}
-
+        <div className='QuizButtonsContainer'>
         {/* Button to add more questions */}
           <button type="button" onClick={addQuestion}>
             Add Question
@@ -232,12 +261,8 @@ const handleAddQuiz = async () => {
             Add Quiz
           </button>
           </div>
-        </div>
-        {uploadSuccess && (
-          <div className="success-message">
-            File upload successful!
-          </div>
-        )}
+
+        </div></div>
         <div className="butts">
           <button type="submit" onClick={handleSaveChanges}>
             Save Changes
