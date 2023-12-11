@@ -150,7 +150,7 @@ export const TeacherHomePage = () =>
     <ul>
       {searchResults.map((course) => (
         <li key={course.id}>
-          <Link to={`/course/${course.id}`}>{course.course_title}</Link>
+          <Link to={`/teacheraddcourse?title=${course.course_title}&description=${course.course_description}&id=${course._id}`}>{course.course_title}</Link>
         </li>
       ))}
     </ul>
