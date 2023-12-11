@@ -19,6 +19,36 @@ export const TeacherAddCourse = () => {
   const [pdfFile, setPdfFile] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const navigate = useNavigate();
+
+  const [questions, setQuestions] = useState([{ questionText: '', choices: ['', '', ''], correctAnswer: '' }]);
+
+  const addQuestion = () => {
+    setQuestions([...questions, { questionText: '', choices: ['', '', ''], correctAnswer: '' }]);
+  };
+
+  const handleQuestionChange = (index, key, value) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index][key] = value;
+    setQuestions(updatedQuestions);
+  };
+
+  const handleChoiceChange = (questionIndex, choiceIndex, value) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[questionIndex].choices[choiceIndex] = value;
+    setQuestions(updatedQuestions);
+  };
+// AddCourse.jsx
+const handleAddQuiz = async () => {
+  try {
+    console.log({ courseID: id, questions });
+    const response = await axios.post(`http://localhost:3002/quiz/add/${id}`, { courseID: id, questions });
+    console.log('Quiz added:', response.data);
+  } catch (error) {
+    console.error('Error adding quiz:', error);
+  }
+};
+
+  
   console.log("data ID from view course: " + id);
 
     //jwt
@@ -106,8 +136,11 @@ export const TeacherAddCourse = () => {
       </nav>
       <form encType="multipart/form-data">
         <div className="details">
+        <div className="addcourse-label_dets">
+        <p>Course Title:</p>  
+        </div>
           <div className="title">
-            <input
+          <Textarea
               type="text"
               id="title"
               placeholder="Your Title"
@@ -115,6 +148,9 @@ export const TeacherAddCourse = () => {
               onChange={(e) => setCourseTitle(e.target.value)}
             />
           </div>
+          <div className="addcourse-label_dets">
+        <p>Course Description:</p>  
+        </div>
           <div className="description">
             <Textarea
               placeholder="Course Description"
@@ -123,6 +159,9 @@ export const TeacherAddCourse = () => {
             />
           </div>
         </div>
+        <div className="addcourse-label">
+        <p>Add Topic:</p>  
+        </div>
         <div className="addcourse-row">
           <div className="addcourse-col">
             <div className="Forms">
@@ -130,42 +169,106 @@ export const TeacherAddCourse = () => {
                 className="form-input1"
                 type="text"
                 id="topicnumber"
-                placeholder="Week #"
+                placeholder="Topic"
                 value={week}
                 onChange={(e) => setWeek(e.target.value)}
               />
               <input
                 type="text"
                 className="PdfFilename"
-                placeholder="Title of the file"
+                placeholder={pdfFile && pdfFile.name}
                 value={pdfTitle}
                 onChange={(e) => setPdfTitle(e.target.value)}
               />
               <div className="inputfile">
-                <input
-                  type="file"
-                  name="pdfFile"
-                  accept=".pdf"
-                  onChange={(e) => setPdfFile(e.target.files[0])}
-                />
-              </div>
+  <label>
+    Choose a file
+    <input
+      type="file"
+      name="pdfFile"
+      accept=".pdf"
+      onChange={(e) => setPdfFile(e.target.files[0])}
+    />
+  </label>
+  <span className="filename"> </span>
+</div>
             </div>
-            <button type="submit" onClick={handleSubmit}>
-              Upload File
-            </button>
-            {uploadSuccess && <p style={{ color: 'green' }}>Upload successful!</p>}
-          </div>
-        </div>
+            
+<button className="ACupload-button" type="submit" onClick={handleSubmit}>
+  Upload File
+</button>
+
+            {uploadSuccess}
+            
+          
+        
         {uploadSuccess && (
-          <div className="success-message">
+          <div className="ACsuccess-message">
             File upload successful!
           </div>
         )}
+        </div></div>
+        <div className="addcourse-label">
+        <p>Create Quiz:</p>  
+        </div>
+        <div className="createQuizMargin">
+        <div className="createQuizContainer">
+
+              {/* Render quiz questions here */}
+        {questions.map((question, questionIndex) => (
+          <div key={questionIndex} className="quiz-container">
+            <input
+              type="text"
+              placeholder={`Question ${questionIndex + 1}`}
+              value={question.questionText}
+              onChange={(e) =>
+                handleQuestionChange(questionIndex, 'questionText', e.target.value)
+              }
+            />
+
+            {/* Add inputs for choices */}
+            {question.choices.map((choice, choiceIndex) => (
+              <input
+                key={choiceIndex}
+                type="text"
+                placeholder={`Choice ${choiceIndex + 1}`}
+                value={choice}
+                onChange={(e) =>
+                  handleChoiceChange(questionIndex, choiceIndex, e.target.value)
+                }
+              />
+            ))}
+
+            {/* Input for correct answer */}
+            <input
+              type="text"
+              placeholder="Correct Answer"
+              value={question.correctAnswer}
+              onChange={(e) =>
+                handleQuestionChange(questionIndex, 'correctAnswer', e.target.value)
+              }
+            />
+          </div>
+        ))}
+        <div className='QuizButtonsContainer'>
+        {/* Button to add more questions */}
+          <button type="button" onClick={addQuestion}>
+            Add Question
+          </button>
+          
+          {/* Button to submit the quiz */}
+          <button type="button" onClick={handleAddQuiz}>
+            Add Quiz
+          </button>
+          </div>
+
+        </div></div>
         <div className="butts">
           <button type="submit" onClick={handleSaveChanges}>
             Save Changes
           </button>
         </div>
+        
       </form>
     </div>
   );

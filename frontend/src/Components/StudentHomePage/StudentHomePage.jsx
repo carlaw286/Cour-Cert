@@ -13,7 +13,10 @@ export const StudentHomePage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchButtonClicked, setSearchButtonClicked] = useState(false);
   const [initialRequestComplete, setInitialRequestComplete] = useState(false);
+  const [courses, getCourses] = useState([])
+  const [currentPage, setCurrentPage] = useState(0);
   console.log(userData);
+
 
   //jwt
   axios.defaults.withCredentials = true;
@@ -47,10 +50,49 @@ export const StudentHomePage = () => {
       })
   };
 
+
+  const coursesPerPage = 5;
+  const offset = currentPage * coursesPerPage;
+  const currentCourses = courses.slice(offset, offset + coursesPerPage);
+  const hiddenCourses = courses.slice(coursesPerPage);
+  const addcourbut = courses.slice(coursesPerPage)
+  
+ 
+  
+  useEffect(() => { 
+    const userId = userData._id;
+
+    axios.get('http://localhost:3002/getEnrolledcourses', {
+        params: {
+            id: userId
+        }
+    })
+    .then(response => {
+        getCourses(response.data);
+        console.log("Token2: " + response.data);
+    })
+    .catch(err => console.log(err));
+}, [setUserData, userData._id]);
+
+
   if (!initialRequestComplete) {
     // Initial request still in progress
     return null; // or loading indicator if needed
   }
+
+  //expanding text
+  const ExpandableText = ({ children, descriptionLength }) => {
+    const fullText = children;
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleText = () => {setIsExpanded(!isExpanded);};      
+
+    return (
+        <p className='text'>
+          {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
+        </p>
+      );
+    };
+
 
   return (
     <div className="studenthomepage">
@@ -105,9 +147,63 @@ export const StudentHomePage = () => {
           </ul>
         </div>
       </nav>
-      <div className="addcoursebutton">
-        <button id="addbutton" onClick={() => navigate("/allcourselist")}></button>
+{courses.length >= 0 && (
+  <ul className="app-cards">
+    {currentCourses.map((course) => (
+      <div className="app-cards-card" key={course._id}>
+        <li>
+          <div className="app-cards-title">
+            <h6>
+            <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
+              {course.course_title}
+            </Link>
+              </h6>
+          </div>
+          <div className="app-cards-description">
+            <h5>
+              <ExpandableText descriptionLength={250}>
+              {course.course_description}
+              </ExpandableText>
+            </h5>
+          </div>
+        </li>
       </div>
+    ))}
+
+    {hiddenCourses.length > 0 && (
+      <div className="app-cards-card">
+        <li>
+          <div className="app-cards-flex">
+            <div className="app-cards-seemoreimage">
+              <img src="seemore.png" onClick={() => navigate("/studentviewcourse")}></img>
+            </div>
+            <div className="app-cards-seemore">
+              <p> See More</p>
+            </div>
+          </div>
+          
+        </li>
+      </div>
+    )}
+
+    {addcourbut.length === 0 && addcourbut.length <=5 &&(
+       <div className="app-cards-card" key="button-card">
+      <li>
+        <div className="app-cards-flex">
+          <div className="app-cards-buttons">
+          <button onClick={() => navigate("/allcourselist")}> 
+          </button>
+          </div>
+          <div className="app-cards-addcourse">
+            <p> Add Course</p>
+          </div>
+        </div>
+      </li>
+    </div>
+    )}
+   
+  </ul>
+)}
     </div>
   );
 };
