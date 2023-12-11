@@ -5,6 +5,7 @@ const Quiz = () => {
   const [showCongrats, setShowCongrats] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  console.log("hello");
   const handleChoiceChange = (questionId, choice) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
@@ -26,7 +27,8 @@ const Quiz = () => {
         return false;
       }
     }
-
+ 
+    
     return true;
   };
 
