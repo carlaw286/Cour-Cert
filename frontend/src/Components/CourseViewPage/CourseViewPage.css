@@ -3,6 +3,10 @@
   position: relative;
 
 }
+.courseView_container{
+  
+  background-color: #f4f4f4;
+}
 .containerss {
   min-height: 23vh;
   margin-top: 6vh;

@@ -176,7 +176,7 @@ const handleAddQuiz = async () => {
               <input
                 type="text"
                 className="PdfFilename"
-                placeholder="Title of the file"
+                placeholder={pdfFile && pdfFile.name}
                 value={pdfTitle}
                 onChange={(e) => setPdfTitle(e.target.value)}
               />
@@ -190,7 +190,7 @@ const handleAddQuiz = async () => {
       onChange={(e) => setPdfFile(e.target.files[0])}
     />
   </label>
-  <span className="filename">{pdfFile && pdfFile.name}</span>
+  <span className="filename"> </span>
 </div>
             </div>
             
