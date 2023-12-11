@@ -50,14 +50,14 @@ img {
     justify-content: end;
 }
 
-ul:hover li {
+/* ul:hover li {
     opacity: 0.2;
     filter: blur(0.0625rem);
 }
 ul li:hover {
     opacity: 1;
     filter: blur(0rem);
-}
+} */
 
 .nav-links {
     text-decoration: none;

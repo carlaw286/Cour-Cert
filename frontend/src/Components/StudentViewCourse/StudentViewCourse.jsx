@@ -84,6 +84,7 @@ export const StudentViewCourse = () => {
                                 <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
                                 {course.course_title}
                                 </Link>
+                                {console.log("course ID:" + course.course_id)}
                             </div>
                             <div className='Courses'>
                                 <div className='description1'>
