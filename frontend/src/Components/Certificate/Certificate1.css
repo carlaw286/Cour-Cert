@@ -66,3 +66,19 @@ svg {
 .byline span {
   font-weight: bold;
 }
+
+.download-button {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 2rem;
+  padding: 10px 15px;
+  font-size: 18px;
+  background-color: var(--blue);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+
+.download-button:hover {
+  background-color: var(--dark-blue);
+}
