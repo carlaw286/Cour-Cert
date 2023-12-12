@@ -34,9 +34,19 @@ export const TeacherHomePage = () =>
   
   const [search, setSearch] = useState('');
 
-  const handleSignout = () => {
-    navigate('/login');
-  };
+  const handleSignout = async () => {
+    localStorage.removeItem('token');
+  try {
+    // Make a request to the server to invalidate the session
+    await axios.post("http://localhost:3002/signout");
+
+    // Clear user data and navigate to the login/signup page
+    setUserData(null);
+    navigate("/loginsignup");
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
+};
 
   const handleSubmit = async (e) => {
       e.preventDefault();
@@ -96,6 +106,18 @@ export const TeacherHomePage = () =>
   };
     axios.defaults.withCredentials = true;
     useEffect(()=> {
+      //retain info even if refresh
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData((prevUserData) => {
+        const newUserData = JSON.parse(storedUserData);
+        // Assuming that newUserData has the same structure as your existing user data
+        return { ...prevUserData, ...newUserData };
+      });
+    }
+  
+    const userId = userData._id;
+    //
       axios.get('http://localhost:3002/teacherhomepage')
       .then(result => {console.log(result)
           if(result.data !== "Success")
