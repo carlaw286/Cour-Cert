@@ -60,13 +60,6 @@ nav .navTeacherHomepage{
   text-decoration: none;
 }
 
-.nav-link2 ul li a:hover{
-  padding: 7px;
-  border-radius: 5px;
-  background: rgba(80, 80, 238);
-  color: #fff;
-  text-decoration: none;
-}
 
 .searchBar{
   flex: 1;
@@ -162,4 +155,20 @@ Dialog{
 
 .no-results-found p {
   font-size: 12px;
+}
+
+.teacher_Signout {
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  background-color: #fe9e0d;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+}
+
+.teacher_Signout:hover {
+  background-color: #e48f0f;
 }

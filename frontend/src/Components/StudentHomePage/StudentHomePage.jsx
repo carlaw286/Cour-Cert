@@ -169,10 +169,13 @@ export const StudentHomePage = () => {
             <li>
               <Link to="/profilepage">My Profile</Link>
             </li>
+            
             <li>
+            <div className="student_Signout">
             <Link to="/" onClick={handleSignout}>
                 Signout
               </Link>
+            </div>
             </li>
           </ul>
         </div>

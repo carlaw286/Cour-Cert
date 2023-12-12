@@ -189,9 +189,11 @@ export const TeacherHomePage = () =>
               <li><Link to = "/teacherviewcourse"> View Course</Link> </li>
               <li><Link to = "/teacherprofile"> Account Profile</Link> </li>
               <li>
-              <Link to="/" onClick={handleSignout}>
+              <div className="teacher_Signout">
+            <Link to="/" onClick={handleSignout}>
                 Signout
               </Link>
+            </div>
               </li>
              </ul>
            </div>
