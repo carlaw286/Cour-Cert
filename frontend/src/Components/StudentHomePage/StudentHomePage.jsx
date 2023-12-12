@@ -146,7 +146,7 @@ export const StudentHomePage = () => {
     <ul>
       {searchResults.map((course) => (
         <li key={course.id}>
-          <Link to={`/course/${course.id}`}>{course.course_title}</Link>
+          <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>{course.course_title}</Link>
         </li>
       ))}
     </ul>

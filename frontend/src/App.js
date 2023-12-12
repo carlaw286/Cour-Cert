@@ -27,8 +27,8 @@ import { StudentAddCourse } from "./Components/AllCourseList/StudentAddCourse";
 import { CourseViewPage } from "./Components/CourseViewPage/CourseViewPage";
 import ListOfStudents from "./Components/Admin/ListOfStudents/ListOfStudents";
 import ListOfTeachers from "./Components/Admin/ListOfTeachers/ListOfTeachers";
-import{Questionnaire} from './Components/Questionnaire/Questionnaire';
-
+import { Questionnaire } from "./Components/Questionnaire/Questionnaire";
+import { Certificate } from "./Components/Certificate/Certificate";
 
 function App() {
   return (
@@ -61,7 +61,8 @@ function App() {
           <Route path="/courseviewpage" element={<CourseViewPage />} />
           <Route path="/Admin/ListOfStudents" element={<ListOfStudents />} />
           <Route path="/Admin/ListOfTeachers" element={<ListOfTeachers />} />
-          <Route path = '/questionnaire' element = {<Questionnaire/>}/>
+          <Route path="/questionnaire" element={<Questionnaire />} />
+          <Route path="/certificate" element={<Certificate />} />
         </Routes>
       </Router>
     </>

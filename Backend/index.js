@@ -807,40 +807,49 @@ app.delete("/deleteStudentUser/:id", async (req, res) => {
 app.delete("/deleteTeacherUser/:id", async (req, res) => {
   const userId = req.params.id;
 
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
-    const deletedUser = await user_TeacherModel.findByIdAndRemove(userId);
+    const deletedUser = await user_TeacherModel.findByIdAndRemove(userId).session(session);
 
     if (deletedUser) {
       // Find and delete associated courses
-      const deletedCourses = await teacher_AddCourseModel.deleteMany({
-        user_id: userId,
-      });
+      const deletedCourses = await teacher_AddCourseModel.deleteMany({ user_id: userId }).session(session);
 
       // Check if courses were deleted
       if (deletedCourses.deletedCount > 0) {
         // Delete topics associated with the deleted courses
-        await teacher_AddTopicModel.deleteMany({
-          course_id: { $in: deletedCourses.deletedIds },
-        });
+        await teacher_AddTopicModel.deleteMany({ course_id: { $in: deletedCourses.deletedIds } }).session(session);
+
+        await session.commitTransaction();
 
         res.json({
           status: "Success",
-          message:
-            "Teacher user, associated courses, and topics deleted successfully",
+          message: "Teacher user, associated courses, and topics deleted successfully",
         });
       } else {
+        await session.abortTransaction();
+
         res.status(404).json({
           status: "Error",
           message: "No courses found for the teacher user",
         });
       }
     } else {
+      await session.abortTransaction();
+
       res.status(404).json({
         status: "Error",
         message: "Teacher user not found",
       });
     }
   } catch (error) {
+    await session.abortTransaction();
+
     res.status(500).json({ status: "Error", error: error.message });
+  } finally {
+    session.endSession();
   }
 });
+
