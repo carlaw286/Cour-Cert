@@ -160,6 +160,9 @@ export const StudentHomePage = () => {
 )}
         <div className="nav-link2">
           <ul>
+          <li>
+              <Link to="/allcourselist">Available Courses</Link>
+            </li>
             <li>
               <Link to="/studentviewcourse">My Course</Link>
             </li>
@@ -186,18 +189,18 @@ export const StudentHomePage = () => {
       <div className="app-cards-card" key={course._id}>
         <li>
           <div className="app-cards-title">
-            <h6>
+            <p>
             <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
               {course.course_title}
             </Link>
-              </h6>
+              </p>
           </div>
           <div className="app-cards-description">
-            <h5>
+            <p>
               <ExpandableText descriptionLength={250}>
               {course.course_description}
               </ExpandableText>
-            </h5>
+            </p>
           </div>
         </li>
       </div>
@@ -223,10 +226,10 @@ export const StudentHomePage = () => {
        <div className="app-cards-card" key="button-card">
       <li>
         <div className="app-cards-flex">
-          <div className="app-cards-buttons">
-          <button onClick={() => navigate("/allcourselist")}> 
-          </button>
-          </div>
+        <div className="app-cards-button">
+  <button onClick={() => navigate("/allcourselist")}></button>
+</div>
+
           <div className="app-cards-addcourse">
             <p> Add Course</p>
           </div>
