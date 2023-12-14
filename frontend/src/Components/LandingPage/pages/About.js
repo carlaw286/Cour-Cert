@@ -1,5 +1,5 @@
 import React from "react";
-import AboutBackground from "../public/assets/AboutBg.png";
+import AboutBackground from "../public/assets/AboutBg3.png";
 import "../styles/About.css";
 import { HashLink as Link } from "react-router-hash-link";
 import Navbar from "../components/Navbar";

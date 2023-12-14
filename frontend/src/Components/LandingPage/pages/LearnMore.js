@@ -1,5 +1,5 @@
 import React from "react";
-import ABackground from "../public/assets/LMBg4.png";
+import ABackground from "../public/assets/LMBg7.png";
 import "../styles/LearnMore.css";
 import Navbar from "../components/Navbar";
 
