@@ -28,7 +28,7 @@
     margin-right: 8rem;
     display: flex;
     align-items: center;
-    padding: 0.5rem 40px;
+    padding: .3rem 40px;
     border-radius: 5rem;
     transition: border 0.1s;
 }
@@ -39,7 +39,7 @@
     border: none;
     outline: none;
     font-size: 1.3rem;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 1rem;
 }
 .contact-form-container::placeholder {
     color: #97979c;
@@ -89,20 +89,21 @@
 .primary-he {
     margin-top: 220px;
     font-size: clamp(2rem, 5vw, 4rem);
-    color: white;
+    color: #4c4c4c;
     max-width: 900px;
     font-weight: bold;
 }
 .primary-h {
     margin-top: 175px;
     font-size: clamp(2rem, 5vw, 4rem);
-    color: white;
+    color: #4c4c4c;
     max-width: 900px;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 .s-button {
-    padding: 1rem 2.5rem;
+    padding: 1.5rem 2.5rem;
     background-color: #fe9e0d;
     outline: none;
     border: none;
@@ -112,11 +113,11 @@
     font-weight: 600;
     color: white;
     transition: 0.2s;
-    position: absolute;
+    position: relative;
     align-items: center;
     justify-content: center;
-    margin-left: 25.9rem;
-    bottom: 19rem;
+    margin-left: 70px;
+    margin-bottom: -60; 
 }
 
 .s-button:hover {
