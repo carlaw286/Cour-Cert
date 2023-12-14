@@ -69,13 +69,17 @@ ul li:hover {
 .nav-links-LogIn {
     padding: 0.5rem 1rem;
     white-space: nowrap;
-    background-color: #1E90FF;
+    background-color: #fe9e0d;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
-    color: #222;
+    color: white;
+}
+
+.nav-links-LogIn:hover {
+    background-color: #e48f0f;
 }
 
 .nav-links i{
@@ -83,7 +87,7 @@ ul li:hover {
 }
 
 .nav-links:hover {
-    background: rgba(80, 80, 238);
+    background: transparent;
     padding: 5px;
     border-radius: 3px;
     transition: all 0.2s ease-in-out;

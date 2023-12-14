@@ -79,7 +79,7 @@ export const StudentViewCourse = () => {
                 </div>
                 {currentCourses.map(course => {
                     return (
-                        <div className='course-box'>
+                        <div className='course-box_SVC'>
                             <div className='title1' key={course._id}>
                                 <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
                                 {course.course_title}

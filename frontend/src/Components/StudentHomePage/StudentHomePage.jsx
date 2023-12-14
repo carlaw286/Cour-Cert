@@ -21,6 +21,19 @@ export const StudentHomePage = () => {
   //jwt
   axios.defaults.withCredentials = true;
   useEffect(() => {
+    //retain info even if refresh
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData((prevUserData) => {
+        const newUserData = JSON.parse(storedUserData);
+        // Assuming that newUserData has the same structure as your existing user data
+        return { ...prevUserData, ...newUserData };
+      });
+    }
+  
+    const userId = userData._id;
+    //
+
     axios
       .get("http://localhost:3002/studenthomepage")
       .then((result) => {
@@ -36,6 +49,21 @@ export const StudentHomePage = () => {
         setInitialRequestComplete(true);
       });
   }, []);
+  
+    const handleSignout = async () => {
+      localStorage.removeItem('token');
+    try {
+      // Make a request to the server to invalidate the session
+      await axios.post("http://localhost:3002/signout");
+
+      // Clear user data and navigate to the login/signup page
+      setUserData(null);
+      navigate("/loginsignup");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+  
 
   const handleSearch = () => {
     axios
@@ -132,6 +160,9 @@ export const StudentHomePage = () => {
 )}
         <div className="nav-link2">
           <ul>
+          <li>
+              <Link to="/allcourselist">Available Courses</Link>
+            </li>
             <li>
               <Link to="/studentviewcourse">My Course</Link>
             </li>
@@ -141,8 +172,13 @@ export const StudentHomePage = () => {
             <li>
               <Link to="/profilepage">My Profile</Link>
             </li>
+            
             <li>
-              <Link to="/">Signout</Link>
+            <div className="student_Signout">
+            <Link to="/" onClick={handleSignout}>
+                Signout
+              </Link>
+            </div>
             </li>
           </ul>
         </div>
@@ -153,18 +189,18 @@ export const StudentHomePage = () => {
       <div className="app-cards-card" key={course._id}>
         <li>
           <div className="app-cards-title">
-            <h6>
+            <p>
             <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
               {course.course_title}
             </Link>
-              </h6>
+              </p>
           </div>
           <div className="app-cards-description">
-            <h5>
+            <p>
               <ExpandableText descriptionLength={250}>
               {course.course_description}
               </ExpandableText>
-            </h5>
+            </p>
           </div>
         </li>
       </div>
@@ -190,10 +226,10 @@ export const StudentHomePage = () => {
        <div className="app-cards-card" key="button-card">
       <li>
         <div className="app-cards-flex">
-          <div className="app-cards-buttons">
-          <button onClick={() => navigate("/allcourselist")}> 
-          </button>
-          </div>
+        <div className="app-cards-button">
+  <button onClick={() => navigate("/allcourselist")}></button>
+</div>
+
           <div className="app-cards-addcourse">
             <p> Add Course</p>
           </div>

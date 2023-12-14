@@ -19,7 +19,7 @@ export const MenuData = [
         icon:"fa-solid fa-address-book"
     },
     {
-        title: "LogIn",
+        title: "Login",
         url:"/loginsignup",
         cName: "nav-links-LogIn"
     }
