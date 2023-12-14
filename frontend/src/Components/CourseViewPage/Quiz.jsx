@@ -11,7 +11,7 @@ const Quiz = ({id, userID}) => {
   const handleButtonClick = () => {
     console.log(currentCourseID + (" ") +  userID);
     // Use the `history.push` method to navigate to the certificate page
-    navigate(`/certificate?userID=${userID}`);
+    navigate(`/certificate?userID=${userID}&courseID=${currentCourseID}`);
   };
 
   useEffect(() => {

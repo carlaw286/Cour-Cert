@@ -16,20 +16,6 @@ export const TeacherViewCourse = () => {
 
   //jwt
   axios.defaults.withCredentials = true;
-//   useEffect(() => {
-//     axios
-//       .get("http://localhost:3002/teacherviewcourse")
-//       .then((result) => {
-//         console.log(result);
-        
-//       console.log("Token: " +result.data);
-//         if (result.data !== "Success") {
-//           navigate("/loginsignup");
-//         }
-//       })
-//       .catch((err) => console.log(err));
-//   }, []);
-//
     useEffect(() => {
         const storedUserData = localStorage.getItem('userData');
         if (storedUserData) {

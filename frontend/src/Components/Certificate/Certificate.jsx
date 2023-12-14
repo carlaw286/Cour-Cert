@@ -1,14 +1,66 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import "./Certificate1.css";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
-export function Certificate({ userID, id, name, course, date, instructor }) {
+export function Certificate() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
   const certificateRef = useRef(null);
-  console.log("course ID: " + id);
-  console.log("USER ID: " + userID);
+  const userId = queryParams.get('userID');
+  const courseID = queryParams.get('courseID');
+  const [studentUser, setStudentUser] = useState({});
+  const [courseData, setCourseData] = useState({});
+  const [teacherUser, setTeacherUser] = useState({});
   
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
   
+  useEffect(()=> {
+    //Student Data
+    axios.get('http://localhost:3002/getCertificate', {
+      params: {
+        id : userId,
+      }
+    })
+    .then(result =>{
+      setStudentUser(result.data);
+    })
+    .catch(err => console.error(err));
+
+    //Course Data
+    axios.get('http://localhost:3002/getCourseCertificate', {
+      params: {
+        id : courseID,
+      }
+    })
+    .then(result =>{
+      setCourseData(result.data);
+    })
+    .catch(err => console.error(err));
+  }, [])
+
+  useEffect(() => {
+    if (courseData.user_id) {
+      //Teacher Data
+      axios.get('http://localhost:3002/getCourseTeacher', {
+        params: {
+          id: courseData.user_id,
+        }
+      })
+      .then(result => {
+        setTeacherUser(result.data);
+      })
+      .catch(err => console.error(err));
+    }
+  }, [courseData.user_id]);
+  
+
   const handleDownload = async () => {
     const certificateElement = certificateRef.current;
 
@@ -47,15 +99,15 @@ export function Certificate({ userID, id, name, course, date, instructor }) {
         <p className="byline"></p>
         <div className="content">
           <p>This certificate is presented to</p>
-          <h1>{name}</h1>
+          <h1>{studentUser.firstName} {studentUser.lastName}</h1>
           <p>
             for successfully demonstrating exceptional knowledge and proficiency
-            by passing<p></p> the course: {course}. Issued on {date} ,<p></p>{" "}
-            this accomplishment signifies [his/her] commitment to excellence,
+            by passing<p></p> the course: {courseData.course_title}. Issued on {currentDate} ,<p></p>{" "}
+            this accomplishment signifies {studentUser.gender === "Male" ? "his" : "her"} commitment to excellence,
             dedication<p></p> to continuous learning, and mastery of the course
             content.{" "}
           </p>
-          <h2>{instructor}</h2>
+          <h2>{teacherUser.firstName} {teacherUser.lastName}</h2>
           <button className="download-button" onClick={handleDownload}>
             Download
           </button>
@@ -65,9 +117,4 @@ export function Certificate({ userID, id, name, course, date, instructor }) {
   );
 }
 
-Certificate.defaultProps = {
-  name: "Ma. Leahlyn Fernandez",
-  course: "Data Structures and Algorithms",
-  date: "November 24, 2023",
-  instructor: "Engr. James Yohan Curises",
-};
+

@@ -532,6 +532,33 @@ app.put("/teacherAvatar", uploads.single("avatar"), async (req, res) => {
   }
 });
 
+app.get("/getCertificate", async (req,res) => {
+  const { id } = req.query;
+  
+  user_StudentModel
+    .findById(id)
+    .then((teacherUser) => res.json(teacherUser))
+    .catch((err) => res.json(err));
+})
+
+app.get("/getCourseCertificate", async (req,res) => {
+  const { id } = req.query;
+  
+  teacher_AddCourseModel
+    .findById(id)
+    .then((teacherUser) => res.json(teacherUser))
+    .catch((err) => res.json(err));
+})
+
+app.get("/getCourseTeacher", async (req,res) => {
+  const { id } = req.query;
+  
+  user_TeacherModel
+    .findById(id)
+    .then((teacherUser) => res.json(teacherUser))
+    .catch((err) => res.json(err));
+})
+
 //for student update profile details
 app.put("/updatestudentprofile", verifyUser, async (req, res) => {
   const data = req.body;
@@ -706,6 +733,7 @@ app.post("/resetpassword/:id/:token", (req, res) => {
     }
   });
 });
+
 app.post("/profileresetpassword/:id", (req, res) => {
   const { id } = req.params;
   const { password } = req.body;

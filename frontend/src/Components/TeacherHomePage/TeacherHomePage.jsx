@@ -45,8 +45,8 @@ export const TeacherHomePage = () =>
     navigate("/loginsignup");
   } catch (error) {
     console.error("Error signing out:", error);
-  }
-};
+    }
+  };
 
   const handleSubmit = async (e) => {
       e.preventDefault();
@@ -105,7 +105,7 @@ export const TeacherHomePage = () =>
     setOpen(false);
   };
     axios.defaults.withCredentials = true;
-    useEffect(()=> {
+  useEffect(()=> {
       //retain info even if refresh
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {

@@ -4,7 +4,6 @@ import './CourseViewPage.css';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Quiz from './Quiz';
-import { Certificate } from '../Certificate/Certificate';
 
 export const CourseViewPage = () => {
   const location = useLocation();
@@ -136,7 +135,7 @@ export const CourseViewPage = () => {
         <div>
           <p>
             <Quiz id = {id} userID = {userID}/>
-            <Certificate id={id} userID={userID} />
+            
           </p>
         </div>
         </div>
