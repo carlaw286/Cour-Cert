@@ -4,6 +4,7 @@ import './CourseViewPage.css';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Quiz from './Quiz';
+import { Certificate } from '../Certificate/Certificate';
 
 export const CourseViewPage = () => {
   const location = useLocation();
@@ -11,8 +12,11 @@ export const CourseViewPage = () => {
   const courseTitle = queryParams.get('title');
   const courseDescription = queryParams.get('description');
   const id = queryParams.get('id');
+  const userID = queryParams.get('userId');
   const [allFiles, setAllFiles] = useState();
   const [isPdfVisible, setIsPdfVisible] = useState(false);
+
+  console.log("user ID in courseviewpage : " + userID);
   
   const showPdf = (file) => {
     const pdfContainer = document.getElementById('pdfContainer');
@@ -131,7 +135,8 @@ export const CourseViewPage = () => {
             })()}
         <div>
           <p>
-            <Quiz id = {id} />
+            <Quiz id = {id} userID = {userID}/>
+            <Certificate id={id} userID={userID} />
           </p>
         </div>
         </div>

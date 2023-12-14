@@ -3,9 +3,12 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import "./Certificate1.css";
 
-export function Certificate({ name, course, date, instructor }) {
+export function Certificate({ userID, id, name, course, date, instructor }) {
   const certificateRef = useRef(null);
-
+  console.log("course ID: " + id);
+  console.log("USER ID: " + userID);
+  
+  
   const handleDownload = async () => {
     const certificateElement = certificateRef.current;
 

@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const Quiz = ({id}) => {
+const Quiz = ({id, userID}) => {
   const [quizzes, setQuizzes] = useState([]);
   const currentCourseID = id;/*display courseid here*/
-  console.log("Course ID from cView = " +currentCourseID);
+  console.log("Course ID from cView = " + currentCourseID);
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    console.log(currentCourseID + (" ") +  userID);
+    // Use the `history.push` method to navigate to the certificate page
+    navigate(`/certificate?userID=${userID}`);
+  };
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -110,6 +118,9 @@ const Quiz = ({id}) => {
       disabled={!submitted}
     >
       Retake Quiz
+    </button>
+    <button onClick={handleButtonClick}>
+      Get Certificate
     </button>
   </div>
 );

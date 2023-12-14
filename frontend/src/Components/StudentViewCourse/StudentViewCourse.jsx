@@ -81,7 +81,7 @@ export const StudentViewCourse = () => {
                     return (
                         <div className='course-box_SVC'>
                             <div className='title1' key={course._id}>
-                                <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
+                                <Link to={`/courseviewpage?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}&userId=${userId}`}>
                                 {course.course_title}
                                 </Link>
                                 {console.log("course ID:" + course.course_id)}
