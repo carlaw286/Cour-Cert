@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useRef} from "react";
 import "../styles/Contact.css";
-import ContactBackground from "../public/assets/ContactBg.png";
+import ContactBackground from "../public/assets/ContactBg6.png";
 import emailjs from "@emailjs/browser";
 import Navbar from "../components/Navbar";
 
@@ -53,7 +53,7 @@ const Contact = () => {
             </div>
             <h1 className="primary-he">Have Question In Mind?</h1>
             <h1 className="primary-h">Let Us Help</h1>
-            <form ref={form} onSubmit={sendEmail}>
+            <form ref={form} onSubmit={sendEmail}> 
             <div className={
                     email.length === 0 
                     ? "contact-form-container fill-email" 
@@ -96,8 +96,10 @@ const Contact = () => {
                             }
                         ></i>
                 </div>
+                <button onClick={sendEmail} className="s-button" >Submit</button>
+
             </div>
-            <button onClick={sendEmail} className="s-button" >Submit</button>
+            
             </form>
             <div>
                     <p 
