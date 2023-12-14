@@ -162,10 +162,11 @@ export const TeacherHomePage = () =>
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             ></input>
-           <button id="search-button" onClick={handleSearch}>
+           
+        </div>
+        <button id="search-button" onClick={handleSearch}>
             Search
           </button>
-        </div>
         {searchResults !== null && searchResults.length > 0 ? (
   <div className="search-results">
     <h2>Search Results:</h2>
