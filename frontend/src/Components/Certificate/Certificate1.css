@@ -19,7 +19,7 @@ body {
   position: relative;
   overflow: hidden;
   background-image: url(../Assets/cour-cert.png);
-  background-size: 300mm 180mm;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   padding: 2.5rem;
@@ -31,29 +31,33 @@ svg {
 }
 
 .content {
-  position: absolute;
+  position: relative;
   top: 15rem;
   right: 2.5rem;
-  width: 65%;
-  margin-top: 20px;
-  margin-bottom: 15px;
+  width: 100%;
+  ;
+  /* margin-top: 20px;
+  margin-bottom: 15px; */
+  align-items: center;
+  text-align: center;
+  padding-top: 20px;
 }
 
 .content h1 {
   font-family: 'Poppins', sans-serif;
   color: #0B2907;
   font-size: 3rem !important;
-  text-align: left;
+  /* text-align: left; */
   margin-top: 15px;
 }
 
 .content h2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
   color: black;
-  text-align: left;
-  margin-top: 110px;
+  /* text-align: left; */
+  margin-top: 100px;
   margin-left: 150px;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .byline {
@@ -69,7 +73,8 @@ svg {
 
 .download-button {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 1rem;
+  margin-top: 20px;
   right: 2rem;
   padding: 10px 15px;
   font-size: 18px;

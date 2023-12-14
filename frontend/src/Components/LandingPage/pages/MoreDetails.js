@@ -1,5 +1,5 @@
 import React from "react";
-import MDBackground from "../public/assets/MDetails.png";
+import MDBackground from "../public/assets/MoreD.png";
 import Content1 from "../public/assets/Content1.png";
 import Content2 from "../public/assets/Content2.png";
 import Content3 from "../public/assets/Content3.png";
