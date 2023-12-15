@@ -21,6 +21,8 @@ export const StudentAddCourse = () =>
     const queryParams = new URLSearchParams(location.search);
     const [currentPage, setCurrentPage] = useState(0);
     const id = queryParams.get('id');
+    const [enrolledCourses, setEnrolledCourses] = useState([]);
+
 
     const coursesPerPage = 6;
 
@@ -29,27 +31,77 @@ export const StudentAddCourse = () =>
     //jwt
     axios.defaults.withCredentials = true;
     
+    // useEffect(() => {
+    //     const storedUserData = localStorage.getItem('userData');
+    //     if (storedUserData) {
+    //       setUserData((prevUserData) => {
+    //         const newUserData = JSON.parse(storedUserData);
+    //         // Assuming that newUserData has the same structure as your existing user data
+    //         return { ...prevUserData, ...newUserData };
+    //       });
+    //     }
+    //     const userId = userData._id;
+    //     axios.get('http://localhost:3002/getStudentcourses', {
+    //         params: {
+    //             id: userId
+    //         }
+    //     })
+    //     .then(response => {
+    //         getCourses(response.data);
+    //         console.log("Token2: " + response.data);
+    //     })
+    //     .catch(err => console.log(err));
+    // }, [setUserData, userData._id]);
+    
     useEffect(() => {
-        const storedUserData = localStorage.getItem('userData');
-        if (storedUserData) {
+      const storedUserData = localStorage.getItem('userData');
+      if (storedUserData) {
           setUserData((prevUserData) => {
-            const newUserData = JSON.parse(storedUserData);
-            // Assuming that newUserData has the same structure as your existing user data
-            return { ...prevUserData, ...newUserData };
+              const newUserData = JSON.parse(storedUserData);
+              // Assuming that newUserData has the same structure as your existing user data
+              return { ...prevUserData, ...newUserData };
           });
-        }
-        const userId = userData._id;
-        axios.get('http://localhost:3002/getStudentcourses', {
-            params: {
-                id: userId
-            }
-        })
-        .then(response => {
-            getCourses(response.data);
-            console.log("Token2: " + response.data);
-        })
-        .catch(err => console.log(err));
-    }, [setUserData, userData._id]);
+      }
+  
+      const fetchEnrolledAndAvailableCourses = async () => {
+          try {
+              const userId = userData._id;
+  
+              // Fetch enrolled courses for the user
+              const enrolledResponse = await axios.get('http://localhost:3002/getEnrolledcourses', {
+                  params: {
+                      id: userId
+                  }
+              });
+              const enrolledCourses = enrolledResponse.data.map(course => {
+                console.log("courses" + course.course_id);
+                return course.course_id;
+            });
+  
+              // Fetch all available courses
+              const availableResponse = await axios.get('http://localhost:3002/getStudentcourses', {
+                  params: {
+                      id: userId
+                  }
+              });
+              const allAvailableCourses = availableResponse.data;
+  
+              // Filter out enrolled courses from available courses
+              const filteredCourses = allAvailableCourses.filter(course =>
+                  !enrolledCourses.includes(course._id)
+              );
+  
+              getCourses(filteredCourses);
+              console.log("Filtered Available Courses: ", filteredCourses);
+          } catch (error) {
+              console.log("Error:", error);
+              // Handle errors appropriately for each API call
+          }
+      };
+  
+      fetchEnrolledAndAvailableCourses();
+  }, [setUserData, userData._id]);
+  
 
     const handleSubmit = async (courseId, course_title, course_description) => {
 
