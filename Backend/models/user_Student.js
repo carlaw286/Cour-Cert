@@ -10,6 +10,7 @@ const user_StudentSchema = new mongoose.Schema({
     birthDate: String,
     gender: String,
     avatar : String,
+    about : String,
 })
 
 

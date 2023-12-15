@@ -11,6 +11,7 @@ const user_TeacherSchema = new mongoose.Schema({
     gender: String,
     credentialsLink: String,
     avatar: String,
+    about : String,
 })
 
 

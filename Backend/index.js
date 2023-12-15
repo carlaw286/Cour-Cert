@@ -564,7 +564,7 @@ app.put("/updatestudentprofile", verifyUser, async (req, res) => {
   const data = req.body;
 
   // Extract relevant fields from the formData object
-  const { firstName, lastName, email } = data;
+  const { firstName, lastName, email, about } = data;
   const { userId } = req.query;
 
   try {
@@ -579,7 +579,7 @@ app.put("/updatestudentprofile", verifyUser, async (req, res) => {
     if (firstName) user.firstName = firstName;
     if (lastName) user.lastName = lastName;
     if (email) user.email = email;
-
+    if (about) user.about = about;
     // Save the updated user
     const updatedUser = await user.save();
 
@@ -595,7 +595,7 @@ app.put("/updateteacherprofile", verifyUser, async (req, res) => {
   const data = req.body;
 
   // Extract relevant fields from the formData object
-  const { firstName, lastName, email } = data;
+  const { firstName, lastName, email, about } = data;
   const { userId } = req.query;
 
   try {
@@ -610,6 +610,7 @@ app.put("/updateteacherprofile", verifyUser, async (req, res) => {
     if (firstName) user.firstName = firstName;
     if (lastName) user.lastName = lastName;
     if (email) user.email = email;
+    if (about) user.about = about;
 
     // Save the updated user
     const updatedUser = await user.save();
