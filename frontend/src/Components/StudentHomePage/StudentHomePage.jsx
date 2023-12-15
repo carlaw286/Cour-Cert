@@ -167,9 +167,6 @@ export const StudentHomePage = () => {
               <Link to="/studentviewcourse">My Course</Link>
             </li>
             <li>
-              <Link to="/">Certifications</Link>
-            </li>
-            <li>
               <Link to="/profilepage">My Profile</Link>
             </li>
             
