@@ -234,6 +234,26 @@ h1{
     color: white;
     background: #3498db;
 }
+
+.user-about {
+  padding: 20px; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+}
+
+
+.user-about textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+}
+
+.user-about p {
+  margin: 0;
+}
 /* .col-7{
     margin-top: 22vh;
     place-content: center;

@@ -203,11 +203,20 @@ export const ProfilePage = () => {
               )}
             </div>
             <div className="user-about">
-              <h1> About </h1>
-            </div>
-            <div className="about1">
-              <div className=""></div>
-            </div>
+  <div className="about-container">
+    <h1>About</h1>
+    {editMode ? (
+      <textarea
+        id="about"
+        placeholder="Enter about information"
+        value={formData.about}
+        onChange={handleInputChange}
+      />
+    ) : (
+      <p>{formData.about || "No information available"}</p>
+    )}
+  </div>
+</div>
           </div>
           <div className="info-container">
             <div className="label0">
