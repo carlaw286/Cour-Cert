@@ -26,6 +26,8 @@ export const TeacherHomePage = () =>
   const [descriptionValid, setDescriptionValid] = useState(true);// Track the validity of the description input
   const [userData, setUserData] = useUserDataAtom();
   const navigate = useNavigate();
+  const [courses, getCourses] = useState([])
+  const [currentPage, setCurrentPage] = useState(0);
 
   // AUTHENTICATION
 
@@ -144,10 +146,44 @@ export const TeacherHomePage = () =>
       })
   };
 
+  const coursesPerPage = 5;
+  const offset = currentPage * coursesPerPage;
+  const currentCourses = courses.slice(offset, offset + coursesPerPage);
+  const hiddenCourses = courses.slice(coursesPerPage);
+  const addcourbut = courses.slice(coursesPerPage)
+
+  useEffect(() => { 
+    const userId = userData._id;
+
+    axios.get('http://localhost:3002/getTeachercourses', {
+        params: {
+            id: userId
+        }
+    })
+    .then(response => {
+        getCourses(response.data);
+        console.log("Token2: " + response.data);
+    })
+    .catch(err => console.log(err));
+}, [setUserData, userData._id]);
+
+
   if (!initialRequestComplete) {
     // Initial request still in progress
     return null; // or loading indicator if needed
   }
+
+  const ExpandableText = ({ children, descriptionLength }) => {
+    const fullText = children;
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleText = () => {setIsExpanded(!isExpanded);};      
+
+    return (
+        <p className='text'>
+          {isExpanded ? fullText : `${fullText.slice(0, descriptionLength)}...`}
+        </p>
+      );
+    };
 
     return(
       <div className='teacherhomepage'>
@@ -199,6 +235,49 @@ export const TeacherHomePage = () =>
              </ul>
            </div>
        </nav>
+
+       {courses.length >= 0 && (
+  <ul className="app-cards">
+    {currentCourses.map((course) => (
+      <div className="app-cards-card" key={course._id}>
+        <li>
+          <div className="app-cards-title">
+            <p>
+            <Link to={`/teacheraddcourse?title=${course.course_title}&description=${course.course_description}&id=${course.course_id}`}>
+              {course.course_title}
+            </Link>
+              </p>
+          </div>
+          <div className="app-cards-description">
+            <p>
+              <ExpandableText descriptionLength={250}>
+              {course.course_description}
+              </ExpandableText>
+            </p>
+          </div>
+        </li>
+      </div>
+    ))}
+
+    {hiddenCourses.length > 0 && (
+      <div className="app-cards-card">
+        <li>
+          <div className="app-cards-flex">
+            <div className="app-cards-seemoreimage">
+              <img src="seemore.png" onClick={() => navigate("/teacherviewcourse")}></img>
+            </div>
+            <div className="app-cards-seemore">
+              <p> See More</p>
+            </div>
+          </div>
+          
+        </li>
+      </div>
+    )}  
+  </ul>       
+)}
+
+       
         <div className='addCourse'>
       <Button variant="outlined" onClick={handleClickOpen} >
         Add Course
@@ -251,6 +330,8 @@ export const TeacherHomePage = () =>
         </DialogActions>
       </Dialog>
     </div>
+
+
      </div>           
   );
 }
